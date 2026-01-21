@@ -17,8 +17,8 @@
  */
 const categoriesData = {
     zones: ['Cheville et pied', 'Cervicales', 'Coude', 'Dos', 'Épaule', 'Genou', 'Hanche', 'Lombaires', 'Poignet et main'],
-    types: ['Étirement', 'Renforcement', 'Mobilité', 'Proprioception', 'Équilibre', 'Gainage', 'LCA', 'Sauts'],
-    materiel: ['Sans matériel', 'Bâton', 'Élastique', 'Ballon', 'Coussin proprioceptif', 'Sangle', 'Tapis', 'Chaise', 'Step']
+    types: ['Étirement', 'Renforcement', 'Gainage', 'Mobilité', 'Proprioception', 'Sauts', 'Course'],
+    materiel: ['Sans matériel', 'Appareil de muscu', 'Balnéo', 'Balle', 'Bâton', 'Coussin proprioceptif', 'Élastique', 'Poids', 'Sangle', 'Swiss ball']
 };
 
 /**
@@ -186,117 +186,109 @@ const exercicesData = [
         types: ["Étirement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/xCNjW7dJ/image21.png", alt: "Étirement pelvi-trochantérien" }
+            { url: "https://i.postimg.cc/63LwZcGf/image21.png", alt: "Étirement pelvi-trochantérien" }
         ]
     },
     {
         id: 15,
-        titre: "Étirement iliaque et psoas",
-        description: "En fente avant, un genou à terre. Se tenir si nécessaire et garder le dos droit. Possibilité de poser le pied sur une petite marche.",
+        titre: "Étirement psoas",
+        description: "Position de fente avant, genou arrière au sol. Pousser le bassin vers l'avant en gardant le buste droit.",
         zones: ["Hanche"],
         types: ["Étirement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/zGQ99fHk/image22.png", alt: "Étirement psoas - position 1" },
-            { url: "https://i.postimg.cc/xC3pTj8b/image23.png", alt: "Étirement psoas - position 2" },
-            { url: "https://i.postimg.cc/TPrCC2VY/image24.png", alt: "Variante avec marche" }
+            { url: "https://i.postimg.cc/VLJYpVYg/image22.png", alt: "Étirement psoas - position 1" },
+            { url: "https://i.postimg.cc/Y2QnF91P/image23.png", alt: "Étirement psoas - position 2" }
         ]
     },
     {
         id: 16,
-        titre: "Étirement TFL (tenseur du fascia lata)",
-        description: "Position debout, jambes croisées. Se pencher sur le côté pour étirer la face externe de la hanche.",
-        zones: ["Hanche"],
+        titre: "Étirement quadriceps",
+        description: "Debout, plier le genou et attraper la cheville. Ramener le talon vers la fesse en gardant les genoux serrés.",
+        zones: ["Genou"],
         types: ["Étirement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/pryQbPFv/image25.png", alt: "Étirement TFL - position 1" },
-            { url: "https://i.postimg.cc/qRvyypQy/image26.png", alt: "Étirement TFL - position 2" }
+            { url: "https://i.postimg.cc/qqkH6F6p/image24.png", alt: "Étirement quadriceps debout" },
+            { url: "https://i.postimg.cc/Dyh2FPYY/image25.png", alt: "Étirement quadriceps allongé" }
         ]
     },
     {
         id: 17,
         titre: "Étirement ischio-jambiers",
-        description: "Option 1 : Allongé sur le dos, tendre la jambe à étirer en ramenant la pointe de pied vers soi (soit avec les mains, soit avec une serviette) et garder bien l'autre jambe plaquée au sol. Option 2 : Face à une petite marche, le bassin bien rectiligne, poser le talon sur la marche, jambe tendue. Ramener les orteils vers vous et se pencher en avant. Rentrer le ventre et serrer les fesses.",
+        description: "Jambe tendue devant, pointe de pied vers soi. Se pencher en avant en gardant le dos droit.",
         zones: ["Genou", "Hanche"],
         types: ["Étirement"],
-        materiel: ["Sangle"],
+        materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/sXbPrt9c/image27.png", alt: "Étirement IJ - position 1" },
-            { url: "https://i.postimg.cc/gkmXZzJv/image28.png", alt: "Étirement IJ - position 2" },
-            { url: "https://i.postimg.cc/7YZP4fhW/image29.png", alt: "Avec sangle" },
-            { url: "https://i.postimg.cc/Qxw2ztTc/image30.png", alt: "Variante debout" }
+            { url: "https://i.postimg.cc/xCN2s2dq/image26.png", alt: "Étirement ischio-jambiers debout" },
+            { url: "https://i.postimg.cc/Y0Yb1szY/image27.png", alt: "Étirement ischio-jambiers assis" }
         ]
     },
     {
         id: 18,
-        titre: "Étirement quadriceps",
-        description: "Option 1 : Debout, garder le dos bien droit et les genoux collés l'un à l'autre. Penser à serrer les fesses. Possible de varier la rotation pour insister sur un chef du quadriceps. Option 2 : Position à genoux, se pencher en arrière, en appui sur les mains pour étirer les deux quadriceps en même temps.",
-        zones: ["Genou"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/BZwk86NV/image31.png", alt: "Étirement quadriceps - debout" },
-            { url: "https://i.postimg.cc/PJBSSCRD/image32.png", alt: "Étirement quadriceps - à genoux" }
-        ]
-    },
-    {
-        id: 19,
-        titre: "Étirement sartorius",
-        description: "Position en fente avec rotation du bassin pour cibler le sartorius.",
-        zones: ["Hanche", "Genou"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/C5fNnFLm/image33.png", alt: "Étirement sartorius" }
-        ]
-    },
-    {
-        id: 20,
         titre: "Étirement adducteurs",
-        description: "Se mettre en assis-tailleur, les pieds joints. Rapprocher les talons le plus possible des fesses. Se tenir bien droit et se pencher en avant tout en écartant les genoux sur les côtés.",
+        description: "Position assise, plantes de pieds jointes. Pousser doucement les genoux vers le sol avec les coudes.",
         zones: ["Hanche"],
         types: ["Étirement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/TwBs4Nyf/image34.png", alt: "Étirement adducteurs - position 1" },
-            { url: "https://i.postimg.cc/pT5GzQ0v/image35.png", alt: "Étirement adducteurs - position 2" },
-            { url: "https://i.postimg.cc/RVS1zQc0/image36.png", alt: "Étirement adducteurs - position 3" },
-            { url: "https://i.postimg.cc/xjtJLrbG/image37.png", alt: "Variante" }
+            { url: "https://i.postimg.cc/Fz9m71cw/image28.png", alt: "Étirement adducteurs - position papillon" }
+        ]
+    },
+    {
+        id: 19,
+        titre: "Étirement TFL (tenseur du fascia lata)",
+        description: "Debout, croiser une jambe derrière l'autre. Incliner le tronc du côté opposé à la jambe étirée.",
+        zones: ["Hanche"],
+        types: ["Étirement"],
+        materiel: [],
+        photos: [
+            { url: "https://i.postimg.cc/zB4k2Pq4/image29.png", alt: "Étirement TFL" }
+        ]
+    },
+    {
+        id: 20,
+        titre: "Étirement mollets (gastrocnémiens)",
+        description: "Jambe arrière tendue, talon au sol. Se pencher vers l'avant en gardant le talon collé au sol.",
+        zones: ["Cheville et pied"],
+        types: ["Étirement"],
+        materiel: [],
+        photos: [
+            { url: "https://i.postimg.cc/TY41ZztT/image30.png", alt: "Étirement mollets - gastrocnémiens" }
         ]
     },
     {
         id: 21,
-        titre: "Étirement triceps sural (mollets)",
-        description: "En fente avant, le pied arrière dans l'axe, genou bien tendu. Enfoncer le talon dans le sol en tendant la jambe et en se penchant en avant.",
+        titre: "Étirement soléaire",
+        description: "Position similaire aux gastrocnémiens mais genou arrière légèrement fléchi.",
         zones: ["Cheville et pied"],
         types: ["Étirement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/QtNNMtSH/image38.png", alt: "Étirement triceps sural - position 1" },
-            { url: "https://i.postimg.cc/RFqr8nX3/image39.png", alt: "Étirement triceps sural - position 2" }
+            { url: "https://i.postimg.cc/NFqPR7kz/image31.png", alt: "Étirement soléaire" }
         ]
     },
     {
         id: 22,
-        titre: "Étirement tibial antérieur",
-        description: "En position à genoux, fesses sur les talons, orteils pointés vers l'arrière.",
+        titre: "Étirement jambier antérieur",
+        description: "Debout ou assis, poser le dos du pied au sol et pousser doucement vers le bas.",
         zones: ["Cheville et pied"],
         types: ["Étirement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/Jz1RxtVJ/image40.png", alt: "Étirement tibial antérieur" }
+            { url: "https://i.postimg.cc/v8tBmhTZ/image32.png", alt: "Étirement jambier antérieur" }
         ]
     },
     {
         id: 23,
-        titre: "Automassage aponévrose plantaire",
-        description: "Automassage avec une balle de tennis sous le pied.",
+        titre: "Étirement voûte plantaire",
+        description: "Assis, saisir les orteils et les ramener vers soi pour étirer la plante du pied.",
         zones: ["Cheville et pied"],
         types: ["Étirement"],
-        materiel: ["Ballon"],
+        materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/TPzSkHLH/image41.png", alt: "Automassage plantaire" }
+            { url: "https://i.postimg.cc/gkMJTLLg/image33.png", alt: "Étirement voûte plantaire" }
         ]
     },
 
@@ -305,113 +297,102 @@ const exercicesData = [
     // ============================================
     {
         id: 24,
-        titre: "Étirement plan latéral du rachis",
-        description: "Penchez-vous sur le côté gauche en saisissant le bras droit. Vous devez ressentir l'étirement sur tout le côté droit de l'épaule jusqu'à la hanche. Possible d'attraper l'encadrement d'une porte.",
-        zones: ["Dos", "Lombaires"],
+        titre: "Étirement cervical en flexion",
+        description: "Menton vers la poitrine, mains derrière la tête pour accentuer l'étirement.",
+        zones: ["Cervicales"],
         types: ["Étirement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/4yQSx64Y/image1.png", alt: "Étirement latéral rachis - position 1" },
-            { url: "https://i.postimg.cc/3N8Z9P7j/image2.png", alt: "Étirement latéral rachis - position 2" }
+            { url: "https://i.postimg.cc/sDBKc9Ks/image1.png", alt: "Flexion cervicale" }
         ]
     },
     {
         id: 25,
-        titre: "Étirement plan postérieur",
-        description: "Position assise ou debout, enrouler le dos en ramenant le menton vers la poitrine et les bras vers l'avant.",
-        zones: ["Dos", "Lombaires"],
+        titre: "Étirement cervical en rotation",
+        description: "Tourner la tête d'un côté, main sur le côté opposé de la tête pour accentuer la rotation.",
+        zones: ["Cervicales"],
         types: ["Étirement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/Hnvbzn6m/image3.png", alt: "Étirement postérieur - position 1" },
-            { url: "https://i.postimg.cc/0jzz8f0H/image4.png", alt: "Mobilisation flexion lombaire" }
+            { url: "https://i.postimg.cc/XqZhN8jr/image2.png", alt: "Rotation cervicale" }
         ]
     },
     {
         id: 26,
-        titre: "Étirement plan antérieur",
-        description: "Extension du rachis en position allongée ou debout, mains derrière la tête.",
-        zones: ["Dos", "Lombaires"],
+        titre: "Étirement masse commune (dos)",
+        description: "Debout ou assis, arrondir complètement le dos en ramenant le menton vers la poitrine.",
+        zones: ["Dos"],
         types: ["Étirement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/sxG2F2VR/image5.png", alt: "Étirement plan antérieur" }
+            { url: "https://i.postimg.cc/6QSg31KN/image3.png", alt: "Étirement masse commune - position 1" },
+            { url: "https://i.postimg.cc/4dvtyHTZ/image4.png", alt: "Étirement masse commune - position 2" }
         ]
     },
     {
         id: 27,
         titre: "Étirement carré des lombes",
-        description: "Sur le côté au bord du lit, laisser le tronc s'affaisser pour étirer le côté opposé.",
+        description: "Debout, incliner le tronc sur le côté en levant le bras opposé au-dessus de la tête.",
         zones: ["Lombaires"],
         types: ["Étirement"],
-        materiel: [],
+        materiel: ["Swiss ball"],
         photos: [
-            { url: "https://i.postimg.cc/LssYC2gv/image6.png", alt: "Étirement carré des lombes" }
+            { url: "https://i.postimg.cc/SKXL2RYn/image5.png", alt: "Étirement carré des lombes" }
         ]
     },
     {
         id: 28,
-        titre: "Étirement grand dorsal",
-        description: "Couché sur le dos, les mains derrière la tête. Ramener les genoux vers vous puis laisser tomber sur le côté droit un genou après l'autre jusqu'à ce qu'ils touchent le sol. Tenir la position. Attention à laisser les épaules en contact avec le sol.",
-        zones: ["Dos"],
+        titre: "Étirement lombaires en flexion",
+        description: "Assis ou allongé, ramener les genoux vers la poitrine.",
+        zones: ["Lombaires"],
         types: ["Étirement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/fyQbNNk3/image7.png", alt: "Étirement grand dorsal - position 1" },
-            { url: "https://i.postimg.cc/2yYCt7XS/image8.png", alt: "Étirement grand dorsal - position 2" }
+            { url: "https://i.postimg.cc/QNFSt5Zb/image6.png", alt: "Flexion lombaire - position 1" },
+            { url: "https://i.postimg.cc/tgCkfYVS/image7.png", alt: "Flexion lombaire - position 2" }
         ]
     },
     {
         id: 29,
-        titre: "Étirement diaphragme",
-        description: "Position de relaxation pour étirer le diaphragme et favoriser la respiration profonde.",
-        zones: ["Dos"],
+        titre: "Étirement lombaires en rotation",
+        description: "Allongé sur le dos, ramener un genou vers la poitrine puis le faire passer de l'autre côté.",
+        zones: ["Lombaires"],
         types: ["Étirement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/Y96HQmq4/image9.png", alt: "Étirement diaphragme" }
+            { url: "https://i.postimg.cc/C5VTSQFK/image8.png", alt: "Rotation lombaire" }
         ]
     },
 
     // ============================================
-    // FICHE 3 - MOBILITÉ (19 exercices)
+    // FICHE 3 - MOBILITÉS (19 exercices)
     // ============================================
     {
         id: 30,
         titre: "Mobilité flexion-extension cervicale",
-        description: "Asseyez-vous, maintenez la tête avec les mains. Enroulez progressivement la tête, les épaules et le tronc vers l'avant. Collez le menton au torse.",
+        description: "Faire des mouvements de 'oui' avec la tête : menton vers la poitrine puis regarder vers le plafond.",
         zones: ["Cervicales"],
         types: ["Mobilité"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/d1b9cL83/image1.png", alt: "Mobilisation flexion cervicale" }
+            { url: "https://i.postimg.cc/MGz2dQSx/image1.png", alt: "Flexion cervicale" },
+            { url: "https://i.postimg.cc/VvLhBQbP/image2.png", alt: "Extension cervicale" }
         ]
     },
     {
         id: 31,
         titre: "Mobilité rotations cervicales",
-        description: "Tourner la tête de droite à gauche de manière contrôlée.",
+        description: "Faire des mouvements de 'non' avec la tête : tourner la tête à gauche puis à droite.",
         zones: ["Cervicales"],
         types: ["Mobilité"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/x1pMSXQf/image2.png", alt: "Mobilisation rotations cervicales" }
+            { url: "https://i.postimg.cc/59VTwDsy/image3.png", alt: "Rotation cervicale gauche" },
+            { url: "https://i.postimg.cc/4dXsKvzN/image4.png", alt: "Rotation cervicale droite" }
         ]
     },
     {
         id: 32,
-        titre: "Mobilité antépulsion et rétropulsion cervicales",
-        description: "Avancer et reculer la tête en gardant le regard horizontal.",
-        zones: ["Cervicales"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/SskyTGPp/image3.png", alt: "Mobilisation antépulsion" },
-            { url: "https://i.postimg.cc/YqGwxVSL/image4.png", alt: "Mobilisation rétropulsion" }
-        ]
-    },
-    {
-        id: 33,
         titre: "Mobilité inclinaisons cervicales",
         description: "Incliner la tête d'un côté puis de l'autre en rapprochant l'oreille de l'épaule.",
         zones: ["Cervicales"],
@@ -422,31 +403,31 @@ const exercicesData = [
         ]
     },
     {
-        id: 34,
+        id: 33,
         titre: "Mobilité flexion-extension thoracique",
-        description: "Option 1 : Debout pieds décalés du mur, rapprocher le thorax du mur tout en levant le(s) bras. Option 2 : En position assise, aller le plus loin possible vers l'arrière tout en prenant appui sur le dossier de la chaise.",
+        description: "Option 1 : Debout pieds décalés du mur, rapprocher le thorax du mur tout en levant le(s) bras. Option 2 : En position assise, aller le plus loin possible vers l'arrière tout en prenant appui sur le dossier.",
         zones: ["Dos"],
         types: ["Mobilité"],
-        materiel: ["Chaise"],
+        materiel: [],
         photos: [
             { url: "https://i.postimg.cc/0N2v7NKc/image6.png", alt: "Mobilisation extension thoracique" },
-            { url: "https://i.postimg.cc/76GpNJH6/image7.png", alt: "Mobilisation avec chaise" }
+            { url: "https://i.postimg.cc/76GpNJH6/image7.png", alt: "Mobilisation assise" }
         ]
     },
     {
-        id: 35,
+        id: 34,
         titre: "Mobilité rotations thoraco-lombaires",
-        description: "Assis sur une chaise, toucher les genoux gauche puis droit alternativement avec la main opposée.",
+        description: "Assis, toucher les genoux gauche puis droit alternativement avec la main opposée.",
         zones: ["Dos", "Lombaires"],
         types: ["Mobilité"],
-        materiel: ["Chaise"],
+        materiel: [],
         photos: [
             { url: "https://i.postimg.cc/9FVnDn7r/image8.jpg", alt: "Rotation thoraco-lombaire - photo" },
             { url: "https://i.postimg.cc/RZhGf5VZ/image9.png", alt: "Rotation thoraco-lombaire" }
         ]
     },
     {
-        id: 36,
+        id: 35,
         titre: "Mobilité inclinaisons thoraco-lombaires",
         description: "Position debout, incliner le tronc sur le côté.",
         zones: ["Dos", "Lombaires"],
@@ -457,7 +438,7 @@ const exercicesData = [
         ]
     },
     {
-        id: 37,
+        id: 36,
         titre: "Mobilité flexion-extension thoraco-lombaires (dos rond - dos creux)",
         description: "Faire le dos rond en soufflant, pousser au maximum sur les bras et regarder ses genoux, puis le dos creux en inspirant et en regardant en l'air.",
         zones: ["Dos", "Lombaires"],
@@ -469,7 +450,7 @@ const exercicesData = [
         ]
     },
     {
-        id: 38,
+        id: 37,
         titre: "Mobilité extension lombaire",
         description: "Sur le ventre, redresser le buste en appui sur les avant-bras, pousser dans ses coudes sans que le bassin ne se décolle et sans contracter les fesses.",
         zones: ["Lombaires"],
@@ -481,43 +462,43 @@ const exercicesData = [
         ]
     },
     {
-        id: 39,
+        id: 38,
         titre: "Mobilité flexion lombaire",
-        description: "Amener les mains le plus loin possible afin d'étirer au maximum la colonne. Possibilité d'utiliser un ballon à faire rouler vers l'avant.",
+        description: "Amener les mains le plus loin possible afin d'étirer au maximum la colonne. Possibilité d'utiliser un swiss ball à faire rouler vers l'avant.",
         zones: ["Lombaires"],
         types: ["Mobilité"],
-        materiel: ["Ballon"],
+        materiel: ["Swiss ball"],
         photos: [
             { url: "https://i.postimg.cc/9fF4zCWx/image15.png", alt: "Flexion lombaire" },
-            { url: "https://i.postimg.cc/wT87LhqD/image16.png", alt: "Flexion avec ballon" }
+            { url: "https://i.postimg.cc/wT87LhqD/image16.png", alt: "Flexion avec swiss ball" }
+        ]
+    },
+    {
+        id: 39,
+        titre: "Mobilisation de l'épaule et recentrage",
+        description: "Assis, l'avant-bras reposant sur une serviette posée sur une table. Faire glisser le bras d'avant en arrière puis sur le côté. Possible de monter la hauteur de la table. Possible de mettre un élastique qui tracte l'épaule vers l'arrière et le bas. En position assise, le coude reposant sur un swiss ball dégonflé (ou la table) un peu en avant de votre épaule. Écraser le swiss ball avec votre coude tout en abaissant votre épaule.",
+        zones: ["Épaule"],
+        types: ["Mobilité"],
+        materiel: ["Swiss ball", "Élastique"],
+        photos: [
+            { url: "https://i.postimg.cc/3wsHVFb2/image17.png", alt: "Mobilisation épaule - serviette" },
+            { url: "https://i.postimg.cc/DZrRDkXt/image18.png", alt: "Mobilisation épaule - swiss ball" }
         ]
     },
     {
         id: 40,
-        titre: "Mobilisation de l'épaule et recentrage",
-        description: "Assis, l'avant-bras reposant sur une serviette posée sur une table. Faire glisser le bras d'avant en arrière puis sur le côté. Possible de monter la hauteur de la table. Possible de mettre un élastique qui tracte l'épaule vers l'arrière et le bas. En position assise, le coude reposant sur un ballon dégonflé (ou la table) un peu en avant de votre épaule. Écraser le ballon avec votre coude tout en abaissant votre épaule.",
+        titre: "Mobilité épaule avec swiss ball contre le mur",
+        description: "Debout face au mur, faire rouler le swiss ball avec la main de haut en bas puis sur les côtés.",
         zones: ["Épaule"],
         types: ["Mobilité"],
-        materiel: ["Ballon", "Élastique"],
+        materiel: ["Swiss ball"],
         photos: [
-            { url: "https://i.postimg.cc/3wsHVFb2/image17.png", alt: "Mobilisation épaule - serviette" },
-            { url: "https://i.postimg.cc/DZrRDkXt/image18.png", alt: "Mobilisation épaule - ballon" }
+            { url: "https://i.postimg.cc/fLfgC74W/image19.jpg", alt: "Mobilité avec swiss ball - photo" },
+            { url: "https://i.postimg.cc/NMDpmgTH/image20.png", alt: "Mobilité avec swiss ball" }
         ]
     },
     {
         id: 41,
-        titre: "Mobilité épaule avec ballon contre le mur",
-        description: "Debout face au mur, faire rouler le ballon avec la main de haut en bas puis sur les côtés.",
-        zones: ["Épaule"],
-        types: ["Mobilité"],
-        materiel: ["Ballon"],
-        photos: [
-            { url: "https://i.postimg.cc/fLfgC74W/image19.jpg", alt: "Mobilité avec ballon - photo" },
-            { url: "https://i.postimg.cc/NMDpmgTH/image20.png", alt: "Mobilité avec ballon" }
-        ]
-    },
-    {
-        id: 42,
         titre: "Mobilité épaule en position allongée",
         description: "Assis ou allongé, lever les bras le plus haut possible en contrôlant les épaules en position basse.",
         zones: ["Épaule"],
@@ -531,7 +512,7 @@ const exercicesData = [
         ]
     },
     {
-        id: 43,
+        id: 42,
         titre: "Mobilité pendulaire de l'épaule",
         description: "Assis ou debout, se pencher en avant et laisser le bras tomber vers le bas. Faire des petits mouvements circulaires avec le bras complètement relâché.",
         zones: ["Épaule"],
@@ -543,7 +524,7 @@ const exercicesData = [
         ]
     },
     {
-        id: 44,
+        id: 43,
         titre: "Mobilisation de la scapula",
         description: "Bras le long du corps, reculer les épaules. Descendre et serrer les omoplates au maximum comme pour les amener vers les poches arrière du pantalon.",
         zones: ["Épaule", "Dos"],
@@ -554,7 +535,7 @@ const exercicesData = [
         ]
     },
     {
-        id: 45,
+        id: 44,
         titre: "Mobilité flexion de hanche",
         description: "Amener le genou vers la poitrine de manière contrôlée.",
         zones: ["Hanche"],
@@ -566,7 +547,7 @@ const exercicesData = [
         ]
     },
     {
-        id: 46,
+        id: 45,
         titre: "Mobilité rotations de hanche",
         description: "Mouvements de rotation interne et externe de la hanche.",
         zones: ["Hanche"],
@@ -577,7 +558,7 @@ const exercicesData = [
         ]
     },
     {
-        id: 47,
+        id: 46,
         titre: "Mobilité flexion-extension de genou",
         description: "Plier et tendre le genou de manière contrôlée.",
         zones: ["Genou"],
@@ -585,6 +566,18 @@ const exercicesData = [
         materiel: [],
         photos: [
             { url: "https://i.postimg.cc/W3ySX5Wp/image31.png", alt: "Flexion-extension genou" }
+        ]
+    },
+    {
+        id: 47,
+        titre: "Mobilité flexion dorsale de cheville",
+        description: "Ramener la pointe de pied vers soi en position assise ou debout.",
+        zones: ["Cheville et pied"],
+        types: ["Mobilité"],
+        materiel: [],
+        photos: [
+            { url: "https://i.postimg.cc/Hn5K5Gpf/image32.png", alt: "Flexion dorsale - position 1" },
+            { url: "https://i.postimg.cc/4dHFkCh9/image33.png", alt: "Flexion dorsale - position 2" }
         ]
     },
     {
