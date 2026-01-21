@@ -1,2067 +1,1604 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Générateur de Programmes de Rééducation</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #f3f4f6;
-            line-height: 1.6;
-        }
-        
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-        
-        header {
-            background: #2563eb;
-            color: white;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .header-content {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .header-logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
-        .header-text h1 {
-            font-size: 1.125rem;
-            margin-bottom: 0.125rem;
-        }
-        
-        .header-text p {
-            font-size: 0.75rem;
-            opacity: 0.9;
-        }
-        
-        .nav-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .nav-buttons button {
-            flex: 1;
-            background: white;
-            color: #2563eb;
-            border: none;
-            padding: 0.5rem;
-            border-radius: 0.375rem;
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-        
-        .container {
-            padding: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .section {
-            background: white;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .section h2 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: #1f2937;
-        }
-        
-        .filter-group {
-            margin-bottom: 1rem;
-        }
-        
-        .filter-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #374151;
-        }
-        
-        input[type="text"], input[type="search"], textarea, select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            font-size: 1rem;
-        }
-        
-        .checkbox-group {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.5rem;
-        }
-        
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem;
-            background: #f9fafb;
-            border-radius: 0.375rem;
-        }
-        
-        .checkbox-label input {
-            margin-right: 0.5rem;
-            width: 1.25rem;
-            height: 1.25rem;
-        }
-        
-        .radio-group {
-            display: flex;
-            gap: 1rem;
-            margin: 0.5rem 0;
-        }
-        
-        .radio-label {
-            display: flex;
-            align-items: center;
-        }
-        
-        .radio-label input {
-            margin-right: 0.5rem;
-        }
-        
-        .collapsible-section {
-            border: 1px solid #e5e7eb;
-            border-radius: 0.375rem;
-            margin-bottom: 1rem;
-        }
-        
-        .collapsible-header {
-            display: flex;
+<!DOCTYPE html>  
+<html lang="fr">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+    <meta name="apple-mobile-web-app-capable" content="yes">  
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">  
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/GpY54myT/POULP-icone.png">
+    <meta name="apple-mobile-web-app-title" content="pOULP">
+    <meta name="theme-color" content="#2563eb">
+    <title>Générateur de Programmes de Rééducation</title>  
+    <style>  
+        * { box-sizing: border-box; margin: 0; padding: 0; }  
+          
+        body {  
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;  
+            background: #f3f4f6;  
+            line-height: 1.6;  
+        }  
+          
+        .sr-only {  
+            position: absolute;  
+            width: 1px;  
+            height: 1px;  
+            padding: 0;  
+            margin: -1px;  
+            overflow: hidden;  
+            clip: rect(0, 0, 0, 0);  
+            white-space: nowrap;  
+            border-width: 0;  
+        }  
+          
+        header {  
+            background: #2563eb;  
+            color: white;  
+            padding: 1rem;  
+            position: sticky;  
+            top: 0;  
+            z-index: 100;  
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);  
+        }  
+          
+        .header-content {  
+            display: flex;  
+            align-items: center;  
             justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem;
-            background: #f9fafb;
-            cursor: pointer;
-            font-weight: 600;
-            border-radius: 0.375rem;
+            gap: 0.75rem;  
+            margin-bottom: 0.75rem;  
+        }  
+          
+        .header-logo-left {  
+            width: 80px;  
+            height: 50px;  
+            object-fit: contain;
+            flex-shrink: 0;
+        }  
+
+        .header-logo-right {  
+            width: 50px;  
+            height: 50px;  
+            object-fit: contain;
+            flex-shrink: 0;
         }
-        
-        .collapsible-header:active {
-            background: #f3f4f6;
-        }
-        
-        .collapsible-content {
-            padding: 0.75rem;
-            display: none;
-        }
-        
-        .collapsible-content.open {
-            display: block;
-        }
-        
-        .chevron {
-            transition: transform 0.2s;
-        }
-        
-        .chevron.open {
-            transform: rotate(180deg);
-        }
-        
-        button {
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-        
-        .btn-primary {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.375rem;
-            font-weight: 600;
-            width: 100%;
-        }
-        
-        .btn-primary:active {
-            background: #1d4ed8;
-        }
-        
-        .btn-secondary {
-            background: #6b7280;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            font-weight: 600;
-        }
-        
-        .btn-success {
-            background: #059669;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.375rem;
-            font-weight: 600;
-            width: 100%;
-        }
-        
-        .btn-danger {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            font-weight: 600;
-        }
-        
-        .btn-small {
-            padding: 0.5rem 0.75rem;
-            font-size: 0.875rem;
-        }
-        
-        .exercise-card {
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .exercise-card h3 {
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
-            color: #1f2937;
-        }
-        
-        .exercise-card p {
-            font-size: 0.875rem;
-            color: #6b7280;
-            margin-bottom: 0.75rem;
-        }
-        
-        .exercise-actions {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .exercise-actions button {
+
+        .header-text {
             flex: 1;
-            min-width: 100px;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-            margin-right: 0.25rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .badge-blue {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-        
-        .badge-green {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        
-        .badge-purple {
-            background: #e9d5ff;
-            color: #6b21a8;
-        }
-        
-        .empty-state {
             text-align: center;
-            padding: 2rem;
-            color: #6b7280;
         }
-        
-        .program-exercise {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 0.75rem;
+          
+        .header-text h1 {  
+            font-size: 1.125rem;  
+            margin-bottom: 0.125rem;  
+        }  
+          
+        .header-text p {  
+            font-size: 0.75rem;  
+            opacity: 0.9;  
+        }  
+          
+        .nav-buttons {  
+            display: flex;  
+            gap: 0.5rem;  
+        }  
+          
+        .nav-buttons button {  
+            flex: 1;  
+            background: white;  
+            color: #2563eb;  
+            border: none;  
+            padding: 0.5rem;  
+            border-radius: 0.375rem;  
+            font-weight: 600;  
+            font-size: 0.875rem;  
+        }  
+          
+        .container {  
+            padding: 1rem;  
+            max-width: 1200px;  
+            margin: 0 auto;  
+        }  
+          
+        .section {  
+            background: white;  
+            border-radius: 0.5rem;  
+            padding: 1rem;  
+            margin-bottom: 1rem;  
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);  
+        }  
+          
+        .section h2 {  
+            font-size: 1.25rem;  
+            margin-bottom: 1rem;  
+            color: #1f2937;  
+        }  
+          
+        .filter-group {  
+            margin-bottom: 1rem;  
+        }  
+          
+        .filter-group label {  
+            display: block;  
+            font-weight: 600;  
+            margin-bottom: 0.5rem;  
+            color: #374151;  
         }
-        
-        .program-exercise h4 {
+
+        .filter-title {
             font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .program-controls {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-        
-        .modal.active {
-            display: block;
-        }
-        
-        .modal-content {
-            background: white;
-            margin: 1rem;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 2rem;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .modal-header h2 {
-            font-size: 1.5rem;
-            margin: 0;
-        }
-        
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #6b7280;
-            padding: 0;
-            width: 2rem;
-            height: 2rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group label {
-            display: block;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
+            color: #1f2937;
         }
-        
-        .photo-list {
-            border: 1px solid #e5e7eb;
-            border-radius: 0.375rem;
-            padding: 0.5rem;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .photo-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem;
-            background: #f9fafb;
-            margin-bottom: 0.5rem;
-            border-radius: 0.25rem;
-        }
-        
-        .photo-item span {
+
+        .filter-description {
             font-size: 0.875rem;
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            font-style: italic;
         }
-        
-        .hidden {
-            display: none !important;
+
+        .required-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #dc2626;
+            margin-left: 0.25rem;
         }
-        
-        @media print {
-            .no-print { display: none !important; }
-            header, .nav-buttons { display: none !important; }
+
+        .optional-badge {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #6b7280;
+            margin-left: 0.25rem;
+            font-style: italic;
         }
-        
-        .document-content {
-            background: white;
-            padding: 2rem;
+
+        .filter-alert {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            color: #92400e;
+            font-weight: 500;
         }
-        
-        .document-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
+
+        .filter-alert.hidden {
+            display: none;
+        }  
+          
+        input[type="text"], input[type="search"], textarea, select {  
+            width: 100%;  
+            padding: 0.75rem;  
+            border: 1px solid #d1d5db;  
+            border-radius: 0.375rem;  
+            font-size: 1rem;  
+        }  
+          
+        .checkbox-group {  
+            display: grid;  
+            grid-template-columns: 1fr;  
+            gap: 0.5rem;  
+        }  
+          
+        .checkbox-label {  
+            display: flex;  
+            align-items: center;  
+            padding: 0.5rem;  
+            background: #f9fafb;  
+            border-radius: 0.375rem;  
+        }  
+          
+        .checkbox-label input {  
+            margin-right: 0.5rem;  
+            width: 1.25rem;  
+            height: 1.25rem;  
+        }  
+          
+        .radio-group {  
+            display: flex;  
+            gap: 1rem;  
+            margin: 0.5rem 0;  
+        }  
+          
+        .radio-label {  
+            display: flex;  
+            align-items: center;  
+        }  
+          
+        .radio-label input {  
+            margin-right: 0.5rem;  
+        }  
+          
+        .collapsible-section {  
+            border: 1px solid #e5e7eb;  
+            border-radius: 0.375rem;  
+            margin-bottom: 1rem;  
+        }  
+          
+        .collapsible-header {  
+            display: flex;  
+            justify-content: space-between;  
+            align-items: center;  
+            padding: 0.75rem;  
+            background: #f9fafb;  
+            cursor: pointer;  
+            font-weight: 600;  
+            border-radius: 0.375rem;  
+        }  
+          
+        .collapsible-header:active {  
+            background: #f3f4f6;  
+        }  
+          
+        .collapsible-content {  
+            padding: 0.75rem;  
+            display: none;  
+        }  
+          
+        .collapsible-content.open {  
+            display: block;  
+        }  
+          
+        .chevron {  
+            transition: transform 0.2s;  
+        }  
+          
+        .chevron.open {  
+            transform: rotate(180deg);  
+        }  
+          
+        button {  
+            cursor: pointer;  
+            font-size: 1rem;  
+            transition: all 0.2s;  
+        }  
+          
+        .btn-primary {  
+            background: #2563eb;  
+            color: white;  
+            border: none;  
+            padding: 0.75rem 1.5rem;  
+            border-radius: 0.375rem;  
+            font-weight: 600;  
+            width: 100%;  
+        }  
+          
+        .btn-primary:active {  
+            background: #1d4ed8;  
+        }  
+          
+        .btn-secondary {  
+            background: #6b7280;  
+            color: white;  
+            border: none;  
+            padding: 0.5rem 1rem;  
+            border-radius: 0.375rem;  
+            font-weight: 600;  
+        }  
+          
+        .btn-success {  
+            background: #059669;  
+            color: white;  
+            border: none;  
+            padding: 0.75rem 1.5rem;  
+            border-radius: 0.375rem;  
+            font-weight: 600;  
+            width: 100%;  
+        }  
+          
+        .btn-danger {  
+            background: #dc2626;  
+            color: white;  
+            border: none;  
+            padding: 0.5rem 1rem;  
+            border-radius: 0.375rem;  
+            font-weight: 600;  
+        }  
+          
+        .btn-small {  
+            padding: 0.5rem 0.75rem;  
+            font-size: 0.875rem;  
+        }  
+          
+        .badge {  
+            display: inline-block;  
+            padding: 0.25rem 0.5rem;  
+            border-radius: 0.25rem;  
+            font-size: 0.75rem;  
+            font-weight: 600;  
+            margin-right: 0.25rem;  
+            margin-bottom: 0.25rem;  
+        }  
+          
+        .badge-blue {  
+            background: #dbeafe;  
+            color: #1e40af;  
+        }  
+          
+        .badge-green {  
+            background: #d1fae5;  
+            color: #065f46;  
+        }  
+          
+        .badge-purple {  
+            background: #e9d5ff;  
+            color: #6b21a8;  
+        }  
+          
+        .exercise-card {  
+            background: white;  
+            border: 1px solid #e5e7eb;  
+            border-radius: 0.5rem;  
+            padding: 1rem;  
+            margin-bottom: 1rem;  
+        }  
+          
+        .exercise-card h3 {  
+            font-size: 1.125rem;  
+            margin-bottom: 0.5rem;  
+            color: #1f2937;  
+        }  
+          
+        .exercise-card p {  
+            color: #6b7280;  
+            margin-bottom: 0.75rem;  
+        }  
+          
+        .exercise-card img {  
+            width: 100%;  
+            max-width: 300px;  
+            border-radius: 0.375rem;  
+            margin: 0.5rem 0;  
+        }  
+          
+        .exercise-actions {  
+            display: flex;  
+            gap: 0.5rem;  
+            margin-top: 0.75rem;  
+        }  
+          
+        .empty-state {  
+            text-align: center;  
+            padding: 2rem;  
+            color: #6b7280;  
+        }  
+          
+        .program-item {  
+            background: #f9fafb;  
+            border: 1px solid #e5e7eb;  
+            border-radius: 0.5rem;  
+            padding: 1rem;  
+            margin-bottom: 0.75rem;  
+        }  
+          
+        .program-item h3 {  
+            font-size: 1rem;  
+            margin-bottom: 0.5rem;  
+            color: #1f2937;  
+        }  
+          
+        .program-item p {  
+            font-size: 0.875rem;  
+            color: #6b7280;  
+            margin-bottom: 0.5rem;  
+        }  
+          
+        .program-exercise {  
+            background: #f9fafb;  
+            border: 1px solid #e5e7eb;  
+            border-radius: 0.5rem;  
+            padding: 1rem;  
+            margin-bottom: 0.75rem;  
+        }  
+          
+        .program-exercise h4 {  
+            font-size: 1rem;  
+            margin-bottom: 0.5rem;  
+        }  
+          
+        .program-controls {  
+            display: flex;  
+            gap: 0.5rem;  
+            margin-top: 0.75rem;  
+        }  
+          
+        .hidden {  
+            display: none !important;  
+        }  
+          
+        .alert {  
+            position: fixed;  
+            top: 5rem;  
+            left: 50%;  
+            transform: translateX(-50%);  
+            background: #1f2937;  
+            color: white;  
+            padding: 1rem 1.5rem;  
+            border-radius: 0.5rem;  
+            box-shadow: 0 10px 15px rgba(0,0,0,0.3);  
+            z-index: 1000;  
+            animation: slideDown 0.3s ease;  
+        }  
+          
+        @keyframes slideDown {  
+            from {  
+                opacity: 0;  
+                transform: translateX(-50%) translateY(-1rem);  
+            }  
+            to {  
+                opacity: 1;  
+                transform: translateX(-50%) translateY(0);  
+            }  
+        }  
+          
+        .modal {  
+            display: none;  
+            position: fixed;  
+            top: 0;  
+            left: 0;  
+            right: 0;  
+            bottom: 0;  
+            background: rgba(0, 0, 0, 0.5);  
+            z-index: 200;  
+            overflow-y: auto;  
+            padding: 1rem;  
+        }  
+          
+        .modal.active {  
+            display: flex;  
+            align-items: flex-start;  
+            justify-content: center;  
+        }  
+          
+        .modal-content {  
+            background: white;  
+            border-radius: 0.5rem;  
+            width: 100%;  
+            max-width: 600px;  
+            margin: 2rem auto;  
+        }  
+          
+        .modal-header {  
+            display: flex;  
+            justify-content: space-between;  
+            align-items: center;  
+            padding: 1rem;  
+            border-bottom: 1px solid #e5e7eb;  
+        }  
+          
+        .modal-header h2 {  
+            font-size: 1.25rem;  
+            color: #1f2937;  
+        }  
+          
+        .close-btn {  
+            background: none;  
+            border: none;  
+            font-size: 1.5rem;  
+            color: #6b7280;  
+            cursor: pointer;  
+            padding: 0;  
+            width: 2rem;  
+            height: 2rem;  
+        }  
+          
+        .modal form {  
+            padding: 1rem;  
+        }  
+          
+        .form-group {  
+            margin-bottom: 1rem;  
+        }  
+          
+        .form-group label {  
+            display: block;  
+            font-weight: 600;  
+            margin-bottom: 0.5rem;  
+            color: #374151;  
+        }  
+          
+        .photo-list {  
+            border: 1px solid #e5e7eb;  
+            border-radius: 0.375rem;  
+            margin-top: 0.5rem;  
+            max-height: 200px;  
+            overflow-y: auto;  
+        }  
+          
+        .photo-item {  
+            display: flex;  
+            justify-content: space-between;  
+            align-items: center;  
+            padding: 0.5rem;  
+            border-bottom: 1px solid #e5e7eb;  
+        }  
+          
+        .photo-item:last-child {  
+            border-bottom: none;  
+        }  
+          
+        .photo-item span {  
+            flex: 1;  
+            overflow: hidden;  
+            text-overflow: ellipsis;  
+            white-space: nowrap;  
+            font-size: 0.875rem;  
+        }  
+          
+        @media print {  
+            .no-print {  
+                display: none !important;  
+            }  
+              
+            body {  
+                background: white;  
+            }  
+              
+            .document-content {  
+                margin: 0 !important;  
+                max-width: 100% !important;  
+            }  
+        }  
+          
+        .document-header {  
+            display: flex;  
+            justify-content: space-between;  
+            align-items: center;  
+            margin-bottom: 1rem;
+            padding-bottom: 0;
+        }  
+          
+        .document-header img {  
+            width: 80px;  
+            height: 80px;  
+            object-fit: contain;
+        }  
+
+        .document-service-title {
+            text-align: center;
+            color: #2563eb;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
             border-bottom: 2px solid #2563eb;
         }
-        
-        .document-header img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
+
+        .document-service-title h2 {
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
         }
-        
-        .document-header-text {
-            text-align: right;
-            font-weight: 600;
+
+        .document-service-title p {
+            font-size: 0.875rem;
         }
-        
-        .document-body {
-            margin-bottom: 2rem;
-        }
-        
-        .document-signature {
-            margin: 2rem 0;
-            padding: 1rem 0;
-            border-top: 2px solid #d1d5db;
-            border-bottom: 2px solid #d1d5db;
-        }
-        
-        .document-exercise {
-            margin-bottom: 2rem;
-        }
-        
-        .document-exercise h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .alert {
-            position: fixed;
-            top: 4.5rem;
-            left: 1rem;
-            right: 1rem;
-            padding: 1rem;
-            background: #2563eb;
-            color: white;
-            border-radius: 0.5rem;
-            z-index: 1001;
-            animation: slideIn 0.3s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div id="app">
-        <!-- Header -->
-        <header role="banner">
-            <div class="header-content">
-                <img src="LogoMPR.jpg" alt="Logo HNIA Percy" class="header-logo">
-                <div class="header-text">
-                    <h1>Générateur de Programmes de Rééducation</h1>
-                    <p>Service de Médecine Physique et Réadaptation</p>
-                </div>
-            </div>
-            <nav class="nav-buttons" aria-label="Navigation principale">
-                <button onclick="app.showView('search')" aria-label="Aller à la recherche d'exercices">🔍 Recherche</button>
-                <button onclick="app.showView('admin')" aria-label="Aller à l'administration des exercices">⚙️ Admin</button>
-            </nav>
-        </header>
+          
+        .document-header .service-info {  
+            text-align: right;  
+            color: #2563eb;  
+        }  
+          
+        .document-header .service-info h2 {  
+            font-size: 1rem;  
+            margin-bottom: 0.25rem;  
+        }  
+          
+        .document-header .service-info p {  
+            font-size: 0.875rem;  
+        }  
+          
+        .document-date {  
+            text-align: right;  
+            color: #6b7280;  
+            margin-bottom: 1.5rem;  
+        }  
+          
+        .document-intro {  
+            margin-bottom: 2rem;  
+            line-height: 1.8;  
+        }  
+          
+        .document-signature {  
+            margin-top: 2rem;  
+            padding-top: 1rem;  
+            border-top: 1px solid #e5e7eb;  
+        }  
+          
+        .document-exercise {  
+            margin-bottom: 2rem;  
+            page-break-inside: avoid;  
+        }  
+          
+        .document-exercise h3 {  
+            color: #2563eb;  
+            font-size: 1.125rem;  
+            margin-bottom: 0.5rem;  
+        }  
+          
+        .document-exercise p {  
+            margin-bottom: 0.5rem;  
+            line-height: 1.6;  
+        }  
+          
+        .document-exercise .consignes {  
+            background: #f3f4f6;  
+            padding: 0.75rem;  
+            border-radius: 0.375rem;  
+            margin: 0.75rem 0;  
+            font-style: italic;  
+        }  
+          
+        .document-exercise img {  
+            max-width: 100%;  
+            height: auto;  
+            margin: 0.5rem 0;  
+            border-radius: 0.375rem;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div id="app">  
+        <header role="banner">  
+            <div class="header-content">  
+                <img src="https://i.postimg.cc/d0kK4FTd/POULP-mail.png" alt="Logo pOULP" class="header-logo-left">  
+                <div class="header-text">  
+                    <h1>Générateur de Programmes de Rééducation</h1>  
+                    <p>Service de Médecine Physique et Réadaptation</p>  
+                </div>  
+                <img src="https://i.postimg.cc/MTR20ftk/Logo_MPR.jpg" alt="Logo MPR Percy" class="header-logo-right">
+            </div>  
+            <nav class="nav-buttons" aria-label="Navigation principale">  
+                <button onclick="app.showView('search')" aria-label="Aller à la recherche d'exercices">🔍 Recherche</button>  
+                <button onclick="app.showView('admin')" aria-label="Aller à l'administration des exercices">⚙️ Admin</button>  
+            </nav>  
+        </header>  
+  
+        <div id="alert-container" role="status" aria-live="polite" aria-atomic="true"></div>  
+  
+        <main role="main">  
+            <!-- Vue Recherche -->  
+            <div id="view-search" class="container">  
+                <section class="section" aria-label="Introduction">  
+                    <p style="font-size: 1rem; line-height: 1.6; color: #374151; margin-bottom: 1.5rem;">  
+                        <strong>Bienvenue !</strong> Voici pOULP, le générateur de programme de rééducation. Choisissez des exercices adaptés à votre patient à l'aide du formulaire de recherche, commentez les exercices sélectionnés et générez un fichier PDF prêt à envoyer par e-mail.  
+                    </p>  
+                </section>  
+  
+                <section class="section" aria-label="Filtres de recherche">  
+                    <h2>Filtres de recherche</h2>  
 
-        <div id="alert-container" role="status" aria-live="polite" aria-atomic="true"></div>
-
-        <main role="main">
-            <!-- Vue Recherche -->
-            <div id="view-search" class="container">
-                <section class="section" aria-label="Introduction">
-                    <p style="font-size: 1rem; line-height: 1.6; color: #374151; margin-bottom: 1.5rem;">
-                        <strong>Bienvenue !</strong> Voici le générateur de programme de rééducation. Choisissez des exercices adaptés à votre patient à l'aide du formulaire de recherche, commentez les exercices sélectionnés et générez un fichier PDF prêt à envoyer par e-mail.
-                    </p>
-                </section>
-
-                <section class="section" aria-label="Filtres de recherche">
-                    <h2>Filtres de recherche</h2>
-                    
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">
-                        <strong>Recherchez parmi tous les exercices :</strong>
-                    </p>
-                    
-                    <div class="filter-group">
-                        <label for="search-input">Recherche par mot-clé</label>
-                        <input 
-                            type="search" 
-                            id="search-input" 
-                            placeholder="Titre, description..."
-                            oninput="app.filterExercises()"
-                            aria-label="Rechercher des exercices par mot-clé"
-                        >
+                    <!-- Alerte si filtres invalides -->
+                    <div id="filter-alert" role="alert" aria-live="assertive" class="filter-alert hidden">
+                        ⚠️ Veuillez d'abord sélectionner au moins une zone du corps
                     </div>
-
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem; margin-top: 1rem;">
-                        <strong>Choisissez une ou plusieurs zones du corps :</strong>
-                    </p>
-
-                    <div class="filter-group">
-                        <label>Zones du corps (obligatoire si pas de recherche)</label>
-                        <div class="checkbox-group" id="zones-filters"></div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label>Logique pour Types d'exercice</label>
-                        <p style="font-size: 0.8rem; color: #6b7280; margin-bottom: 0.5rem; font-style: italic;">
-                            Ces filtres s'appliquent en mode <strong>"OU"</strong> (au moins un type correspond) ou <strong>"ET"</strong> (tous les types doivent correspondre) :
-                        </p>
-                        <div class="radio-group" role="radiogroup" aria-label="Choisir la logique de filtrage pour les types">
-                            <label class="radio-label">
-                                <input type="radio" name="logic" value="OR" checked onchange="app.filterExercises()">
-                                <span>OU</span>
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="logic" value="AND" onchange="app.filterExercises()">
-                                <span>ET</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="collapsible-section">
-                        <button class="collapsible-header" onclick="app.toggleSection('types')" aria-expanded="true">
-                            <span>Types d'exercice</span>
-                            <span class="chevron open" id="chevron-types">▼</span>
-                        </button>
-                        <div class="collapsible-content open" id="content-types">
-                            <div class="checkbox-group" id="types-filters"></div>
-                        </div>
-                    </div>
-
-                    <div class="collapsible-section">
-                        <button class="collapsible-header" onclick="app.toggleSection('materiel')" aria-expanded="false">
-                            <span>Matériel</span>
-                            <span class="chevron" id="chevron-materiel">▼</span>
-                        </button>
-                        <div class="collapsible-content" id="content-materiel">
-                            <div class="checkbox-group" id="materiel-filters"></div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="section" aria-label="Résultats de recherche">
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">
-                        <strong>Ajoutez des exercices au programme :</strong>
-                    </p>
-                    <h2>Exercices (<span id="results-count">0</span>)</h2>
-                    <div id="exercises-list" role="list"></div>
-                </section>
-
-                <!-- Section Programme déplacée ici -->
-                <section class="section" aria-label="Programme en cours" id="section-programme">
-                    <h2 id="titre-programme">Programme en cours (<span id="program-count">0</span>)</h2>
-                    
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
-                        <strong>Personnalisez, réorganisez et commentez les exercices sélectionnés :</strong>
-                    </p>
-                    
-                    <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;">Informations patient</h3>
-                    
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">
-                        <strong>Personnalisez le document avec un commentaire général pour votre patient :</strong>
-                    </p>
-                    
-                    <div class="form-group">
-                        <label for="patient-name">Prénom du patient (facultatif)</label>
-                        <input 
-                            type="text" 
-                            id="patient-name" 
-                            placeholder="Prénom du patient" 
-                            aria-label="Prénom du patient"
-                            onkeydown="if(event.key === 'Enter') event.preventDefault()"
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="general-comment">Message personnalisé général (facultatif)</label>
-                        <textarea 
-                            id="general-comment" 
-                            rows="4" 
-                            placeholder="Recommandations générales pour le patient..."
-                            aria-label="Message personnalisé général pour le patient"
-                        ></textarea>
-                    </div>
-
-                    <h3 style="font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.75rem 0;">Exercices du programme</h3>
-                    
-                    <div id="selected-exercises" role="list" aria-labelledby="titre-programme"></div>
-                    
-                    <h3 id="titre-generation" style="font-size: 1rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">
-                        Génération du document PDF
-                    </h3>
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">
-                        Obtenez le programme personnalisé avec photos :
-                    </p>
-                    
-                    <button 
-                        class="btn-success" 
-                        onclick="app.generateDocument()" 
-                        style="margin-top: 0.5rem;"
-                        aria-label="Générer le document PDF du programme"
-                    >
-                        📄 Générer le document
-                    </button>
-                </section>
-            </div>
-
-            <!-- Vue Programme supprimée car intégrée dans recherche -->
-            <!-- Vue Admin -->
-            <div id="view-admin" class="container hidden">
-                <section class="section" aria-labelledby="admin-titre-gestion">
-                    <h2 id="admin-titre-gestion">Gestion des exercices</h2>
-                    <button class="btn-primary" onclick="app.openExerciseModal()" aria-label="Ouvrir le formulaire pour ajouter un nouvel exercice">
-                        ➕ Ajouter un exercice
-                    </button>
-                </section>
-
-                <section class="section" aria-labelledby="admin-titre-liste">
-                    <h2 id="admin-titre-liste">Liste des exercices (<span id="admin-count">0</span>)</h2>
-                    <div class="filter-group">
-                        <label for="admin-search">Rechercher un exercice dans la liste</label>
-                        <input 
-                            type="search" 
-                            id="admin-search" 
-                            placeholder="Rechercher par titre ou description..."
-                            oninput="app.filterAdminExercises()"
-                            aria-label="Rechercher un exercice dans la liste d'administration"
-                        >
-                    </div>
-                    <div id="admin-exercises-list" role="list" aria-labelledby="admin-titre-liste"></div>
-                </section>
-            </div>
-
-            <!-- Vue Document -->
-            <div id="view-document" class="hidden">
-                <div class="no-print" style="position: fixed; top: 0; left: 0; right: 0; background: #2563eb; color: white; padding: 1rem; z-index: 100;">
-                    <div style="display: flex; gap: 0.5rem; max-width: 1200px; margin: 0 auto;">
-                        <button onclick="app.showView('search')" style="background: white; color: #2563eb; border: none; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 600;">
-                            ← Retour
-                        </button>
-                        <button onclick="window.print()" style="background: #059669; color: white; border: none; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 600; flex: 1;">
-                            🖨️ Imprimer / PDF
-                        </button>
-                    </div>
-                </div>
-                <div class="document-content" id="document-output" style="max-width: 800px; margin: 5rem auto 2rem;"></div>
-            </div>
-        </main>
-
-        <!-- Modal Exercice -->
-        <div id="exercise-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 id="modal-title">Ajouter un exercice</h2>
-                    <button class="close-btn" onclick="app.closeExerciseModal()" aria-label="Fermer la fenêtre">&times;</button>
-                </div>
-                <form id="exercise-form" onsubmit="app.saveExercise(event)">
-                    <fieldset style="border: none; padding: 0; margin: 0;">
-                        <legend class="sr-only">Informations de base</legend>
-                        
-                        <div class="form-group">
-                            <label for="ex-titre">Titre de l'exercice *</label>
-                            <input type="text" id="ex-titre" required aria-required="true">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ex-description">Description détaillée *</label>
-                            <textarea id="ex-description" rows="3" required aria-required="true"></textarea>
-                        </div>
-                    </fieldset>
-
-                    <fieldset style="border: 1px solid #e5e7eb; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">
-                        <legend style="font-weight: 600; padding: 0 0.5rem;">Classification de l'exercice</legend>
-                        
-                        <div class="form-group">
-                            <label id="label-zones">Zones du corps concernées *</label>
-                            <div class="checkbox-group" id="modal-zones" role="group" aria-labelledby="label-zones" aria-required="true"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label id="label-types">Types d'exercice *</label>
-                            <div class="checkbox-group" id="modal-types" role="group" aria-labelledby="label-types" aria-required="true"></div>
-                            <div style="margin-top: 0.75rem; padding: 0.75rem; background: #f9fafb; border-radius: 0.375rem;">
-                                <label for="new-type-input" style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">Ajouter un nouveau type :</label>
-                                <div style="display: flex; gap: 0.5rem;">
-                                    <input 
-                                        type="text" 
-                                        id="new-type-input" 
-                                        placeholder="Ex: Cardio, Coordination..."
-                                        style="flex: 1;"
-                                        aria-label="Nom du nouveau type d'exercice"
-                                    >
-                                    <button type="button" class="btn-secondary btn-small" onclick="app.addNewType()" aria-label="Valider et ajouter ce nouveau type">
-                                        ➕ Ajouter
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label id="label-materiel">Matériel nécessaire (facultatif)</label>
-                            <div class="checkbox-group" id="modal-materiel" role="group" aria-labelledby="label-materiel"></div>
-                            <div style="margin-top: 0.75rem; padding: 0.75rem; background: #f9fafb; border-radius: 0.375rem;">
-                                <label for="new-materiel-input" style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">Ajouter du nouveau matériel :</label>
-                                <div style="display: flex; gap: 0.5rem;">
-                                    <input 
-                                        type="text" 
-                                        id="new-materiel-input" 
-                                        placeholder="Ex: Haltères, Swiss ball..."
-                                        style="flex: 1;"
-                                        aria-label="Nom du nouveau matériel"
-                                    >
-                                    <button type="button" class="btn-secondary btn-small" onclick="app.addNewMateriel()" aria-label="Valider et ajouter ce nouveau matériel">
-                                        ➕ Ajouter
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <fieldset style="border: 1px solid #e5e7eb; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">
-                        <legend style="font-weight: 600; padding: 0 0.5rem;">Photos de l'exercice</legend>
-                        
-                        <div class="form-group">
-                            <label for="photo-url">Ajouter des photos (URL) *</label>
-                            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
-                                <input type="text" id="photo-url" placeholder="https://exemple.com/photo.jpg" style="flex: 1;" aria-label="URL de la photo à ajouter">
-                                <button type="button" class="btn-secondary btn-small" onclick="app.addPhoto()" aria-label="Ajouter cette photo à la liste">Ajouter</button>
-                            </div>
-                            <div id="photos-list" class="photo-list" role="list" aria-label="Liste des photos ajoutées"></div>
-                        </div>
-                    </fieldset>
-
-                    <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
-                        <button type="submit" class="btn-primary" style="flex: 1;">💾 Enregistrer l'exercice</button>
-                        <button type="button" class="btn-secondary" onclick="app.closeExerciseModal()" aria-label="Annuler et fermer le formulaire">Annuler</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const app = {
-            exercises: [],
-            selectedExercises: [],
-            currentView: 'search',
-            editingExercise: null,
-            currentPhotos: [],
-            
-            zones: ['Cheville et pied', 'Cervicales', 'Coude', 'Dos', 'Épaule', 'Genou', 'Hanche', 'Lombaires', 'Poignet et main'],
-            types: ['Étirement', 'Renforcement', 'Mobilité', 'Proprioception', 'Équilibre', 'Gainage', 'LCA', 'Sauts'],
-            materiel: ['Sans matériel', 'Bâton', 'Élastique', 'Ballon', 'Coussin proprioceptif', 'Sangle', 'Tapis', 'Chaise', 'Step'],
-
-            init() {
-                this.loadMockData();
-                this.renderFilters();
-                this.renderModalFilters();
-                this.filterExercises();
-                this.updateAdminList();
+                      
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
+                        <strong>Recherchez parmi tous les exercices :</strong>  
+                    </p>  
+                      
+                    <div class="filter-group">  
+                        <h3 class="filter-title" id="titre-recherche">Recherche par mot-clé</h3>
+                        <input   
+                            type="search"   
+                            id="search-input"   
+                            placeholder="Titre, description..."  
+                            oninput="app.filterExercises()"  
+                            aria-labelledby="titre-recherche"
+                        >  
+                    </div>  
+  
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem; margin-top: 1rem;">  
+                        <strong>Choisissez une ou plusieurs zones du corps :</strong>  
+                    </p>  
+  
+                    <div class="filter-group">  
+                        <h3 class="filter-title" id="titre-zones">Zones du corps <span class="required-badge">obligatoire*</span></h3>
+                        <p class="filter-description" aria-hidden="true">(obligatoire si pas de recherche)</p>
+                        <div class="checkbox-group" id="zones-filters" role="group" aria-labelledby="titre-zones"></div>  
+                    </div>  
+  
+                    <div class="collapsible-section">  
+                        <div class="collapsible-header" onclick="app.toggleSection('types')" aria-expanded="false" aria-controls="types-content">  
+                            <h3 class="filter-title" id="titre-types" style="margin: 0; font-size: 1rem;">Types d'exercice <span class="optional-badge">facultatif</span></h3>
+                            <span class="chevron" id="chevron-types">▼</span>  
+                        </div>  
+                        <div class="collapsible-content" id="types-content">  
+                            <div class="checkbox-group" id="types-filters" role="group" aria-labelledby="titre-types"></div>  
+                        </div>  
+                    </div>  
+  
+                    <div class="collapsible-section">  
+                        <div class="collapsible-header" onclick="app.toggleSection('materiel')" aria-expanded="false" aria-controls="materiel-content">  
+                            <h3 class="filter-title" id="titre-materiel" style="margin: 0; font-size: 1rem;">Matériel <span class="optional-badge">facultatif</span></h3>
+                            <span class="chevron" id="chevron-materiel">▼</span>  
+                        </div>  
+                        <div class="collapsible-content" id="materiel-content">  
+                            <div class="checkbox-group" id="materiel-filters" role="group" aria-labelledby="titre-materiel"></div>  
+                        </div>  
+                    </div>  
+                </section>  
+  
+                <section class="section" aria-label="Résultats de recherche">  
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
+                        <strong>Ajoutez des exercices au programme :</strong>  
+                    </p>  
+                    <h2>Exercices (<span id="results-count">0</span>)</h2>  
+                    <div id="exercises-list" role="list"></div>  
+                </section>  
+  
+                <!-- Section Programme déplacée ici -->  
+                <section class="section" aria-label="Programme en cours" id="section-programme">  
+                    <h2 id="titre-programme">Programme en cours (<span id="program-count">0</span>)</h2>  
+                      
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">  
+                        <strong>Personnalisez, réorganisez et commentez les exercices sélectionnés :</strong>  
+                    </p>  
+                      
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem; font-style: italic;">  
+                        Les exercices ajoutés restent dans le programme, même si vous changez les filtres.  
+                    </p>  
+                      
+                    <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;">Informations patient</h3>  
+                      
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
+                        <strong>Personnalisez le document avec un commentaire général pour votre patient :</strong>  
+                    </p>  
+                      
+                    <div class="form-group">  
+                        <label for="patient-name">Prénom du patient (facultatif)</label>  
+                        <input   
+                            type="text"   
+                            id="patient-name"   
+                            placeholder="Prénom du patient"   
+                            aria-label="Prénom du patient"  
+                            onkeydown="if(event.key === 'Enter') event.preventDefault()"  
+                        >  
+                    </div>  
+  
+                    <div class="form-group">  
+                        <label for="custom-message">Message personnalisé général (facultatif)</label>  
+                        <textarea   
+                            id="custom-message"   
+                            rows="4"   
+                            placeholder="Recommandations générales pour le patient..."  
+                            aria-label="Message personnalisé général pour le patient"  
+                        ></textarea>  
+                    </div>  
+  
+                    <h3 style="font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.75rem 0;">Exercices du programme</h3>  
+                      
+                    <div id="selected-exercises" role="list" aria-labelledby="titre-programme"></div>  
+                      
+                    <h2 id="titre-generation" style="font-size: 1.125rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">  
+                        Génération du document PDF  
+                    </h2>  
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
+                        Obtenez le programme personnalisé avec photos :  
+                    </p>  
+                      
+                    <button   
+                        class="btn-success"   
+                        onclick="app.generateDocument()"   
+                        style="margin-top: 0.5rem;"  
+                        aria-label="Générer le document PDF du programme"  
+                    >  
+                        📄 Générer le document  
+                    </button>  
+                </section>  
+            </div>  
+  
+            <!-- Vue Admin -->  
+            <div id="view-admin" class="container hidden">  
+                <section class="section">  
+                    <h2>Administration des exercices</h2>  
+                      
+                    <button class="btn-primary" onclick="app.openExerciseModal()" style="margin-bottom: 1rem;">  
+                        ➕ Ajouter un exercice  
+                    </button>  
+  
+                    <div class="filter-group">  
+                        <label for="admin-search">Rechercher un exercice</label>  
+                        <input   
+                            type="search"   
+                            id="admin-search"   
+                            placeholder="Titre, description..."  
+                            oninput="app.updateAdminList()"  
+                        >  
+                    </div>  
+  
+                    <div id="admin-exercises-list"></div>  
+                </section>  
+            </div>  
+  
+            <!-- Vue Document généré -->  
+            <div id="view-document" class="hidden">  
+                <div class="no-print" style="position: fixed; top: 0; left: 0; right: 0; background: #2563eb; color: white; padding: 1rem; z-index: 100;">  
+                    <!-- MESSAGE INFORMATIF -->  
+                    <div role="note" style="max-width: 1200px; margin: 0 auto 0.75rem; font-size: 0.875rem; background: rgba(255,255,255,0.15); padding: 0.75rem; border-radius: 0.375rem; line-height: 1.5;">  
+                        💡 <strong>Pour envoyer par email :</strong> Utilisez "Imprimer / Partager", puis enregistrez le PDF et joignez-le en pièce jointe (les images s'afficheront correctement).  
+                    </div>  
+                      
+                    <!-- BOUTONS D'ACTION -->  
+                    <div style="display: flex; gap: 0.5rem; max-width: 1200px; margin: 0 auto;">  
+                        <button onclick="app.showView('search')" style="background: white; color: #2563eb; border: none; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 600;" aria-label="Retourner à la recherche">  
+                            ← Retour  
+                        </button>  
+                        <button onclick="window.print()" style="background: #059669; color: white; border: none; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 600; flex: 1;" aria-label="Imprimer ou partager le document">  
+                            🖨️ Imprimer / Partager  
+                        </button>  
+                    </div>  
+                </div>  
+                <div class="document-content" id="document-output" style="max-width: 800px; margin: 5rem auto 2rem;"></div>  
+            </div>  
+        </main>  
+  
+        <!-- Modal Exercice -->  
+        <div id="exercise-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">  
+            <div class="modal-content">  
+                <div class="modal-header">  
+                    <h2 id="modal-title">Ajouter un exercice</h2>  
+                    <button class="close-btn" onclick="app.closeExerciseModal()" aria-label="Fermer la fenêtre">&times;</button>  
+                </div>  
+                <form id="exercise-form" onsubmit="app.saveExercise(event)">  
+                    <fieldset style="border: none; padding: 0; margin: 0;">  
+                        <legend class="sr-only">Informations de base</legend>  
+                          
+                        <div class="form-group">  
+                            <label for="ex-titre">Titre de l'exercice *</label>  
+                            <input type="text" id="ex-titre" required aria-required="true">  
+                        </div>  
+  
+                        <div class="form-group">  
+                            <label for="ex-description">Description détaillée *</label>  
+                            <textarea id="ex-description" rows="3" required aria-required="true"></textarea>  
+                        </div>  
+                    </fieldset>  
+  
+                    <fieldset style="border: 1px solid #e5e7eb; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">  
+                        <legend style="font-weight: 600; padding: 0 0.5rem;">Classification de l'exercice</legend>  
+                          
+                        <div class="form-group">  
+                            <label id="label-zones">Zones du corps concernées *</label>  
+                            <div class="checkbox-group" id="modal-zones" role="group" aria-labelledby="label-zones" aria-required="true"></div>  
+                        </div>  
+  
+                        <div class="form-group">  
+                            <label id="label-types">Types d'exercice *</label>  
+                            <div class="checkbox-group" id="modal-types" role="group" aria-labelledby="label-types" aria-required="true"></div>  
+                            <div style="margin-top: 0.75rem; padding: 0.75rem; background: #f9fafb; border-radius: 0.375rem;">  
+                                <label for="new-type-input" style="font-size: 0.875rem; margin-bottom: 0.5rem;">Ajouter un nouveau type :</label>  
+                                <div style="display: flex; gap: 0.5rem;">  
+                                    <input type="text" id="new-type-input" placeholder="Ex: Cardio" style="flex: 1;">  
+                                    <button type="button" class="btn-secondary btn-small" onclick="app.addNewType()">Ajouter</button>  
+                                </div>  
+                            </div>  
+                        </div>  
+  
+                        <div class="form-group">  
+                            <label id="label-materiel">Matériel nécessaire</label>  
+                            <div class="checkbox-group" id="modal-materiel" role="group" aria-labelledby="label-materiel"></div>  
+                            <div style="margin-top: 0.75rem; padding: 0.75rem; background: #f9fafb; border-radius: 0.375rem;">  
+                                <label for="new-materiel-input" style="font-size: 0.875rem; margin-bottom: 0.5rem;">Ajouter du nouveau matériel :</label>  
+                                <div style="display: flex; gap: 0.5rem;">  
+                                    <input type="text" id="new-materiel-input" placeholder="Ex: Rouleau de massage" style="flex: 1;">  
+                                    <button type="button" class="btn-secondary btn-small" onclick="app.addNewMateriel()">Ajouter</button>  
+                                </div>  
+                            </div>  
+                        </div>  
+                    </fieldset>  
+  
+                    <fieldset style="border: 1px solid #e5e7eb; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">  
+                        <legend style="font-weight: 600; padding: 0 0.5rem;">Photos de l'exercice</legend>  
+                          
+                        <div class="form-group">  
+                            <label for="photo-url">URL de la photo *</label>  
+                            <div style="display: flex; gap: 0.5rem;">  
+                                <input type="text" id="photo-url" placeholder="https://..." style="flex: 1;">  
+                                <button type="button" class="btn-secondary btn-small" onclick="app.addPhoto()">Ajouter</button>  
+                            </div>  
+                        </div>  
+  
+                        <div class="photo-list" id="photos-list">  
+                            <div style="padding: 1rem; text-align: center; color: #6b7280;">Aucune photo ajoutée</div>  
+                        </div>  
+                    </fieldset>  
+  
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">  
+                        <button type="button" class="btn-secondary" onclick="app.closeExerciseModal()" style="flex: 1;">  
+                            Annuler  
+                        </button>  
+                        <button type="submit" class="btn-primary" style="flex: 1;">  
+                            Enregistrer  
+                        </button>  
+                    </div>  
+                </form>  
+            </div>  
+        </div>  
+    </div>  
+  
+    <script src="exercices.js"></script>  
+    <script>  
+        const app = {  
+            exercises: [],  
+            selectedExercises: [],  
+            categories: {},  
+            editingExercise: null,  
+            currentPhotos: [],  
+  
+            init() {  
+                this.exercises = [...exercicesData];  
+                this.categories = {...categoriesData};  
+                  
+                this.renderFilters();  
+                this.filterExercises();  
+                this.updateAdminList();  
+                this.showView('search');  
+            },  
+  
+            renderFilters() {  
+                // Zones  
+                const zonesContainer = document.getElementById('zones-filters');  
+                zonesContainer.innerHTML = this.categories.zones.map(zone => `  
+                    <label class="checkbox-label">  
+                        <input type="checkbox" value="${zone}" onchange="app.filterExercises()">  
+                        <span>${zone}</span>  
+                    </label>  
+                `).join('');  
+  
+                // Types  
+                const typesContainer = document.getElementById('types-filters');  
+                typesContainer.innerHTML = this.categories.types.map(type => `  
+                    <label class="checkbox-label">  
+                        <input type="checkbox" value="${type}" onchange="app.filterExercises()">  
+                        <span>${type}</span>  
+                    </label>  
+                `).join('');  
+  
+                // Matériel  
+                const materielContainer = document.getElementById('materiel-filters');  
+                materielContainer.innerHTML = this.categories.materiel.map(mat => `  
+                    <label class="checkbox-label">  
+                        <input type="checkbox" value="${mat}" onchange="app.filterExercises()">  
+                        <span>${mat}</span>  
+                    </label>  
+                `).join('');  
+  
+                // Modal zones  
+                const modalZones = document.getElementById('modal-zones');  
+                modalZones.innerHTML = this.categories.zones.map(zone => `  
+                    <label class="checkbox-label">  
+                        <input type="checkbox" value="${zone}">  
+                        <span>${zone}</span>  
+                    </label>  
+                `).join('');  
+  
+                // Modal types  
+                const modalTypes = document.getElementById('modal-types');  
+                modalTypes.innerHTML = this.categories.types.map(type => `  
+                    <label class="checkbox-label">  
+                        <input type="checkbox" value="${type}">  
+                        <span>${type}</span>  
+                    </label>  
+                `).join('');  
+  
+                // Modal matériel  
+                const modalMateriel = document.getElementById('modal-materiel');  
+                modalMateriel.innerHTML = this.categories.materiel.map(mat => `  
+                    <label class="checkbox-label">  
+                        <input type="checkbox" value="${mat}">  
+                        <span>${mat}</span>  
+                    </label>  
+                `).join('');  
+            },  
+  
+            toggleSection(section) {  
+                const content = document.getElementById(`${section}-content`);  
+                const chevron = document.getElementById(`chevron-${section}`);  
+                const header = chevron.parentElement;  
+                  
+                const isOpen = content.classList.contains('open');  
+                content.classList.toggle('open');  
+                chevron.classList.toggle('open');  
+                header.setAttribute('aria-expanded', !isOpen);  
             },
 
-            loadMockData() {
-                this.exercises = [
-    // ============================================
-    // FICHE 1 - ÉTIREMENTS (23 exercices)
-    // ============================================
-    {
-        id: 1,
-        titre: "Étirement muscles latéraux du cou",
-        description: "Mettez la main gauche sur l'épaule droite en la fixant/l'abaissant vers le bas. Penchez la tête sur le côté gauche et la tourner légèrement vers l'épaule droite tout en rentrant le menton. Puis faire l'inverse. Possible de pencher la tête plus ou moins vers l'avant pour travailler sur un autre chef.",
-        zones: ["Cervicales"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/9QMm5561/image1.png", alt: "Étirement trapèze" },
-            { url: "https://i.postimg.cc/yxKJjv8q/image2.png", alt: "Position de la main" }
-        ]
-    },
-    {
-        id: 2,
-        titre: "Étirement grand et petit pectoral",
-        description: "Position dans l'encadrement d'une porte, bras à 90 degrés. Se pencher en avant pour sentir l'étirement au niveau de la poitrine.",
-        zones: ["Épaule"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/rwxBXj8Y/image3.png", alt: "Étirement pectoral" },
-            { url: "https://i.postimg.cc/dtMT6R0s/image4.png", alt: "Vue de profil" }
-        ]
-    },
-    {
-        id: 3,
-        titre: "Étirement rhomboïde",
-        description: "Bras tendus devant soi, mains jointes. Arrondir le haut du dos en poussant les mains vers l'avant.",
-        zones: ["Dos", "Épaule"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/JnVWvhHG/image5.png", alt: "Étirement rhomboïde" }
-        ]
-    },
-    {
-        id: 4,
-        titre: "Étirement deltoïde et infra-épineux",
-        description: "Passez le bras droit devant le torse. Avec la main gauche, poussez le coude vers la gauche, en gardant l'épaule baissée. Le tronc doit rester fixe.",
-        zones: ["Épaule"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/wvcnrQpK/image6.png", alt: "Étirement deltoïde" },
-            { url: "https://i.postimg.cc/QxRSpK2N/image7.png", alt: "Vue de face" }
-        ]
-    },
-    {
-        id: 5,
-        titre: "Étirement supra-épineux",
-        description: "Position assise ou debout. Amener le bras en travers du corps au niveau de la poitrine.",
-        zones: ["Épaule"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/3J727CQc/image8.png", alt: "Étirement supra-épineux" }
-        ]
-    },
-    {
-        id: 6,
-        titre: "Étirement subscapulaire",
-        description: "Bras en rotation interne derrière le dos. Tirer doucement le poignet vers le côté opposé.",
-        zones: ["Épaule"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/gjGr9sLL/image9.png", alt: "Étirement subscapulaire" }
-        ]
-    },
-    {
-        id: 7,
-        titre: "Étirement petit rond",
-        description: "Position similaire au subscapulaire avec variation d'angle.",
-        zones: ["Épaule"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/4xHfSq2V/image10.png", alt: "Étirement petit rond" }
-        ]
-    },
-    {
-        id: 8,
-        titre: "Étirement biceps brachial",
-        description: "Bras tendu en arrière, paume vers le haut. Se tenir à un support fixe et tourner le corps pour accentuer l'étirement.",
-        zones: ["Coude"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/dtpvrnQD/image11.png", alt: "Étirement biceps - position 1" },
-            { url: "https://i.postimg.cc/7hb8TJpX/image12.png", alt: "Étirement biceps - position 2" }
-        ]
-    },
-    {
-        id: 9,
-        titre: "Étirement triceps brachial",
-        description: "Lever le bras au-dessus de la tête, plier le coude. Avec l'autre main, tirer doucement le coude vers l'arrière.",
-        zones: ["Coude"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/QdQPCqFr/image13.png", alt: "Étirement triceps" }
-        ]
-    },
-    {
-        id: 10,
-        titre: "Étirement épicondyliens et extenseurs du poignet",
-        description: "Bras tendu devant, paume vers le bas. Avec l'autre main, ramener les doigts vers soi.",
-        zones: ["Coude", "Poignet et main"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/PxCnCwGM/image14.png", alt: "Étirement épicondyliens" }
-        ]
-    },
-    {
-        id: 11,
-        titre: "Étirement fléchisseurs du poignet",
-        description: "Bras tendu devant, paume vers le haut. Avec l'autre main, ramener les doigts vers le sol.",
-        zones: ["Coude", "Poignet et main"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/Zqq1Qdqn/image15.png", alt: "Étirement fléchisseurs poignet" }
-        ]
-    },
-    {
-        id: 12,
-        titre: "Étirement fessiers",
-        description: "Allongé sur le dos, ramener un genou vers la poitrine en maintenant avec les deux mains.",
-        zones: ["Hanche"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/BnSy8KHM/image16.png", alt: "Étirement fessiers - position 1" },
-            { url: "https://i.postimg.cc/4NNbVb2k/image17.png", alt: "Étirement fessiers - position 2" },
-            { url: "https://i.postimg.cc/HsxXVWjJ/image18.png", alt: "Étirement fessiers - position 3" }
-        ]
-    },
-    {
-        id: 13,
-        titre: "Étirement piriforme",
-        description: "Allongé sur le dos, placer le bord latéral du pied sur le genou opposé. À l'aide d'une main rapprocher la cuisse vers la poitrine et pousser le genou avec l'autre main.",
-        zones: ["Hanche"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/prgWWBpY/image19.png", alt: "Étirement piriforme" },
-            { url: "https://i.postimg.cc/TYgLyyGS/image20.png", alt: "Vue détaillée" }
-        ]
-    },
-    {
-        id: 14,
-        titre: "Étirement pelvi-trochantérien",
-        description: "Étirement des muscles profonds de la hanche : piriforme, obturateur interne, jumeaux, carré fémoral.",
-        zones: ["Hanche"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/xCNjW7dJ/image21.png", alt: "Étirement pelvi-trochantérien" }
-        ]
-    },
-    {
-        id: 15,
-        titre: "Étirement iliaque et psoas",
-        description: "En fente avant, un genou à terre. Se tenir si nécessaire et garder le dos droit. Possibilité de poser le pied sur une petite marche.",
-        zones: ["Hanche"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/zGQ99fHk/image22.png", alt: "Étirement psoas - position 1" },
-            { url: "https://i.postimg.cc/xC3pTj8b/image23.png", alt: "Étirement psoas - position 2" },
-            { url: "https://i.postimg.cc/TPrCC2VY/image24.png", alt: "Variante avec marche" }
-        ]
-    },
-    {
-        id: 16,
-        titre: "Étirement TFL (tenseur du fascia lata)",
-        description: "Position debout, jambes croisées. Se pencher sur le côté pour étirer la face externe de la hanche.",
-        zones: ["Hanche"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/pryQbPFv/image25.png", alt: "Étirement TFL - position 1" },
-            { url: "https://i.postimg.cc/qRvyypQy/image26.png", alt: "Étirement TFL - position 2" }
-        ]
-    },
-    {
-        id: 17,
-        titre: "Étirement ischio-jambiers",
-        description: "Option 1 : Allongé sur le dos, tendre la jambe à étirer en ramenant la pointe de pied vers soi (soit avec les mains, soit avec une serviette) et garder bien l'autre jambe plaquée au sol. Option 2 : Face à une petite marche, le bassin bien rectiligne, poser le talon sur la marche, jambe tendue. Ramener les orteils vers vous et se pencher en avant. Rentrer le ventre et serrer les fesses.",
-        zones: ["Genou", "Hanche"],
-        types: ["Étirement"],
-        materiel: ["Sangle"],
-        photos: [
-            { url: "https://i.postimg.cc/sXbPrt9c/image27.png", alt: "Étirement IJ - position 1" },
-            { url: "https://i.postimg.cc/gkmXZzJv/image28.png", alt: "Étirement IJ - position 2" },
-            { url: "https://i.postimg.cc/7YZP4fhW/image29.png", alt: "Avec sangle" },
-            { url: "https://i.postimg.cc/Qxw2ztTc/image30.png", alt: "Variante debout" }
-        ]
-    },
-    {
-        id: 18,
-        titre: "Étirement quadriceps",
-        description: "Option 1 : Debout, garder le dos bien droit et les genoux collés l'un à l'autre. Penser à serrer les fesses. Possible de varier la rotation pour insister sur un chef du quadriceps. Option 2 : Position à genoux, se pencher en arrière, en appui sur les mains pour étirer les deux quadriceps en même temps.",
-        zones: ["Genou"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/BZwk86NV/image31.png", alt: "Étirement quadriceps - debout" },
-            { url: "https://i.postimg.cc/PJBSSCRD/image32.png", alt: "Étirement quadriceps - à genoux" }
-        ]
-    },
-    {
-        id: 19,
-        titre: "Étirement sartorius",
-        description: "Position en fente avec rotation du bassin pour cibler le sartorius.",
-        zones: ["Hanche", "Genou"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/C5fNnFLm/image33.png", alt: "Étirement sartorius" }
-        ]
-    },
-    {
-        id: 20,
-        titre: "Étirement adducteurs",
-        description: "Se mettre en assis-tailleur, les pieds joints. Rapprocher les talons le plus possible des fesses. Se tenir bien droit et se pencher en avant tout en écartant les genoux sur les côtés.",
-        zones: ["Hanche"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/TwBs4Nyf/image34.png", alt: "Étirement adducteurs - position 1" },
-            { url: "https://i.postimg.cc/pT5GzQ0v/image35.png", alt: "Étirement adducteurs - position 2" },
-            { url: "https://i.postimg.cc/RVS1zQc0/image36.png", alt: "Étirement adducteurs - position 3" },
-            { url: "https://i.postimg.cc/xjtJLrbG/image37.png", alt: "Variante" }
-        ]
-    },
-    {
-        id: 21,
-        titre: "Étirement triceps sural (mollets)",
-        description: "En fente avant, le pied arrière dans l'axe, genou bien tendu. Enfoncer le talon dans le sol en tendant la jambe et en se penchant en avant.",
-        zones: ["Cheville et pied"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/QtNNMtSH/image38.png", alt: "Étirement triceps sural - position 1" },
-            { url: "https://i.postimg.cc/RFqr8nX3/image39.png", alt: "Étirement triceps sural - position 2" }
-        ]
-    },
-    {
-        id: 22,
-        titre: "Étirement tibial antérieur",
-        description: "En position à genoux, fesses sur les talons, orteils pointés vers l'arrière.",
-        zones: ["Cheville et pied"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/Jz1RxtVJ/image40.png", alt: "Étirement tibial antérieur" }
-        ]
-    },
-    {
-        id: 23,
-        titre: "Automassage aponévrose plantaire",
-        description: "Automassage avec une balle de tennis sous le pied.",
-        zones: ["Cheville et pied"],
-        types: ["Étirement"],
-        materiel: ["Ballon"],
-        photos: [
-            { url: "https://i.postimg.cc/TPzSkHLH/image41.png", alt: "Automassage plantaire" }
-        ]
-    },
-
-    // ============================================
-    // FICHE 2 - ÉTIREMENTS RACHIS (6 exercices)
-    // ============================================
-    {
-        id: 24,
-        titre: "Étirement plan latéral du rachis",
-        description: "Penchez-vous sur le côté gauche en saisissant le bras droit. Vous devez ressentir l'étirement sur tout le côté droit de l'épaule jusqu'à la hanche. Possible d'attraper l'encadrement d'une porte.",
-        zones: ["Dos", "Lombaires"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/4yQSx64Y/image1.png", alt: "Étirement latéral rachis - position 1" },
-            { url: "https://i.postimg.cc/3N8Z9P7j/image2.png", alt: "Étirement latéral rachis - position 2" }
-        ]
-    },
-    {
-        id: 25,
-        titre: "Étirement plan postérieur",
-        description: "Position assise ou debout, enrouler le dos en ramenant le menton vers la poitrine et les bras vers l'avant.",
-        zones: ["Dos", "Lombaires"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/Hnvbzn6m/image3.png", alt: "Étirement postérieur - position 1" },
-            { url: "https://i.postimg.cc/0jzz8f0H/image4.png", alt: "Mobilisation flexion lombaire" }
-        ]
-    },
-    {
-        id: 26,
-        titre: "Étirement plan antérieur",
-        description: "Extension du rachis en position allongée ou debout, mains derrière la tête.",
-        zones: ["Dos", "Lombaires"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/sxG2F2VR/image5.png", alt: "Étirement plan antérieur" }
-        ]
-    },
-    {
-        id: 27,
-        titre: "Étirement carré des lombes",
-        description: "Sur le côté au bord du lit, laisser le tronc s'affaisser pour étirer le côté opposé.",
-        zones: ["Lombaires"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/LssYC2gv/image6.png", alt: "Étirement carré des lombes" }
-        ]
-    },
-    {
-        id: 28,
-        titre: "Étirement grand dorsal",
-        description: "Couché sur le dos, les mains derrière la tête. Ramener les genoux vers vous puis laisser tomber sur le côté droit un genou après l'autre jusqu'à ce qu'ils touchent le sol. Tenir la position. Attention à laisser les épaules en contact avec le sol.",
-        zones: ["Dos"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/fyQbNNk3/image7.png", alt: "Étirement grand dorsal - position 1" },
-            { url: "https://i.postimg.cc/2yYCt7XS/image8.png", alt: "Étirement grand dorsal - position 2" }
-        ]
-    },
-    {
-        id: 29,
-        titre: "Étirement diaphragme",
-        description: "Position de relaxation pour étirer le diaphragme et favoriser la respiration profonde.",
-        zones: ["Dos"],
-        types: ["Étirement"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/Y96HQmq4/image9.png", alt: "Étirement diaphragme" }
-        ]
-    },
-
-    // ============================================
-    // FICHE 3 - MOBILITÉ (19 exercices)
-    // ============================================
-    {
-        id: 30,
-        titre: "Mobilité flexion-extension cervicale",
-        description: "Asseyez-vous, maintenez la tête avec les mains. Enroulez progressivement la tête, les épaules et le tronc vers l'avant. Collez le menton au torse.",
-        zones: ["Cervicales"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/d1b9cL83/image1.png", alt: "Mobilisation flexion cervicale" }
-        ]
-    },
-    {
-        id: 31,
-        titre: "Mobilité rotations cervicales",
-        description: "Tourner la tête de droite à gauche de manière contrôlée.",
-        zones: ["Cervicales"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/x1pMSXQf/image2.png", alt: "Mobilisation rotations cervicales" }
-        ]
-    },
-    {
-        id: 32,
-        titre: "Mobilité antépulsion et rétropulsion cervicales",
-        description: "Avancer et reculer la tête en gardant le regard horizontal.",
-        zones: ["Cervicales"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/SskyTGPp/image3.png", alt: "Mobilisation antépulsion" },
-            { url: "https://i.postimg.cc/YqGwxVSL/image4.png", alt: "Mobilisation rétropulsion" }
-        ]
-    },
-    {
-        id: 33,
-        titre: "Mobilité inclinaisons cervicales",
-        description: "Incliner la tête d'un côté puis de l'autre en rapprochant l'oreille de l'épaule.",
-        zones: ["Cervicales"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/Dz7DRY2v/image5.png", alt: "Inclinaisons cervicales" }
-        ]
-    },
-    {
-        id: 34,
-        titre: "Mobilité flexion-extension thoracique",
-        description: "Option 1 : Debout pieds décalés du mur, rapprocher le thorax du mur tout en levant le(s) bras. Option 2 : En position assise, aller le plus loin possible vers l'arrière tout en prenant appui sur le dossier de la chaise.",
-        zones: ["Dos"],
-        types: ["Mobilité"],
-        materiel: ["Chaise"],
-        photos: [
-            { url: "https://i.postimg.cc/0N2v7NKc/image6.png", alt: "Mobilisation extension thoracique" },
-            { url: "https://i.postimg.cc/76GpNJH6/image7.png", alt: "Mobilisation avec chaise" }
-        ]
-    },
-    {
-        id: 35,
-        titre: "Mobilité rotations thoraco-lombaires",
-        description: "Assis sur une chaise, toucher les genoux gauche puis droit alternativement avec la main opposée.",
-        zones: ["Dos", "Lombaires"],
-        types: ["Mobilité"],
-        materiel: ["Chaise"],
-        photos: [
-            { url: "https://i.postimg.cc/9FVnDn7r/image8.jpg", alt: "Rotation thoraco-lombaire - photo" },
-            { url: "https://i.postimg.cc/RZhGf5VZ/image9.png", alt: "Rotation thoraco-lombaire" }
-        ]
-    },
-    {
-        id: 36,
-        titre: "Mobilité inclinaisons thoraco-lombaires",
-        description: "Position debout, incliner le tronc sur le côté.",
-        zones: ["Dos", "Lombaires"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/mDy7J82p/image10.png", alt: "Inclinaisons thoraco-lombaires" }
-        ]
-    },
-    {
-        id: 37,
-        titre: "Mobilité flexion-extension thoraco-lombaires (dos rond - dos creux)",
-        description: "Faire le dos rond en soufflant, pousser au maximum sur les bras et regarder ses genoux, puis le dos creux en inspirant et en regardant en l'air.",
-        zones: ["Dos", "Lombaires"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/ZR4d8pF0/image11.png", alt: "Dos rond" },
-            { url: "https://i.postimg.cc/vmdgyfKp/image12.png", alt: "Dos creux" }
-        ]
-    },
-    {
-        id: 38,
-        titre: "Mobilité extension lombaire",
-        description: "Sur le ventre, redresser le buste en appui sur les avant-bras, pousser dans ses coudes sans que le bassin ne se décolle et sans contracter les fesses.",
-        zones: ["Lombaires"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/Kv647tmQ/image13.png", alt: "Extension lombaire - position 1" },
-            { url: "https://i.postimg.cc/9M0WHfWC/image14.png", alt: "Extension lombaire - position 2" }
-        ]
-    },
-    {
-        id: 39,
-        titre: "Mobilité flexion lombaire",
-        description: "Amener les mains le plus loin possible afin d'étirer au maximum la colonne. Possibilité d'utiliser un ballon à faire rouler vers l'avant.",
-        zones: ["Lombaires"],
-        types: ["Mobilité"],
-        materiel: ["Ballon"],
-        photos: [
-            { url: "https://i.postimg.cc/9fF4zCWx/image15.png", alt: "Flexion lombaire" },
-            { url: "https://i.postimg.cc/wT87LhqD/image16.png", alt: "Flexion avec ballon" }
-        ]
-    },
-    {
-        id: 40,
-        titre: "Mobilisation de l'épaule et recentrage",
-        description: "Assis, l'avant-bras reposant sur une serviette posée sur une table. Faire glisser le bras d'avant en arrière puis sur le côté. Possible de monter la hauteur de la table. Possible de mettre un élastique qui tracte l'épaule vers l'arrière et le bas. En position assise, le coude reposant sur un ballon dégonflé (ou la table) un peu en avant de votre épaule. Écraser le ballon avec votre coude tout en abaissant votre épaule.",
-        zones: ["Épaule"],
-        types: ["Mobilité"],
-        materiel: ["Ballon", "Élastique"],
-        photos: [
-            { url: "https://i.postimg.cc/3wsHVFb2/image17.png", alt: "Mobilisation épaule - serviette" },
-            { url: "https://i.postimg.cc/DZrRDkXt/image18.png", alt: "Mobilisation épaule - ballon" }
-        ]
-    },
-    {
-        id: 41,
-        titre: "Mobilité épaule avec ballon contre le mur",
-        description: "Debout face au mur, faire rouler le ballon avec la main de haut en bas puis sur les côtés.",
-        zones: ["Épaule"],
-        types: ["Mobilité"],
-        materiel: ["Ballon"],
-        photos: [
-            { url: "https://i.postimg.cc/fLfgC74W/image19.jpg", alt: "Mobilité avec ballon - photo" },
-            { url: "https://i.postimg.cc/NMDpmgTH/image20.png", alt: "Mobilité avec ballon" }
-        ]
-    },
-    {
-        id: 42,
-        titre: "Mobilité épaule en position allongée",
-        description: "Assis ou allongé, lever les bras le plus haut possible en contrôlant les épaules en position basse.",
-        zones: ["Épaule"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/SR5LfjKY/image21.png", alt: "Élévation bras - position 1" },
-            { url: "https://i.postimg.cc/pr9zrxBv/image22.png", alt: "Élévation bras - position 2" },
-            { url: "https://i.postimg.cc/15wMrcDv/image23.png", alt: "Extension thoracique avec élévation" },
-            { url: "https://i.postimg.cc/VsbFzBZ0/image24.png", alt: "Ouverture épaule" }
-        ]
-    },
-    {
-        id: 43,
-        titre: "Mobilité pendulaire de l'épaule",
-        description: "Assis ou debout, se pencher en avant et laisser le bras tomber vers le bas. Faire des petits mouvements circulaires avec le bras complètement relâché.",
-        zones: ["Épaule"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/cHtf40m9/image25.png", alt: "Pendulaire" },
-            { url: "https://i.postimg.cc/13R6VpBY/image26.png", alt: "Pendulaire - vue de profil" }
-        ]
-    },
-    {
-        id: 44,
-        titre: "Mobilisation de la scapula",
-        description: "Bras le long du corps, reculer les épaules. Descendre et serrer les omoplates au maximum comme pour les amener vers les poches arrière du pantalon.",
-        zones: ["Épaule", "Dos"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/RV4J2ckB/image27.png", alt: "Mobilisation scapula" }
-        ]
-    },
-    {
-        id: 45,
-        titre: "Mobilité flexion de hanche",
-        description: "Amener le genou vers la poitrine de manière contrôlée.",
-        zones: ["Hanche"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/kXTGZLNx/image28.png", alt: "Flexion de hanche - position 1" },
-            { url: "https://i.postimg.cc/YCJrB7vW/image29.png", alt: "Flexion de hanche - position 2" }
-        ]
-    },
-    {
-        id: 46,
-        titre: "Mobilité rotations de hanche",
-        description: "Mouvements de rotation interne et externe de la hanche.",
-        zones: ["Hanche"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/xTwh013t/image30.png", alt: "Rotations de hanche" }
-        ]
-    },
-    {
-        id: 47,
-        titre: "Mobilité flexion-extension de genou",
-        description: "Plier et tendre le genou de manière contrôlée.",
-        zones: ["Genou"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/W3ySX5Wp/image31.png", alt: "Flexion-extension genou" }
-        ]
-    },
-    {
-        id: 48,
-        titre: "Mobilité flexion dorsale de cheville",
-        description: "Ramener la pointe de pied vers soi en position assise ou debout.",
-        zones: ["Cheville et pied"],
-        types: ["Mobilité"],
-        materiel: [],
-        photos: [
-            { url: "https://i.postimg.cc/Hn5K5Gpf/image32.png", alt: "Flexion dorsale - position 1" },
-            { url: "https://i.postimg.cc/4dHFkCh9/image33.png", alt: "Flexion dorsale - position 2" }
-        ]
-    }
-                ];
-            },
-
-            toggleSection(sectionName) {
-                const content = document.getElementById(`content-${sectionName}`);
-                const chevron = document.getElementById(`chevron-${sectionName}`);
-                const button = chevron.parentElement;
-                
-                const isOpen = content.classList.contains('open');
-                
-                if (isOpen) {
-                    content.classList.remove('open');
-                    chevron.classList.remove('open');
-                    button.setAttribute('aria-expanded', 'false');
-                } else {
-                    content.classList.add('open');
-                    chevron.classList.add('open');
-                    button.setAttribute('aria-expanded', 'true');
-                }
-            },
-
-            renderFilters() {
-                const zonesContainer = document.getElementById('zones-filters');
-                const typesContainer = document.getElementById('types-filters');
-                const materielContainer = document.getElementById('materiel-filters');
-
-                zonesContainer.innerHTML = this.zones.map(z => `
-                    <label class="checkbox-label">
-                        <input type="checkbox" value="${z}" onchange="app.filterExercises()">
-                        <span>${z}</span>
-                    </label>
-                `).join('');
-
-                typesContainer.innerHTML = this.types.map(t => `
-                    <label class="checkbox-label">
-                        <input type="checkbox" value="${t}" onchange="app.filterExercises()">
-                        <span>${t}</span>
-                    </label>
-                `).join('');
-
-                materielContainer.innerHTML = this.materiel.map(m => `
-                    <label class="checkbox-label">
-                        <input type="checkbox" value="${m}" onchange="app.filterExercises()">
-                        <span>${m}</span>
-                    </label>
-                `).join('');
-            },
-
-            renderModalFilters() {
-                const modalZones = document.getElementById('modal-zones');
-                const modalTypes = document.getElementById('modal-types');
-                const modalMateriel = document.getElementById('modal-materiel');
-
-                modalZones.innerHTML = this.zones.map(z => `
-                    <label class="checkbox-label">
-                        <input type="checkbox" value="${z}" data-filter="zone">
-                        <span>${z}</span>
-                    </label>
-                `).join('');
-
-                modalTypes.innerHTML = this.types.map(t => `
-                    <label class="checkbox-label">
-                        <input type="checkbox" value="${t}" data-filter="type">
-                        <span>${t}</span>
-                    </label>
-                `).join('');
-
-                modalMateriel.innerHTML = this.materiel.map(m => `
-                    <label class="checkbox-label">
-                        <input type="checkbox" value="${m}" data-filter="materiel">
-                        <span>${m}</span>
-                    </label>
-                `).join('');
-            },
-
-            filterExercises() {
-                const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
-                const logic = document.querySelector('input[name="logic"]:checked').value;
-                
-                const selectedZones = Array.from(document.querySelectorAll('#zones-filters input:checked')).map(cb => cb.value);
-                const selectedTypes = Array.from(document.querySelectorAll('#types-filters input:checked')).map(cb => cb.value);
-                const selectedMateriel = Array.from(document.querySelectorAll('#materiel-filters input:checked')).map(cb => cb.value);
-
-                // N'afficher aucun exercice si ni recherche textuelle ni zones sélectionnées
-                if (!searchTerm && selectedZones.length === 0) {
-                    this.renderExercisesList([]);
-                    return;
-                }
-
-                let results = this.exercises;
-
-                // Recherche textuelle
-                if (searchTerm) {
-                    results = results.filter(ex => 
-                        ex.titre.toLowerCase().includes(searchTerm) ||
-                        ex.description.toLowerCase().includes(searchTerm) ||
-                        ex.zones.some(z => z.toLowerCase().includes(searchTerm)) ||
-                        ex.types.some(t => t.toLowerCase().includes(searchTerm))
-                    );
-                }
-
-                // 1er tamis : ZONES (mode OU uniquement)
-                if (selectedZones.length > 0) {
-                    results = results.filter(ex => selectedZones.some(z => ex.zones.includes(z)));
-                }
-
-                // 2ème tamis : TYPES (mode ET ou OU selon choix utilisateur)
-                if (selectedTypes.length > 0) {
-                    results = results.filter(ex => {
-                        if (logic === 'AND') {
-                            return selectedTypes.every(t => ex.types.includes(t));
-                        } else {
-                            return selectedTypes.some(t => ex.types.includes(t));
-                        }
-                    });
-                }
-
-                // 3ème tamis : MATÉRIEL (mode OU strict)
-                if (selectedMateriel.length > 0) {
-                    results = results.filter(ex => {
-                        // "Sans matériel" = exercices avec materiel vide
-                        if (selectedMateriel.includes('Sans matériel') && ex.materiel.length === 0) {
-                            return true;
-                        }
-                        // Autres matériels
-                        return selectedMateriel.some(m => m !== 'Sans matériel' && ex.materiel.includes(m));
-                    });
-                }
-
-                // Tri automatique : Zone puis Type
-                results.sort((a, b) => {
-                    const zoneA = a.zones[0] || '';
-                    const zoneB = b.zones[0] || '';
-                    if (zoneA !== zoneB) {
-                        return zoneA.localeCompare(zoneB, 'fr');
-                    }
-                    const typeA = a.types[0] || '';
-                    const typeB = b.types[0] || '';
-                    return typeA.localeCompare(typeB, 'fr');
-                });
-
-                this.renderExercisesList(results);
-            },
-
-            renderExercisesList(exercises) {
-                const container = document.getElementById('exercises-list');
-                const count = document.getElementById('results-count');
-                
-                count.textContent = exercises.length;
-                
-                // Annonce VoiceOver
+            checkFiltersValidity() {
                 const searchTerm = document.getElementById('search-input').value.trim();
-                const selectedZones = Array.from(document.querySelectorAll('#zones-filters input:checked'));
+                const hasZones = document.querySelectorAll('#zones-filters input:checked').length > 0;
+                const hasTypes = document.querySelectorAll('#types-filters input:checked').length > 0;
+                const hasMateriel = document.querySelectorAll('#materiel-filters input:checked').length > 0;
                 
-                if (searchTerm || selectedZones.length > 0) {
-                    this.showAlert(`${exercises.length} exercice${exercises.length > 1 ? 's' : ''} trouvé${exercises.length > 1 ? 's' : ''}`);
-                }
-
-                if (exercises.length === 0) {
-                    if (!searchTerm && selectedZones.length === 0) {
-                        container.innerHTML = '<div class="empty-state">Utilisez la recherche par mot-clé ou sélectionnez au moins une zone du corps pour afficher des exercices.</div>';
-                    } else {
-                        container.innerHTML = '<div class="empty-state">Aucun exercice ne correspond à vos critères.</div>';
-                    }
-                    return;
-                }
-
-                container.innerHTML = exercises.map(ex => `
-                    <article class="exercise-card" role="listitem">
-                        <h3>${ex.titre}</h3>
-                        <p>${ex.description}</p>
-                        <div style="margin-bottom: 0.75rem;">
-                            ${ex.zones.map(z => `<span class="badge badge-blue">${z}</span>`).join('')}
-                            ${ex.types.map(t => `<span class="badge badge-green">${t}</span>`).join('')}
-                            ${ex.materiel.length > 0 ? ex.materiel.map(m => `<span class="badge badge-purple">${m}</span>`).join('') : ''}
-                        </div>
-                        <div class="exercise-actions">
-                            <button class="btn-primary btn-small" onclick="app.addToProgram(${ex.id})" aria-label="Ajouter ${ex.titre} au programme">
-                                ➕ Ajouter au programme
-                            </button>
-                        </div>
-                    </article>
-                `).join('');
-            },
-
-            addToProgram(exerciseId) {
-                const exercise = this.exercises.find(ex => ex.id === exerciseId);
-                if (!exercise) return;
-
-                if (this.selectedExercises.find(ex => ex.id === exerciseId)) {
-                    this.showAlert('Cet exercice est déjà dans le programme');
-                    return;
-                }
-
-                this.selectedExercises.push({...exercise, consigne: ''});
-                this.updateProgramCount();
-                this.updateProgramView();
+                const alert = document.getElementById('filter-alert');
                 
-                // Annonce avec le nombre total d'exercices
-                const count = this.selectedExercises.length;
-                this.showAlert(`Exercice ajouté. ${count} exercice${count > 1 ? 's' : ''} dans le programme`);
-            },
-
-            removeFromProgram(exerciseId) {
-                this.selectedExercises = this.selectedExercises.filter(ex => ex.id !== exerciseId);
-                this.updateProgramView();
-                this.updateProgramCount();
-                this.showAlert('Exercice retiré du programme');
-            },
-
-            moveUp(index) {
-                if (index === 0) return;
-                const exerciseName = this.selectedExercises[index].titre;
-                [this.selectedExercises[index - 1], this.selectedExercises[index]] = 
-                [this.selectedExercises[index], this.selectedExercises[index - 1]];
-                this.updateProgramView();
-                this.showAlert(`${exerciseName} déplacé vers le haut`);
-            },
-
-            moveDown(index) {
-                if (index === this.selectedExercises.length - 1) return;
-                const exerciseName = this.selectedExercises[index].titre;
-                [this.selectedExercises[index], this.selectedExercises[index + 1]] = 
-                [this.selectedExercises[index + 1], this.selectedExercises[index]];
-                this.updateProgramView();
-                this.showAlert(`${exerciseName} déplacé vers le bas`);
-            },
-
-            updateConsigne(exerciseId, consigne) {
-                const ex = this.selectedExercises.find(e => e.id === exerciseId);
-                if (ex) ex.consigne = consigne;
-            },
-
-            updateProgramCount() {
-                document.getElementById('program-count').textContent = this.selectedExercises.length;
-            },
-
-            updateProgramView() {
-                const container = document.getElementById('selected-exercises');
-                this.updateProgramCount();
-
-                if (this.selectedExercises.length === 0) {
-                    container.innerHTML = '<div class="empty-state">Aucun exercice sélectionné. Ajoutez des exercices depuis la liste ci-dessus.</div>';
-                    return;
-                }
-
-                container.innerHTML = this.selectedExercises.map((ex, i) => `
-                    <article class="program-exercise" role="listitem" aria-labelledby="exercise-title-${ex.id}">
-                        <h4 id="exercise-title-${ex.id}">Exercice ${i + 1} : ${ex.titre}</h4>
-                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">${ex.description}</p>
-                        
-                        <div style="font-weight: 600; font-size: 0.875rem; margin-bottom: 0.5rem;">Actions :</div>
-                        <div class="program-controls" role="group" aria-label="Actions pour ${ex.titre}">
-                            <button class="btn-secondary btn-small" onclick="app.moveUp(${i})" ${i === 0 ? 'disabled' : ''} aria-label="Déplacer ${ex.titre} vers le haut dans la liste">↑ Haut</button>
-                            <button class="btn-secondary btn-small" onclick="app.moveDown(${i})" ${i === this.selectedExercises.length - 1 ? 'disabled' : ''} aria-label="Déplacer ${ex.titre} vers le bas dans la liste">↓ Bas</button>
-                            <button class="btn-danger btn-small" onclick="app.removeFromProgram(${ex.id})" aria-label="Retirer ${ex.titre} du programme">🗑️ Retirer</button>
-                        </div>
-                        
-                        <label for="consigne-${ex.id}" style="display: block; margin-top: 1rem; font-size: 0.875rem; font-weight: 600;">
-                            Consignes spécifiques pour cet exercice (facultatif) :
-                        </label>
-                        <input 
-                            type="text" 
-                            id="consigne-${ex.id}"
-                            value="${ex.consigne || ''}"
-                            placeholder="Ex: 3 séries de 10 répétitions, 2 fois par jour"
-                            oninput="app.updateConsigne(${ex.id}, this.value)"
-                            onkeydown="if(event.key === 'Enter') event.preventDefault()"
-                            style="margin-top: 0.5rem;"
-                            aria-label="Consignes personnalisées pour l'exercice ${ex.titre}"
-                        >
-                        <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e5e7eb;">
-                    </article>
-                `).join('');
-            },
-
-            generateDocument() {
-                if (this.selectedExercises.length === 0) {
-                    this.showAlert('Veuillez sélectionner au moins un exercice');
-                    return;
-                }
-
-                const patientName = document.getElementById('patient-name').value.trim();
-                const comment = document.getElementById('general-comment').value.trim();
-                const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-                const greeting = patientName ? `${patientName},` : 'Madame, Monsieur,';
-
-                const documentHTML = `
-                    <div class="document-header">
-                        <img src="LogoMPR.jpg" alt="Logo HNIA Percy">
-                        <div class="document-header-text">
-                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem;">HÔPITAL NATIONAL D'INSTRUCTION DES ARMÉES PERCY</div>
-                            <div>Service de Médecine Physique et Réadaptation</div>
-                        </div>
-                    </div>
-
-                    <p style="font-style: italic; margin-bottom: 1.5rem;">${today}</p>
-
-                    <p style="margin-bottom: 1rem;"><strong>${greeting}</strong></p>
-
-                    <p style="margin-bottom: 1rem;">Vous avez récemment bénéficié de soins en masso-kinésithérapie dans notre service de médecine physique et réadaptation. Afin de poursuivre vos efforts, voici un programme d'exercices personnalisé.</p>
-
-                    ${comment ? `<p style="margin-bottom: 1rem;">${comment}</p>` : ''}
-
-                    <div class="document-signature">
-                        <p style="font-weight: 600;">Bonne rééducation !</p>
-                        <p style="font-weight: 600;">Cécile HENRIET</p>
-                        <p style="font-size: 0.875rem;">01 41 46 66 46 - fiches.kine.mpr.percy@gmail.com</p>
-                    </div>
-
-                    <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">Vos exercices</h2>
-
-                    ${this.selectedExercises.map((ex, i) => `
-                        <div class="document-exercise">
-                            <h3>${i + 1}. ${ex.titre}</h3>
-                            <p style="margin-bottom: 0.5rem;">${ex.description}</p>
-                            ${ex.consigne ? `<p style="font-style: italic; margin-bottom: 0.75rem;"><strong>Consignes :</strong> ${ex.consigne}</p>` : ''}
-                            ${ex.photos.length > 0 ? `
-                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                                    ${ex.photos.map(p => `
-                                        <figure>
-                                            <img src="${p.url}" alt="${p.alt}" style="width: 100%; border: 1px solid #e5e7eb; border-radius: 0.375rem;">
-                                            <figcaption style="font-size: 0.75rem; font-style: italic; margin-top: 0.25rem;">${p.alt}</figcaption>
-                                        </figure>
-                                    `).join('')}
-                                </div>
-                            ` : ''}
-                        </div>
-                    `).join('')}
-                `;
-
-                document.getElementById('document-output').innerHTML = documentHTML;
-                this.showView('document');
-                this.showAlert('Document généré avec succès');
-            },
-
-            addNewType() {
-                const input = document.getElementById('new-type-input');
-                const newType = input.value.trim();
-                
-                if (!newType) {
-                    this.showAlert('Veuillez entrer un nom de type');
-                    return;
-                }
-                
-                if (this.types.includes(newType)) {
-                    this.showAlert('Ce type existe déjà');
-                    input.value = '';
-                    return;
-                }
-                
-                this.types.push(newType);
-                this.types.sort((a, b) => a.localeCompare(b, 'fr'));
-                this.renderFilters();
-                this.renderModalFilters();
-                input.value = '';
-                this.showAlert(`Type "${newType}" ajouté`);
-            },
-
-            addNewMateriel() {
-                const input = document.getElementById('new-materiel-input');
-                const newMateriel = input.value.trim();
-                
-                if (!newMateriel) {
-                    this.showAlert('Veuillez entrer un nom de matériel');
-                    return;
-                }
-                
-                if (this.materiel.includes(newMateriel)) {
-                    this.showAlert('Ce matériel existe déjà');
-                    input.value = '';
-                    return;
-                }
-                
-                this.materiel.push(newMateriel);
-                this.materiel.sort((a, b) => a.localeCompare(b, 'fr'));
-                this.renderFilters();
-                this.renderModalFilters();
-                input.value = '';
-                this.showAlert(`Matériel "${newMateriel}" ajouté`);
-            },
-
-            resetFilters() {
-                // Réinitialiser la barre de recherche
-                document.getElementById('search-input').value = '';
-                
-                // Décocher toutes les zones
-                document.querySelectorAll('#zones-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
-                
-                // Décocher tous les types
-                document.querySelectorAll('#types-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
-                
-                // Décocher tout le matériel
-                document.querySelectorAll('#materiel-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
-                
-                // Remettre la logique en OU par défaut
-                document.querySelector('input[name="logic"][value="OR"]').checked = true;
-                
-                // Réafficher aucun exercice
-                this.filterExercises();
-            },
-
-            showView(viewName) {
-                const previousView = this.currentView;
-                this.currentView = viewName;
-                
-                document.getElementById('view-search').classList.add('hidden');
-                document.getElementById('view-admin').classList.add('hidden');
-                document.getElementById('view-document').classList.add('hidden');
-
-                if (viewName === 'search') {
-                    document.getElementById('view-search').classList.remove('hidden');
-                    this.updateProgramView();
-                    // Si on revient de la vue document, réinitialiser les filtres
-                    if (previousView === 'document') {
-                        this.resetFilters();
-                    }
-                } else if (viewName === 'admin') {
-                    document.getElementById('view-admin').classList.remove('hidden');
-                    this.updateAdminList();
-                } else if (viewName === 'document') {
-                    document.getElementById('view-document').classList.remove('hidden');
-                }
-            },
-
-            filterAdminExercises() {
-                const searchTerm = document.getElementById('admin-search').value.toLowerCase();
-                let results = this.exercises;
-
-                if (searchTerm) {
-                    results = results.filter(ex => 
-                        ex.titre.toLowerCase().includes(searchTerm) ||
-                        ex.description.toLowerCase().includes(searchTerm)
-                    );
-                }
-
-                this.renderAdminList(results);
-            },
-
-            updateAdminList() {
-                this.renderAdminList(this.exercises);
-            },
-
-            renderAdminList(exercises) {
-                const container = document.getElementById('admin-exercises-list');
-                const count = document.getElementById('admin-count');
-                
-                count.textContent = exercises.length;
-
-                if (exercises.length === 0) {
-                    container.innerHTML = '<div class="empty-state">Aucun exercice trouvé.</div>';
-                    return;
-                }
-
-                container.innerHTML = exercises.map(ex => `
-                    <article class="exercise-card" role="listitem" aria-labelledby="admin-ex-${ex.id}">
-                        <h3 id="admin-ex-${ex.id}">${ex.titre}</h3>
-                        <p>${ex.description}</p>
-                        <div style="margin-bottom: 0.75rem;">
-                            ${ex.zones.map(z => `<span class="badge badge-blue">${z}</span>`).join('')}
-                            ${ex.types.map(t => `<span class="badge badge-green">${t}</span>`).join('')}
-                        </div>
-                        <div class="exercise-actions" role="group" aria-label="Actions pour ${ex.titre}">
-                            <button class="btn-primary btn-small" onclick="app.editExercise(${ex.id})" aria-label="Modifier l'exercice ${ex.titre}">
-                                ✏️ Modifier
-                            </button>
-                            <button class="btn-danger btn-small" onclick="app.deleteExercise(${ex.id})" aria-label="Supprimer l'exercice ${ex.titre}">
-                                🗑️ Supprimer
-                            </button>
-                        </div>
-                    </article>
-                `).join('');
-            },
-
-            openExerciseModal(exerciseId = null) {
-                this.editingExercise = exerciseId;
-                this.currentPhotos = [];
-
-                const modal = document.getElementById('exercise-modal');
-                const title = document.getElementById('modal-title');
-                const form = document.getElementById('exercise-form');
-
-                form.reset();
-                
-                // Vider les champs d'ajout de type et matériel
-                document.getElementById('new-type-input').value = '';
-                document.getElementById('new-materiel-input').value = '';
-                
-                if (exerciseId) {
-                    const ex = this.exercises.find(e => e.id === exerciseId);
-                    if (ex) {
-                        title.textContent = 'Modifier un exercice';
-                        document.getElementById('ex-titre').value = ex.titre;
-                        document.getElementById('ex-description').value = ex.description;
-                        
-                        // Cocher les zones
-                        document.querySelectorAll('#modal-zones input').forEach(cb => {
-                            cb.checked = ex.zones.includes(cb.value);
-                        });
-                        
-                        // Cocher les types
-                        document.querySelectorAll('#modal-types input').forEach(cb => {
-                            cb.checked = ex.types.includes(cb.value);
-                        });
-                        
-                        // Cocher le matériel
-                        document.querySelectorAll('#modal-materiel input').forEach(cb => {
-                            cb.checked = ex.materiel.includes(cb.value);
-                        });
-
-                        this.currentPhotos = [...ex.photos];
-                        this.renderPhotosList();
-                    }
+                // Afficher alerte si Types ou Matériel cochés SANS zone ET sans recherche
+                if ((hasTypes || hasMateriel) && !hasZones && !searchTerm) {
+                    alert.classList.remove('hidden');
                 } else {
-                    title.textContent = 'Ajouter un exercice';
+                    alert.classList.add('hidden');
                 }
-
-                modal.classList.add('active');
-            },
-
-            closeExerciseModal() {
-                document.getElementById('exercise-modal').classList.remove('active');
-                this.editingExercise = null;
-                this.currentPhotos = [];
-            },
-
-            addPhoto() {
-                const url = document.getElementById('photo-url').value.trim();
-                if (!url) {
-                    this.showAlert('Veuillez entrer une URL');
-                    return;
-                }
-
-                this.currentPhotos.push({
-                    url: url,
-                    alt: `Photo ${this.currentPhotos.length + 1}`
-                });
-
-                document.getElementById('photo-url').value = '';
-                this.renderPhotosList();
-            },
-
-            removePhoto(index) {
-                this.currentPhotos.splice(index, 1);
-                this.renderPhotosList();
-            },
-
-            renderPhotosList() {
-                const container = document.getElementById('photos-list');
+            },  
+  
+            filterExercises() {
+                // Vérifier validité des filtres pour afficher alerte si besoin
+                this.checkFiltersValidity();
                 
-                if (this.currentPhotos.length === 0) {
-                    container.innerHTML = '<div style="padding: 1rem; text-align: center; color: #6b7280;">Aucune photo ajoutée</div>';
-                    return;
-                }
-
-                container.innerHTML = this.currentPhotos.map((photo, i) => `
-                    <div class="photo-item">
-                        <span title="${photo.url}">${photo.url.substring(0, 40)}${photo.url.length > 40 ? '...' : ''}</span>
-                        <button type="button" class="btn-danger btn-small" onclick="app.removePhoto(${i})" aria-label="Supprimer cette photo">×</button>
+                const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();  
+                  
+                const selectedZones = Array.from(document.querySelectorAll('#zones-filters input:checked')).map(cb => cb.value);  
+                const selectedTypes = Array.from(document.querySelectorAll('#types-filters input:checked')).map(cb => cb.value);  
+                const selectedMateriel = Array.from(document.querySelectorAll('#materiel-filters input:checked')).map(cb => cb.value);  
+  
+                // N'afficher aucun exercice si ni recherche textuelle ni zones sélectionnées  
+                if (!searchTerm && selectedZones.length === 0) {  
+                    this.renderExercisesList([]);  
+                    return;  
+                }  
+  
+                let results = this.exercises;  
+  
+                // Recherche textuelle  
+                if (searchTerm) {  
+                    results = results.filter(ex =>   
+                        ex.titre.toLowerCase().includes(searchTerm) ||  
+                        ex.description.toLowerCase().includes(searchTerm) ||  
+                        ex.zones.some(z => z.toLowerCase().includes(searchTerm)) ||  
+                        ex.types.some(t => t.toLowerCase().includes(searchTerm))  
+                    );  
+                }  
+  
+                // 1er tamis : ZONES (mode OU uniquement)  
+                if (selectedZones.length > 0) {  
+                    results = results.filter(ex => selectedZones.some(z => ex.zones.includes(z)));  
+                }  
+  
+                // 2ème tamis : TYPES (mode OU uniquement)  
+                if (selectedTypes.length > 0) {  
+                    results = results.filter(ex => selectedTypes.some(t => ex.types.includes(t)));  
+                }  
+  
+                // 3ème tamis : MATÉRIEL (mode OU strict)  
+                if (selectedMateriel.length > 0) {  
+                    results = results.filter(ex => {  
+                        // "Sans matériel" = exercices avec materiel vide  
+                        if (selectedMateriel.includes('Sans matériel') && ex.materiel.length === 0) {  
+                            return true;  
+                        }  
+                        // Autres matériels  
+                        return selectedMateriel.some(m => m !== 'Sans matériel' && ex.materiel.includes(m));  
+                    });  
+                }  
+  
+                // Tri automatique : Zone puis Type  
+                results.sort((a, b) => {  
+                    const zoneA = a.zones[0] || '';  
+                    const zoneB = b.zones[0] || '';  
+                    if (zoneA !== zoneB) {  
+                        return zoneA.localeCompare(zoneB, 'fr');  
+                    }  
+                    const typeA = a.types[0] || '';  
+                    const typeB = b.types[0] || '';  
+                    return typeA.localeCompare(typeB, 'fr');  
+                });  
+  
+                this.renderExercisesList(results);  
+            },  
+  
+            renderExercisesList(exercises) {  
+                const container = document.getElementById('exercises-list');  
+                const count = document.getElementById('results-count');  
+                  
+                count.textContent = exercises.length;  
+                  
+                // Annonce VoiceOver  
+                const searchTerm = document.getElementById('search-input').value.trim();  
+                const selectedZones = Array.from(document.querySelectorAll('#zones-filters input:checked'));  
+                  
+                if (searchTerm || selectedZones.length > 0) {  
+                    this.showAlert(`${exercises.length} exercice${exercises.length > 1 ? 's' : ''} trouvé${exercises.length > 1 ? 's' : ''}`);  
+                }  
+  
+                if (exercises.length === 0) {  
+                    if (!searchTerm && selectedZones.length === 0) {  
+                        container.innerHTML = '<div class="empty-state">Utilisez la recherche par mot-clé ou sélectionnez au moins une zone du corps pour afficher des exercices.</div>';  
+                    } else {  
+                        container.innerHTML = '<div class="empty-state">Aucun exercice ne correspond à vos critères.</div>';  
+                    }  
+                    return;  
+                }  
+  
+                container.innerHTML = exercises.map(ex => `  
+                    <article class="exercise-card" role="listitem">  
+                        <h3>${ex.titre}</h3>  
+                        <p>${ex.description}</p>  
+                        <div style="margin-bottom: 0.75rem;">  
+                            ${ex.zones.map(z => `<span class="badge badge-blue">${z}</span>`).join('')}  
+                            ${ex.types.map(t => `<span class="badge badge-green">${t}</span>`).join('')}  
+                            ${ex.materiel.length > 0 ? ex.materiel.map(m => `<span class="badge badge-purple">${m}</span>`).join('') : ''}  
+                        </div>  
+                        <div class="exercise-actions">  
+                            <button class="btn-primary btn-small" onclick="app.addToProgram(${ex.id})" aria-label="Ajouter ${ex.titre} au programme">  
+                                ➕ Ajouter au programme  
+                            </button>  
+                        </div>  
+                    </article>  
+                `).join('');  
+            },  
+  
+            addToProgram(exerciseId) {  
+                const exercise = this.exercises.find(ex => ex.id === exerciseId);  
+                if (!exercise) return;  
+  
+                // Vérifier si déjà ajouté  
+                if (this.selectedExercises.some(ex => ex.id === exerciseId)) {  
+                    this.showAlert('Cet exercice est déjà dans le programme');  
+                    return;  
+                }  
+  
+                this.selectedExercises.push({  
+                    ...exercise,  
+                    consigne: ''  
+                });  
+  
+                this.updateProgramCount();  
+                this.renderSelectedExercises();  
+                  
+                // Annonce avec le nombre total d'exercices  
+                const count = this.selectedExercises.length;  
+                this.showAlert(`Exercice ajouté. ${count} exercice${count > 1 ? 's' : ''} dans le programme`);  
+            },  
+  
+            removeFromProgram(exerciseId) {  
+                this.selectedExercises = this.selectedExercises.filter(ex => ex.id !== exerciseId);  
+                this.updateProgramCount();  
+                this.renderSelectedExercises();  
+                this.showAlert('Exercice retiré du programme');  
+            },  
+  
+            moveUp(index) {  
+                if (index === 0) return;  
+                const exerciseName = this.selectedExercises[index].titre;  
+                [this.selectedExercises[index - 1], this.selectedExercises[index]] =   
+                [this.selectedExercises[index], this.selectedExercises[index - 1]];  
+                this.renderSelectedExercises();  
+                this.showAlert(`${exerciseName} déplacé vers le haut`);  
+            },  
+  
+            moveDown(index) {  
+                if (index === this.selectedExercises.length - 1) return;  
+                const exerciseName = this.selectedExercises[index].titre;  
+                [this.selectedExercises[index], this.selectedExercises[index + 1]] =   
+                [this.selectedExercises[index + 1], this.selectedExercises[index]];  
+                this.renderSelectedExercises();  
+                this.showAlert(`${exerciseName} déplacé vers le bas`);  
+            },  
+  
+            updateProgramCount() {  
+                document.getElementById('program-count').textContent = this.selectedExercises.length;  
+            },  
+  
+            renderSelectedExercises() {  
+                const container = document.getElementById('selected-exercises');  
+                this.updateProgramCount();  
+  
+                if (this.selectedExercises.length === 0) {  
+                    container.innerHTML = '<div class="empty-state">Aucun exercice sélectionné. Ajoutez des exercices depuis la liste ci-dessus.</div>';  
+                    return;  
+                }  
+  
+                container.innerHTML = this.selectedExercises.map((ex, i) => `  
+                    <article class="program-exercise" role="listitem" aria-labelledby="exercise-title-${ex.id}">  
+                        <h4 id="exercise-title-${ex.id}">Exercice ${i + 1} : ${ex.titre}</h4>  
+                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">${ex.description}</p>  
+                          
+                        <div style="font-weight: 600; font-size: 0.875rem; margin-bottom: 0.5rem;">Actions :</div>  
+                        <div class="program-controls" role="group" aria-label="Actions pour ${ex.titre}">  
+                            <button class="btn-secondary btn-small" onclick="app.moveUp(${i})" ${i === 0 ? 'disabled' : ''} aria-label="Déplacer ${ex.titre} vers le haut dans la liste">↑ Haut</button>  
+                            <button class="btn-secondary btn-small" onclick="app.moveDown(${i})" ${i === this.selectedExercises.length - 1 ? 'disabled' : ''} aria-label="Déplacer ${ex.titre} vers le bas dans la liste">↓ Bas</button>  
+                            <button class="btn-danger btn-small" onclick="app.removeFromProgram(${ex.id})" aria-label="Retirer ${ex.titre} du programme">🗑️ Retirer</button>  
+                        </div>  
+                          
+                        <label for="consigne-${ex.id}" style="display: block; margin-top: 1rem; font-size: 0.875rem; font-weight: 600;">  
+                            Consignes spécifiques pour cet exercice (facultatif) :  
+                        </label>  
+                        <input   
+                            type="text"   
+                            id="consigne-${ex.id}"  
+                            value="${ex.consigne || ''}"  
+                            placeholder="Ex: 3 séries de 10 répétitions, 2 fois par jour"  
+                            oninput="app.updateConsigne(${ex.id}, this.value)"  
+                            onkeydown="if(event.key === 'Enter') event.preventDefault()"  
+                            style="margin-top: 0.5rem;"  
+                            aria-label="Consignes personnalisées pour l'exercice ${ex.titre}"  
+                        >  
+                        <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e5e7eb;">  
+                    </article>  
+                `).join('');  
+            },  
+  
+            // Alias pour compatibilité  
+            updateProgramView() {  
+                this.renderSelectedExercises();  
+            },  
+  
+            updateConsigne(exerciseId, value) {  
+                const ex = this.selectedExercises.find(e => e.id === exerciseId);  
+                if (ex) {  
+                    ex.consigne = value;  
+                }  
+            },  
+  
+            generateDocument() {  
+                if (this.selectedExercises.length === 0) {  
+                    this.showAlert('Veuillez sélectionner au moins un exercice');  
+                    return;  
+                }  
+  
+                const patientName = document.getElementById('patient-name').value.trim();  
+                const customMessage = document.getElementById('custom-message').value.trim();  
+  
+                const date = new Date().toLocaleDateString('fr-FR', {  
+                    weekday: 'long',  
+                    year: 'numeric',  
+                    month: 'long',  
+                    day: 'numeric'  
+                });  
+  
+                const greeting = patientName ? `${patientName},` : 'Madame, Monsieur,';  
+  
+                let html = `  
+                    <div class="document-header">  
+                        <img src="https://i.postimg.cc/2jHfghbR/Logo_SSA.png" alt="Logo Service de Santé des Armées">  
+                        <img src="https://i.postimg.cc/MTR20ftk/Logo_MPR.jpg" alt="Logo Service MPR">
                     </div>
-                `).join('');
-            },
 
-            saveExercise(event) {
-                event.preventDefault();
-
-                const titre = document.getElementById('ex-titre').value.trim();
-                const description = document.getElementById('ex-description').value.trim();
-
-                const zones = Array.from(document.querySelectorAll('#modal-zones input:checked')).map(cb => cb.value);
-                const types = Array.from(document.querySelectorAll('#modal-types input:checked')).map(cb => cb.value);
-                const materiel = Array.from(document.querySelectorAll('#modal-materiel input:checked')).map(cb => cb.value);
-
-                if (zones.length === 0) {
-                    this.showAlert('Veuillez sélectionner au moins une zone');
-                    return;
-                }
-
-                if (types.length === 0) {
-                    this.showAlert('Veuillez sélectionner au moins un type');
-                    return;
-                }
-
-                if (this.currentPhotos.length === 0) {
-                    this.showAlert('Veuillez ajouter au moins une photo');
-                    return;
-                }
-
-                const exerciseData = {
-                    titre,
-                    description,
-                    zones,
-                    types,
-                    materiel,
-                    photos: this.currentPhotos
-                };
-
-                if (this.editingExercise) {
-                    // Modification : garder la position dans la liste
-                    const index = this.exercises.findIndex(ex => ex.id === this.editingExercise);
-                    if (index !== -1) {
-                        this.exercises[index] = { ...exerciseData, id: this.editingExercise };
-                    }
-                    this.showAlert('Exercice modifié avec succès');
-                } else {
-                    // Ajout : ajouter à la fin
-                    const newId = Math.max(...this.exercises.map(ex => ex.id), 0) + 1;
-                    this.exercises.push({ ...exerciseData, id: newId });
-                    this.showAlert('Exercice ajouté avec succès');
-                }
-
-                this.closeExerciseModal();
-                this.filterExercises();
-                this.updateAdminList();
-            },
-
-            editExercise(exerciseId) {
-                this.openExerciseModal(exerciseId);
-            },
-
-            deleteExercise(exerciseId) {
-                const ex = this.exercises.find(e => e.id === exerciseId);
-                if (!ex) return;
-
-                if (confirm(`Êtes-vous sûr de vouloir supprimer "${ex.titre}" ?`)) {
-                    this.exercises = this.exercises.filter(e => e.id !== exerciseId);
-                    this.selectedExercises = this.selectedExercises.filter(e => e.id !== exerciseId);
-                    this.updateAdminList();
-                    this.filterExercises();
-                    this.updateProgramCount();
-                    this.showAlert('Exercice supprimé');
-                }
-            },
-
-            showAlert(message) {
-                const container = document.getElementById('alert-container');
-                const alert = document.createElement('div');
-                alert.className = 'alert';
-                alert.textContent = message;
-                
-                container.appendChild(alert);
-
-                setTimeout(() => {
-                    alert.remove();
-                }, 3000);
-            },
-
-            handleKeyboardShortcuts(event) {
-                // Cmd (Mac) ou Ctrl (Windows/Linux)
-                const isCmdOrCtrl = event.metaKey || event.ctrlKey;
-                
-                if (!isCmdOrCtrl) return;
-
-                // Cmd/Ctrl + F : Recherche
-                if (event.key === 'f' || event.key === 'F') {
-                    event.preventDefault();
-                    this.showView('search');
-                    // Focus sur la barre de recherche
-                    setTimeout(() => {
-                        document.getElementById('search-input').focus();
-                    }, 100);
-                    this.showAlert('Vue Recherche activée');
-                }
-
-                // Cmd/Ctrl + A : Administration
-                if (event.key === 'a' || event.key === 'A') {
-                    event.preventDefault();
-                    this.showView('admin');
-                    this.showAlert('Vue Administration activée');
-                }
-
-                // Échap : Fermer les modals
-                if (event.key === 'Escape') {
-                    const modal = document.getElementById('exercise-modal');
-                    if (modal.classList.contains('active')) {
-                        this.closeExerciseModal();
-                    }
-                }
-            }
-        };
-
-        // Initialiser l'app au chargement
-        document.addEventListener('DOMContentLoaded', () => {
-            app.init();
-            
-            // Ajouter les raccourcis clavier
-            document.addEventListener('keydown', (e) => app.handleKeyboardShortcuts(e));
-        });
-    </script>
-</body>
+                    <div class="document-service-title">
+                        <h2>Service de Médecine Physique et Réadaptation</h2>
+                        <p>HNIA Percy</p>
+                    </div>
+  
+                    <div class="document-date">${date}</div>  
+  
+                    <div class="document-intro">  
+                        <p>${greeting}</p>  
+                        <p>Vous avez récemment bénéficié de soins en masso-kinésithérapie dans notre service de médecine physique et réadaptation. Afin de poursuivre vos efforts, voici un programme d'exercices personnalisé.</p>  
+                        ${customMessage ? `<p>${customMessage}</p>` : ''}  
+                    </div>  
+  
+                    <div class="document-signature">  
+                        <p><strong>Bonne rééducation !</strong></p>  
+                        <p>Cécile HENRIET</p>  
+                        <p>01 41 46 66 46</p>  
+                        <p>fiches.kine.mpr.percy@gmail.com</p>  
+                    </div>  
+  
+                    <h2 style="color: #2563eb; margin-bottom: 1.5rem;">VOS EXERCICES</h2>  
+                `;  
+  
+                this.selectedExercises.forEach((ex, i) => {  
+                    html += `  
+                        <div class="document-exercise">  
+                            <h3>${i + 1}. ${ex.titre}</h3>  
+                            <p><strong>Description :</strong> ${ex.description}</p>  
+                            ${ex.consigne ? `<div class="consignes"><strong>Consignes :</strong> ${ex.consigne}</div>` : ''}  
+                            ${ex.photos.map(photo => `<img src="${photo.url}" alt="${photo.alt}">`).join('')}  
+                        </div>  
+                    `;  
+                });  
+  
+                html += ``;  
+  
+                document.getElementById('document-output').innerHTML = html;  
+                this.showView('document');  
+                this.showAlert('Document généré avec succès');  
+            },  
+  
+            showView(view) {  
+                document.getElementById('view-search').classList.add('hidden');  
+                document.getElementById('view-admin').classList.add('hidden');  
+                document.getElementById('view-document').classList.add('hidden');  
+  
+                if (view === 'search') {  
+                    document.getElementById('view-search').classList.remove('hidden');  
+                } else if (view === 'admin') {  
+                    document.getElementById('view-admin').classList.remove('hidden');  
+                } else if (view === 'document') {  
+                    document.getElementById('view-document').classList.remove('hidden');  
+                }  
+            },  
+  
+            addNewType() {  
+                const input = document.getElementById('new-type-input');  
+                const newType = input.value.trim();  
+                  
+                if (!newType) {  
+                    this.showAlert('Veuillez entrer un type');  
+                    return;  
+                }  
+  
+                if (this.categories.types.includes(newType)) {  
+                    this.showAlert('Ce type existe déjà');  
+                    return;  
+                }  
+  
+                this.categories.types.push(newType);  
+                this.categories.types.sort();  
+                this.renderFilters();  
+                input.value = '';  
+                this.showAlert(`Type "${newType}" ajouté`);  
+            },  
+  
+            addNewMateriel() {  
+                const input = document.getElementById('new-materiel-input');  
+                const newMateriel = input.value.trim();  
+                  
+                if (!newMateriel) {  
+                    this.showAlert('Veuillez entrer du matériel');  
+                    return;  
+                }  
+  
+                if (this.categories.materiel.includes(newMateriel)) {  
+                    this.showAlert('Ce matériel existe déjà');  
+                    return;  
+                }  
+  
+                this.categories.materiel.push(newMateriel);  
+                this.categories.materiel.sort();  
+                this.renderFilters();  
+                input.value = '';  
+                this.showAlert(`Matériel "${newMateriel}" ajouté`);  
+            },  
+  
+            updateAdminList() {  
+                const container = document.getElementById('admin-exercises-list');  
+                const searchTerm = document.getElementById('admin-search').value.toLowerCase();  
+                  
+                let filtered = this.exercises;  
+                if (searchTerm) {  
+                    filtered = filtered.filter(ex =>   
+                        ex.titre.toLowerCase().includes(searchTerm) ||  
+                        ex.description.toLowerCase().includes(searchTerm)  
+                    );  
+                }  
+                  
+                if (filtered.length === 0) {  
+                    container.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">Aucun exercice trouvé.</p>';  
+                    return;  
+                }  
+  
+                container.innerHTML = filtered.map(ex => `  
+                    <article class="exercise-card" aria-labelledby="admin-ex-${ex.id}">  
+                        <h3 id="admin-ex-${ex.id}">${ex.titre}</h3>  
+                        <p>${ex.description}</p>  
+                        <div style="margin-bottom: 0.75rem;">  
+                            ${ex.zones.map(z => `<span class="badge badge-blue">${z}</span>`).join('')}  
+                            ${ex.types.map(t => `<span class="badge badge-green">${t}</span>`).join('')}  
+                        </div>  
+                        <div class="exercise-actions" role="group" aria-label="Actions pour ${ex.titre}">  
+                            <button class="btn-primary btn-small" onclick="app.editExercise(${ex.id})" aria-label="Modifier l'exercice ${ex.titre}">  
+                                ✏️ Modifier  
+                            </button>  
+                            <button class="btn-danger btn-small" onclick="app.deleteExercise(${ex.id})" aria-label="Supprimer l'exercice ${ex.titre}">  
+                                🗑️ Supprimer  
+                            </button>  
+                        </div>  
+                    </article>  
+                `).join('');  
+            },  
+  
+            openExerciseModal(exerciseId = null) {  
+                this.editingExercise = exerciseId;  
+                this.currentPhotos = [];  
+  
+                const modal = document.getElementById('exercise-modal');  
+                const title = document.getElementById('modal-title');  
+                const form = document.getElementById('exercise-form');  
+  
+                form.reset();  
+                  
+                // Vider les champs d'ajout de type et matériel  
+                document.getElementById('new-type-input').value = '';  
+                document.getElementById('new-materiel-input').value = '';  
+                  
+                if (exerciseId) {  
+                    const ex = this.exercises.find(e => e.id === exerciseId);  
+                    if (ex) {  
+                        title.textContent = 'Modifier un exercice';  
+                        document.getElementById('ex-titre').value = ex.titre;  
+                        document.getElementById('ex-description').value = ex.description;  
+                          
+                        // Cocher les zones  
+                        document.querySelectorAll('#modal-zones input').forEach(cb => {  
+                            cb.checked = ex.zones.includes(cb.value);  
+                        });  
+                          
+                        // Cocher les types  
+                        document.querySelectorAll('#modal-types input').forEach(cb => {  
+                            cb.checked = ex.types.includes(cb.value);  
+                        });  
+                          
+                        // Cocher le matériel  
+                        document.querySelectorAll('#modal-materiel input').forEach(cb => {  
+                            cb.checked = ex.materiel.includes(cb.value);  
+                        });  
+  
+                        this.currentPhotos = [...ex.photos];  
+                        this.renderPhotosList();  
+                    }  
+                } else {  
+                    title.textContent = 'Ajouter un exercice';  
+                }  
+  
+                modal.classList.add('active');  
+            },  
+  
+            closeExerciseModal() {  
+                document.getElementById('exercise-modal').classList.remove('active');  
+                this.editingExercise = null;  
+                this.currentPhotos = [];  
+            },  
+  
+            addPhoto() {  
+                const url = document.getElementById('photo-url').value.trim();  
+                if (!url) {  
+                    this.showAlert('Veuillez entrer une URL');  
+                    return;  
+                }  
+  
+                this.currentPhotos.push({  
+                    url: url,  
+                    alt: `Photo ${this.currentPhotos.length + 1}`  
+                });  
+  
+                document.getElementById('photo-url').value = '';  
+                this.renderPhotosList();  
+            },  
+  
+            removePhoto(index) {  
+                this.currentPhotos.splice(index, 1);  
+                this.renderPhotosList();  
+            },  
+  
+            renderPhotosList() {  
+                const container = document.getElementById('photos-list');  
+                  
+                if (this.currentPhotos.length === 0) {  
+                    container.innerHTML = '<div style="padding: 1rem; text-align: center; color: #6b7280;">Aucune photo ajoutée</div>';  
+                    return;  
+                }  
+  
+                container.innerHTML = this.currentPhotos.map((photo, i) => `  
+                    <div class="photo-item">  
+                        <span title="${photo.url}">${photo.url.substring(0, 40)}${photo.url.length > 40 ? '...' : ''}</span>  
+                        <button type="button" class="btn-danger btn-small" onclick="app.removePhoto(${i})" aria-label="Supprimer cette photo">×</button>  
+                    </div>  
+                `).join('');  
+            },  
+  
+            saveExercise(event) {  
+                event.preventDefault();  
+  
+                const titre = document.getElementById('ex-titre').value.trim();  
+                const description = document.getElementById('ex-description').value.trim();  
+  
+                const zones = Array.from(document.querySelectorAll('#modal-zones input:checked')).map(cb => cb.value);  
+                const types = Array.from(document.querySelectorAll('#modal-types input:checked')).map(cb => cb.value);  
+                const materiel = Array.from(document.querySelectorAll('#modal-materiel input:checked')).map(cb => cb.value);  
+  
+                if (zones.length === 0) {  
+                    this.showAlert('Veuillez sélectionner au moins une zone');  
+                    return;  
+                }  
+  
+                if (types.length === 0) {  
+                    this.showAlert('Veuillez sélectionner au moins un type');  
+                    return;  
+                }  
+  
+                if (this.currentPhotos.length === 0) {  
+                    this.showAlert('Veuillez ajouter au moins une photo');  
+                    return;  
+                }  
+  
+                const exerciseData = {  
+                    titre,  
+                    description,  
+                    zones,  
+                    types,  
+                    materiel,  
+                    photos: this.currentPhotos  
+                };  
+  
+                if (this.editingExercise) {  
+                    // Modification : garder la position dans la liste  
+                    const index = this.exercises.findIndex(ex => ex.id === this.editingExercise);  
+                    if (index !== -1) {  
+                        this.exercises[index] = { ...exerciseData, id: this.editingExercise };  
+                    }  
+                    this.showAlert('Exercice modifié avec succès');  
+                } else {  
+                    // Ajout : ajouter à la fin  
+                    const newId = Math.max(...this.exercises.map(ex => ex.id), 0) + 1;  
+                    this.exercises.push({ ...exerciseData, id: newId });  
+                    this.showAlert('Exercice ajouté avec succès');  
+                }  
+  
+                this.closeExerciseModal();  
+                this.filterExercises();  
+                this.updateAdminList();  
+            },  
+  
+            editExercise(exerciseId) {  
+                this.openExerciseModal(exerciseId);  
+            },  
+  
+            deleteExercise(exerciseId) {  
+                const ex = this.exercises.find(e => e.id === exerciseId);  
+                if (!ex) return;  
+  
+                if (confirm(`Êtes-vous sûr de vouloir supprimer "${ex.titre}" ?`)) {  
+                    this.exercises = this.exercises.filter(e => e.id !== exerciseId);  
+                    this.selectedExercises = this.selectedExercises.filter(e => e.id !== exerciseId);  
+                    this.updateAdminList();  
+                    this.filterExercises();  
+                    this.updateProgramCount();  
+                    this.showAlert('Exercice supprimé');  
+                }  
+            },  
+  
+            showAlert(message) {  
+                const container = document.getElementById('alert-container');  
+                const alert = document.createElement('div');  
+                alert.className = 'alert';  
+                alert.textContent = message;  
+                  
+                container.appendChild(alert);  
+  
+                setTimeout(() => {  
+                    alert.remove();  
+                }, 3000);  
+            },  
+  
+            handleKeyboardShortcuts(event) {  
+                // Cmd (Mac) ou Ctrl (Windows/Linux)  
+                const isCmdOrCtrl = event.metaKey || event.ctrlKey;  
+                  
+                if (!isCmdOrCtrl) return;  
+  
+                // Cmd/Ctrl + F : Recherche  
+                if (event.key === 'f' || event.key === 'F') {  
+                    event.preventDefault();  
+                    this.showView('search');  
+                    // Focus sur la barre de recherche  
+                    setTimeout(() => {  
+                        document.getElementById('search-input').focus();  
+                    }, 100);  
+                    this.showAlert('Vue Recherche activée');  
+                }  
+  
+                // Cmd/Ctrl + A : Administration  
+                if (event.key === 'a' || event.key === 'A') {  
+                    event.preventDefault();  
+                    this.showView('admin');  
+                    this.showAlert('Vue Administration activée');  
+                }  
+  
+                // Échap : Fermer les modals  
+                if (event.key === 'Escape') {  
+                    const modal = document.getElementById('exercise-modal');  
+                    if (modal.classList.contains('active')) {  
+                        this.closeExerciseModal();  
+                    }  
+                }  
+            }  
+        };  
+  
+        // Initialiser l'app au chargement  
+        document.addEventListener('DOMContentLoaded', () => {  
+            app.init();  
+              
+            // Ajouter les raccourcis clavier  
+            document.addEventListener('keydown', (e) => app.handleKeyboardShortcuts(e));  
+        });  
+    </script>  
+</body>  
 </html>
