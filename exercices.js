@@ -1,33 +1,44 @@
 /**
  * Base de données des exercices de rééducation
  * HNIA Percy - Service de Médecine Physique et Réadaptation
- * 
- * Structure des exercices :
- * - id: identifiant unique (number)
- * - titre: nom de l'exercice (string)
- * - description: instructions détaillées (string)
- * - zones: tableau des zones du corps concernées (string[])
- * - types: tableau des types d'exercice (string[])
- * - materiel: tableau du matériel nécessaire (string[])
- * - photos: tableau d'objets {url, alt} (object[])
  */
 
-/**
- * Catégories disponibles pour le filtrage et la classification
- */
 const categoriesData = {
-    zones: ['Cheville et pied', 'Cervicales', 'Coude', 'Dos', 'Épaule', 'Genou', 'Hanche', 'Lombaires', 'Poignet et main'],
-    types: ['Étirement', 'Renforcement', 'Gainage', 'Mobilité', 'Proprioception', 'Sauts', 'Course'],
-    materiel: ['Sans matériel', 'Appareil de muscu', 'Balnéo', 'Balle', 'Bâton', 'Coussin proprioceptif', 'Élastique', 'Poids', 'Sangle', 'Swiss ball']
+    zones: [
+        "Cheville et pied",
+        "Cervicales",
+        "Coude",
+        "Dos",
+        "Épaule",
+        "Genou",
+        "Hanche",
+        "Lombaires",
+        "Poignet et main"
+    ],
+    types: [
+        "Étirement",
+        "Renforcement",
+        "Gainage",
+        "Mobilité",
+        "Proprioception",
+        "Sauts",
+        "Course"
+    ],
+    materiel: [
+        "Appareil de muscu",
+        "Balnéo",
+        "Balle",
+        "Bâton",
+        "Coussin proprioceptif",
+        "Élastique",
+        "Poids",
+        "Sangle",
+        "Swiss ball"
+    ]
 };
 
-/**
- * Liste complète des exercices
- */
 const exercicesData = [
-    // ============================================
-    // FICHE 1 - ÉTIREMENTS (23 exercices)
-    // ============================================
+
     {
         id: 1,
         titre: "Étirement muscles latéraux du cou",
@@ -292,9 +303,6 @@ const exercicesData = [
         ]
     },
 
-    // ============================================
-    // FICHE 2 - ÉTIREMENTS RACHIS (6 exercices)
-    // ============================================
     {
         id: 24,
         titre: "Étirement cervical en flexion",
@@ -364,9 +372,6 @@ const exercicesData = [
         ]
     },
 
-    // ============================================
-    // FICHE 3 - MOBILITÉS (19 exercices)
-    // ============================================
     {
         id: 30,
         titre: "Mobilité flexion-extension cervicale",
@@ -405,7 +410,7 @@ const exercicesData = [
     {
         id: 33,
         titre: "Mobilité flexion-extension thoracique",
-        description: "Option 1 : Debout pieds décalés du mur, rapprocher le thorax du mur tout en levant le(s) bras. Option 2 : En position assise, aller le plus loin possible vers l'arrière tout en prenant appui sur le dossier.",
+        description: "Option 1 : Debout pieds décalés du mur, rapprocher le thorax du mur tout en levant les bras. Option 2 : En position assise, aller le plus loin possible vers l'arrière tout en prenant appui sur le dossier.",
         zones: ["Dos"],
         types: ["Mobilité"],
         materiel: [],
@@ -422,7 +427,7 @@ const exercicesData = [
         types: ["Mobilité"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/9FVnDn7r/image8.jpg", alt: "Rotation thoraco-lombaire - photo" },
+            { url: "https://i.postimg.cc/9FVnDn7r/image8.jpg", alt: "Rotation thoraco-lombaire" },
             { url: "https://i.postimg.cc/RZhGf5VZ/image9.png", alt: "Rotation thoraco-lombaire" }
         ]
     },
@@ -440,7 +445,7 @@ const exercicesData = [
     {
         id: 36,
         titre: "Mobilité flexion-extension thoraco-lombaires (dos rond - dos creux)",
-        description: "Faire le dos rond en soufflant, pousser au maximum sur les bras et regarder ses genoux, puis le dos creux en inspirant et en regardant en l'air.",
+        description: "Faire le dos rond puis le dos creux de manière contrôlée.",
         zones: ["Dos", "Lombaires"],
         types: ["Mobilité"],
         materiel: [],
@@ -452,81 +457,79 @@ const exercicesData = [
     {
         id: 37,
         titre: "Mobilité extension lombaire",
-        description: "Sur le ventre, redresser le buste en appui sur les avant-bras, pousser dans ses coudes sans que le bassin ne se décolle et sans contracter les fesses.",
+        description: "Sur le ventre, redresser le buste en appui sur les avant-bras sans décoller le bassin.",
         zones: ["Lombaires"],
         types: ["Mobilité"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/Kv647tmQ/image13.png", alt: "Extension lombaire - position 1" },
-            { url: "https://i.postimg.cc/9M0WHfWC/image14.png", alt: "Extension lombaire - position 2" }
+            { url: "https://i.postimg.cc/Kv647tmQ/image13.png", alt: "Extension lombaire" },
+            { url: "https://i.postimg.cc/9M0WHfWC/image14.png", alt: "Extension lombaire 2" }
         ]
     },
     {
         id: 38,
         titre: "Mobilité flexion lombaire",
-        description: "Amener les mains le plus loin possible afin d'étirer au maximum la colonne. Possibilité d'utiliser un swiss ball à faire rouler vers l'avant.",
+        description: "Amener les mains le plus loin possible pour étirer la colonne.",
         zones: ["Lombaires"],
         types: ["Mobilité"],
         materiel: ["Swiss ball"],
         photos: [
             { url: "https://i.postimg.cc/9fF4zCWx/image15.png", alt: "Flexion lombaire" },
-            { url: "https://i.postimg.cc/wT87LhqD/image16.png", alt: "Flexion avec swiss ball" }
+            { url: "https://i.postimg.cc/wT87LhqD/image16.png", alt: "Flexion lombaire swiss ball" }
         ]
     },
     {
         id: 39,
         titre: "Mobilisation de l'épaule et recentrage",
-        description: "Assis, l'avant-bras reposant sur une serviette posée sur une table. Faire glisser le bras d'avant en arrière puis sur le côté. Possible de monter la hauteur de la table. Possible de mettre un élastique qui tracte l'épaule vers l'arrière et le bas. En position assise, le coude reposant sur un swiss ball dégonflé (ou la table) un peu en avant de votre épaule. Écraser le swiss ball avec votre coude tout en abaissant votre épaule.",
+        description: "Mobilisation douce de l'épaule en appui.",
         zones: ["Épaule"],
         types: ["Mobilité"],
         materiel: ["Swiss ball", "Élastique"],
         photos: [
-            { url: "https://i.postimg.cc/3wsHVFb2/image17.png", alt: "Mobilisation épaule - serviette" },
-            { url: "https://i.postimg.cc/DZrRDkXt/image18.png", alt: "Mobilisation épaule - swiss ball" }
+            { url: "https://i.postimg.cc/3wsHVFb2/image17.png", alt: "Mobilisation épaule" },
+            { url: "https://i.postimg.cc/DZrRDkXt/image18.png", alt: "Mobilisation épaule swiss ball" }
         ]
     },
     {
         id: 40,
         titre: "Mobilité épaule avec swiss ball contre le mur",
-        description: "Debout face au mur, faire rouler le swiss ball avec la main de haut en bas puis sur les côtés.",
+        description: "Faire rouler le swiss ball contre le mur avec la main.",
         zones: ["Épaule"],
         types: ["Mobilité"],
         materiel: ["Swiss ball"],
         photos: [
-            { url: "https://i.postimg.cc/fLfgC74W/image19.jpg", alt: "Mobilité avec swiss ball - photo" },
-            { url: "https://i.postimg.cc/NMDpmgTH/image20.png", alt: "Mobilité avec swiss ball" }
+            { url: "https://i.postimg.cc/fLfgC74W/image19.jpg", alt: "Mobilité épaule mur" },
+            { url: "https://i.postimg.cc/NMDpmgTH/image20.png", alt: "Mobilité épaule" }
         ]
     },
     {
         id: 41,
         titre: "Mobilité épaule en position allongée",
-        description: "Assis ou allongé, lever les bras le plus haut possible en contrôlant les épaules en position basse.",
+        description: "Lever les bras en position allongée.",
         zones: ["Épaule"],
         types: ["Mobilité"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/SR5LfjKY/image21.png", alt: "Élévation bras - position 1" },
-            { url: "https://i.postimg.cc/pr9zrxBv/image22.png", alt: "Élévation bras - position 2" },
-            { url: "https://i.postimg.cc/15wMrcDv/image23.png", alt: "Extension thoracique avec élévation" },
-            { url: "https://i.postimg.cc/VsbFzBZ0/image24.png", alt: "Ouverture épaule" }
+            { url: "https://i.postimg.cc/SR5LfjKY/image21.png", alt: "Élévation bras" },
+            { url: "https://i.postimg.cc/pr9zrxBv/image22.png", alt: "Élévation bras 2" }
         ]
     },
     {
         id: 42,
         titre: "Mobilité pendulaire de l'épaule",
-        description: "Assis ou debout, se pencher en avant et laisser le bras tomber vers le bas. Faire des petits mouvements circulaires avec le bras complètement relâché.",
+        description: "Laisser le bras pendre et effectuer des cercles.",
         zones: ["Épaule"],
         types: ["Mobilité"],
         materiel: [],
         photos: [
             { url: "https://i.postimg.cc/cHtf40m9/image25.png", alt: "Pendulaire" },
-            { url: "https://i.postimg.cc/13R6VpBY/image26.png", alt: "Pendulaire - vue de profil" }
+            { url: "https://i.postimg.cc/13R6VpBY/image26.png", alt: "Pendulaire profil" }
         ]
     },
     {
         id: 43,
         titre: "Mobilisation de la scapula",
-        description: "Bras le long du corps, reculer les épaules. Descendre et serrer les omoplates au maximum comme pour les amener vers les poches arrière du pantalon.",
+        description: "Reculer et abaisser les épaules.",
         zones: ["Épaule", "Dos"],
         types: ["Mobilité"],
         materiel: [],
@@ -537,30 +540,30 @@ const exercicesData = [
     {
         id: 44,
         titre: "Mobilité flexion de hanche",
-        description: "Amener le genou vers la poitrine de manière contrôlée.",
+        description: "Amener le genou vers la poitrine.",
         zones: ["Hanche"],
         types: ["Mobilité"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/kXTGZLNx/image28.png", alt: "Flexion de hanche - position 1" },
-            { url: "https://i.postimg.cc/YCJrB7vW/image29.png", alt: "Flexion de hanche - position 2" }
+            { url: "https://i.postimg.cc/kXTGZLNx/image28.png", alt: "Flexion hanche" },
+            { url: "https://i.postimg.cc/YCJrB7vW/image29.png", alt: "Flexion hanche 2" }
         ]
     },
     {
         id: 45,
         titre: "Mobilité rotations de hanche",
-        description: "Mouvements de rotation interne et externe de la hanche.",
+        description: "Rotations internes et externes de la hanche.",
         zones: ["Hanche"],
         types: ["Mobilité"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/xTwh013t/image30.png", alt: "Rotations de hanche" }
+            { url: "https://i.postimg.cc/xTwh013t/image30.png", alt: "Rotations hanche" }
         ]
     },
     {
         id: 46,
         titre: "Mobilité flexion-extension de genou",
-        description: "Plier et tendre le genou de manière contrôlée.",
+        description: "Plier et tendre le genou.",
         zones: ["Genou"],
         types: ["Mobilité"],
         materiel: [],
@@ -576,20 +579,88 @@ const exercicesData = [
         types: ["Mobilité"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/Hn5K5Gpf/image32.png", alt: "Flexion dorsale - position 1" },
-            { url: "https://i.postimg.cc/4dHFkCh9/image33.png", alt: "Flexion dorsale - position 2" }
+            { url: "https://i.postimg.cc/Hn5K5Gpf/image32.png", alt: "Flexion dorsale" },
+            { url: "https://i.postimg.cc/4dHFkCh9/image33.png", alt: "Flexion dorsale 2" }
+        ]
+    },
+
+    {
+        id: 48,
+        titre: "Quadriceps chaise bipodal",
+        description: "Position chaise avec un élastique au-dessus des genoux. Sans douleur ni instabilité et sans sensation de déviation du genou vers l’intérieur.",
+        zones: ["Genou"],
+        types: ["Renforcement"],
+        materiel: ["Élastique"],
+        photos: [
+            { url: "https://i.postimg.cc/m2gHwqh3/img11.jpg", alt: "Quadriceps chaise bipodal" }
         ]
     },
     {
-        id: 48,
-        titre: "Mobilité flexion dorsale de cheville",
-        description: "Ramener la pointe de pied vers soi en position assise ou debout.",
-        zones: ["Cheville et pied"],
-        types: ["Mobilité"],
+        id: 49,
+        titre: "Quadriceps chaise unipodal",
+        description: "Position chaise sur une jambe.",
+        zones: ["Genou"],
+        types: ["Renforcement"],
         materiel: [],
         photos: [
-            { url: "https://i.postimg.cc/Hn5K5Gpf/image32.png", alt: "Flexion dorsale - position 1" },
-            { url: "https://i.postimg.cc/4dHFkCh9/image33.png", alt: "Flexion dorsale - position 2" }
+            { url: "https://i.postimg.cc/yxFSG4c9/img1.jpg", alt: "Quadriceps chaise unipodal" }
+        ]
+    },
+    {
+        id: 50,
+        titre: "Quadriceps squat avec charge",
+        description: "Squat avec charge libre. Possibilité d’ajouter un élastique pour le contrôle de l’axe.",
+        zones: ["Genou"],
+        types: ["Renforcement"],
+        materiel: ["Poids"],
+        photos: [
+            { url: "https://i.postimg.cc/brdB0gt5/img4.jpg", alt: "Squat avec charge" }
+        ]
+    },
+    {
+        id: 51,
+        titre: "Pont fessier",
+        description: "Pieds au sol, décoller le bassin en gardant l’alignement tronc-bassin.",
+        zones: ["Hanche", "Lombaires"],
+        types: ["Renforcement"],
+        materiel: [],
+        photos: [
+            { url: "https://i.postimg.cc/rmHJTkDN/img5.jpg", alt: "Pont fessier" }
+        ]
+    },
+    {
+        id: 52,
+        titre: "Pont fessier unipodal",
+        description: "Un pied au sol, décoller le bassin en maintenant l’horizontalité.",
+        zones: ["Hanche", "Lombaires"],
+        types: ["Renforcement"],
+        materiel: [],
+        photos: [
+            { url: "https://i.postimg.cc/8PSyzTKN/img8.jpg", alt: "Pont fessier unipodal" },
+            { url: "https://i.postimg.cc/28rwf2y6/img14.jpg", alt: "Pont fessier unipodal jambe tendue" }
+        ]
+    },
+    {
+        id: 53,
+        titre: "Moyen fessier battements avec élastique",
+        description: "Battements de jambes avec élastique au-dessus des genoux.",
+        zones: ["Hanche"],
+        types: ["Renforcement"],
+        materiel: ["Élastique"],
+        photos: [
+            { url: "https://i.postimg.cc/RhNv3cVv/img13.jpg", alt: "Moyen fessier élastique" }
+        ]
+    },
+    {
+        id: 54,
+        titre: "Montées sur pointes unipodales",
+        description: "Monter sur la pointe d’un pied en contrôlant la stabilité.",
+        zones: ["Cheville et pied"],
+        types: ["Renforcement"],
+        materiel: [],
+        photos: [
+            { url: "https://i.postimg.cc/MG7HxbXs/img12.jpg", alt: "Montées sur pointes unipodales" }
         ]
     }
+
 ];
