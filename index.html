@@ -6,655 +6,34 @@
     <meta name="apple-mobile-web-app-capable" content="yes">  
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">  
     <link rel="apple-touch-icon" href="https://i.postimg.cc/GpY54myT/POULP-icone.png">
-    <meta name="apple-mobile-web-app-title" content="pOULP">
+    <meta name="apple-mobile-web-app-title" content="POULP">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" sizes="192x192" href="https://i.postimg.cc/GpY54myT/POULP-icone.png">
+    <link rel="icon" sizes="512x512" href="https://i.postimg.cc/GpY54myT/POULP-icone.png">
     <meta name="theme-color" content="#2563eb">
-    <title>Générateur de Programmes de Rééducation</title>  
-    <style>  
-        * { box-sizing: border-box; margin: 0; padding: 0; }  
-          
-        body {  
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;  
-            background: #f3f4f6;  
-            line-height: 1.6;  
-        }  
-          
-        .sr-only {  
-            position: absolute;  
-            width: 1px;  
-            height: 1px;  
-            padding: 0;  
-            margin: -1px;  
-            overflow: hidden;  
-            clip: rect(0, 0, 0, 0);  
-            white-space: nowrap;  
-            border-width: 0;  
-        }  
-          
-        header {  
-            background: #2563eb;  
-            color: white;  
-            padding: 1rem;  
-            position: sticky;  
-            top: 0;  
-            z-index: 100;  
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);  
-        }  
-          
-        .header-content {  
-            display: flex;  
-            align-items: center;  
-            justify-content: space-between;
-            gap: 0.75rem;  
-            margin-bottom: 0.75rem;  
-        }  
-          
-        .header-logo-left {  
-            width: 80px;  
-            height: 50px;  
-            object-fit: contain;
-            flex-shrink: 0;
-        }  
-
-        .header-logo-right {  
-            width: 50px;  
-            height: 50px;  
-            object-fit: contain;
-            flex-shrink: 0;
-        }
-
-        .header-text {
-            flex: 1;
-            text-align: center;
-        }
-          
-        .header-text h1 {  
-            font-size: 1.125rem;  
-            margin-bottom: 0.125rem;  
-        }  
-          
-        .header-text p {  
-            font-size: 0.75rem;  
-            opacity: 0.9;  
-        }  
-          
-        .nav-buttons {  
-            display: flex;  
-            gap: 0.5rem;  
-        }  
-          
-        .nav-buttons button {  
-            flex: 1;  
-            background: white;  
-            color: #2563eb;  
-            border: none;  
-            padding: 0.5rem;  
-            border-radius: 0.375rem;  
-            font-weight: 600;  
-            font-size: 0.875rem;  
-        }  
-          
-        .container {  
-            padding: 1rem;  
-            max-width: 1200px;  
-            margin: 0 auto;  
-        }  
-          
-        .section {  
-            background: white;  
-            border-radius: 0.5rem;  
-            padding: 1rem;  
-            margin-bottom: 1rem;  
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);  
-        }  
-          
-        .section h2 {  
-            font-size: 1.25rem;  
-            margin-bottom: 1rem;  
-            color: #1f2937;  
-        }  
-          
-        .filter-group {  
-            margin-bottom: 1rem;  
-        }  
-          
-        .filter-group label {  
-            display: block;  
-            font-weight: 600;  
-            margin-bottom: 0.5rem;  
-            color: #374151;  
-        }
-
-        .filter-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: #1f2937;
-        }
-
-        .filter-description {
-            font-size: 0.875rem;
-            color: #6b7280;
-            margin-bottom: 0.5rem;
-            font-style: italic;
-        }
-
-        .required-badge {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #dc2626;
-            margin-left: 0.25rem;
-        }
-
-        .optional-badge {
-            font-size: 0.75rem;
-            font-weight: 400;
-            color: #6b7280;
-            margin-left: 0.25rem;
-            font-style: italic;
-        }
-
-        .filter-alert {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            color: #92400e;
-            font-weight: 500;
-        }
-
-        .filter-alert.hidden {
-            display: none;
-        }  
-          
-        input[type="text"], input[type="search"], textarea, select {  
-            width: 100%;  
-            padding: 0.75rem;  
-            border: 1px solid #d1d5db;  
-            border-radius: 0.375rem;  
-            font-size: 1rem;  
-        }  
-          
-        .checkbox-group {  
-            display: grid;  
-            grid-template-columns: 1fr;  
-            gap: 0.5rem;  
-        }  
-          
-        .checkbox-label {  
-            display: flex;  
-            align-items: center;  
-            padding: 0.5rem;  
-            background: #f9fafb;  
-            border-radius: 0.375rem;  
-        }  
-          
-        .checkbox-label input {  
-            margin-right: 0.5rem;  
-            width: 1.25rem;  
-            height: 1.25rem;  
-        }  
-          
-        .radio-group {  
-            display: flex;  
-            gap: 1rem;  
-            margin: 0.5rem 0;  
-        }  
-          
-        .radio-label {  
-            display: flex;  
-            align-items: center;  
-        }  
-          
-        .radio-label input {  
-            margin-right: 0.5rem;  
-        }  
-          
-        .collapsible-section {  
-            border: 1px solid #e5e7eb;  
-            border-radius: 0.375rem;  
-            margin-bottom: 1rem;  
-        }  
-          
-        .collapsible-header {  
-            display: flex;  
-            justify-content: space-between;  
-            align-items: center;  
-            padding: 0.75rem;  
-            background: #f9fafb;  
-            cursor: pointer;  
-            font-weight: 600;  
-            border-radius: 0.375rem;  
-        }  
-          
-        .collapsible-header:active {  
-            background: #f3f4f6;  
-        }  
-          
-        .collapsible-content {  
-            padding: 0.75rem;  
-            display: none;  
-        }  
-          
-        .collapsible-content.open {  
-            display: block;  
-        }  
-          
-        .chevron {  
-            transition: transform 0.2s;  
-        }  
-          
-        .chevron.open {  
-            transform: rotate(180deg);  
-        }  
-          
-        button {  
-            cursor: pointer;  
-            font-size: 1rem;  
-            transition: all 0.2s;  
-        }  
-          
-        .btn-primary {  
-            background: #2563eb;  
-            color: white;  
-            border: none;  
-            padding: 0.75rem 1.5rem;  
-            border-radius: 0.375rem;  
-            font-weight: 600;  
-            width: 100%;  
-        }  
-          
-        .btn-primary:active {  
-            background: #1d4ed8;  
-        }  
-          
-        .btn-secondary {  
-            background: #6b7280;  
-            color: white;  
-            border: none;  
-            padding: 0.5rem 1rem;  
-            border-radius: 0.375rem;  
-            font-weight: 600;  
-        }  
-          
-        .btn-success {  
-            background: #059669;  
-            color: white;  
-            border: none;  
-            padding: 0.75rem 1.5rem;  
-            border-radius: 0.375rem;  
-            font-weight: 600;  
-            width: 100%;  
-        }  
-          
-        .btn-danger {  
-            background: #dc2626;  
-            color: white;  
-            border: none;  
-            padding: 0.5rem 1rem;  
-            border-radius: 0.375rem;  
-            font-weight: 600;  
-        }  
-          
-        .btn-small {  
-            padding: 0.5rem 0.75rem;  
-            font-size: 0.875rem;  
-        }  
-          
-        .badge {  
-            display: inline-block;  
-            padding: 0.25rem 0.5rem;  
-            border-radius: 0.25rem;  
-            font-size: 0.75rem;  
-            font-weight: 600;  
-            margin-right: 0.25rem;  
-            margin-bottom: 0.25rem;  
-        }  
-          
-        .badge-blue {  
-            background: #dbeafe;  
-            color: #1e40af;  
-        }  
-          
-        .badge-green {  
-            background: #d1fae5;  
-            color: #065f46;  
-        }  
-          
-        .badge-purple {  
-            background: #e9d5ff;  
-            color: #6b21a8;  
-        }  
-          
-        .exercise-card {  
-            background: white;  
-            border: 1px solid #e5e7eb;  
-            border-radius: 0.5rem;  
-            padding: 1rem;  
-            margin-bottom: 1rem;  
-        }  
-          
-        .exercise-card h3 {  
-            font-size: 1.125rem;  
-            margin-bottom: 0.5rem;  
-            color: #1f2937;  
-        }  
-          
-        .exercise-card p {  
-            color: #6b7280;  
-            margin-bottom: 0.75rem;  
-        }  
-          
-        .exercise-card img {  
-            width: 100%;  
-            max-width: 300px;  
-            border-radius: 0.375rem;  
-            margin: 0.5rem 0;  
-        }  
-          
-        .exercise-actions {  
-            display: flex;  
-            gap: 0.5rem;  
-            margin-top: 0.75rem;  
-        }  
-          
-        .empty-state {  
-            text-align: center;  
-            padding: 2rem;  
-            color: #6b7280;  
-        }  
-          
-        .program-item {  
-            background: #f9fafb;  
-            border: 1px solid #e5e7eb;  
-            border-radius: 0.5rem;  
-            padding: 1rem;  
-            margin-bottom: 0.75rem;  
-        }  
-          
-        .program-item h3 {  
-            font-size: 1rem;  
-            margin-bottom: 0.5rem;  
-            color: #1f2937;  
-        }  
-          
-        .program-item p {  
-            font-size: 0.875rem;  
-            color: #6b7280;  
-            margin-bottom: 0.5rem;  
-        }  
-          
-        .program-exercise {  
-            background: #f9fafb;  
-            border: 1px solid #e5e7eb;  
-            border-radius: 0.5rem;  
-            padding: 1rem;  
-            margin-bottom: 0.75rem;  
-        }  
-          
-        .program-exercise h4 {  
-            font-size: 1rem;  
-            margin-bottom: 0.5rem;  
-        }  
-          
-        .program-controls {  
-            display: flex;  
-            gap: 0.5rem;  
-            margin-top: 0.75rem;  
-        }  
-          
-        .hidden {  
-            display: none !important;  
-        }  
-          
-        .alert {  
-            position: fixed;  
-            top: 5rem;  
-            left: 50%;  
-            transform: translateX(-50%);  
-            background: #1f2937;  
-            color: white;  
-            padding: 1rem 1.5rem;  
-            border-radius: 0.5rem;  
-            box-shadow: 0 10px 15px rgba(0,0,0,0.3);  
-            z-index: 1000;  
-            animation: slideDown 0.3s ease;  
-        }  
-          
-        @keyframes slideDown {  
-            from {  
-                opacity: 0;  
-                transform: translateX(-50%) translateY(-1rem);  
-            }  
-            to {  
-                opacity: 1;  
-                transform: translateX(-50%) translateY(0);  
-            }  
-        }  
-          
-        .modal {  
-            display: none;  
-            position: fixed;  
-            top: 0;  
-            left: 0;  
-            right: 0;  
-            bottom: 0;  
-            background: rgba(0, 0, 0, 0.5);  
-            z-index: 200;  
-            overflow-y: auto;  
-            padding: 1rem;  
-        }  
-          
-        .modal.active {  
-            display: flex;  
-            align-items: flex-start;  
-            justify-content: center;  
-        }  
-          
-        .modal-content {  
-            background: white;  
-            border-radius: 0.5rem;  
-            width: 100%;  
-            max-width: 600px;  
-            margin: 2rem auto;  
-        }  
-          
-        .modal-header {  
-            display: flex;  
-            justify-content: space-between;  
-            align-items: center;  
-            padding: 1rem;  
-            border-bottom: 1px solid #e5e7eb;  
-        }  
-          
-        .modal-header h2 {  
-            font-size: 1.25rem;  
-            color: #1f2937;  
-        }  
-          
-        .close-btn {  
-            background: none;  
-            border: none;  
-            font-size: 1.5rem;  
-            color: #6b7280;  
-            cursor: pointer;  
-            padding: 0;  
-            width: 2rem;  
-            height: 2rem;  
-        }  
-          
-        .modal form {  
-            padding: 1rem;  
-        }  
-          
-        .form-group {  
-            margin-bottom: 1rem;  
-        }  
-          
-        .form-group label {  
-            display: block;  
-            font-weight: 600;  
-            margin-bottom: 0.5rem;  
-            color: #374151;  
-        }  
-          
-        .photo-list {  
-            border: 1px solid #e5e7eb;  
-            border-radius: 0.375rem;  
-            margin-top: 0.5rem;  
-            max-height: 200px;  
-            overflow-y: auto;  
-        }  
-          
-        .photo-item {  
-            display: flex;  
-            justify-content: space-between;  
-            align-items: center;  
-            padding: 0.5rem;  
-            border-bottom: 1px solid #e5e7eb;  
-        }  
-          
-        .photo-item:last-child {  
-            border-bottom: none;  
-        }  
-          
-        .photo-item span {  
-            flex: 1;  
-            overflow: hidden;  
-            text-overflow: ellipsis;  
-            white-space: nowrap;  
-            font-size: 0.875rem;  
-        }  
-          
-        @media print {  
-            .no-print {  
-                display: none !important;  
-            }  
-              
-            body {  
-                background: white;  
-            }  
-              
-            .document-content {  
-                margin: 0 !important;  
-                max-width: 100% !important;  
-            }  
-        }  
-          
-        .document-header {  
-            display: flex;  
-            justify-content: space-between;  
-            align-items: center;  
-            margin-bottom: 1rem;
-            padding-bottom: 0;
-        }  
-          
-        .document-header img {  
-            width: 80px;  
-            height: 80px;  
-            object-fit: contain;
-        }  
-
-        .document-service-title {
-            text-align: center;
-            color: #2563eb;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #2563eb;
-        }
-
-        .document-service-title h2 {
-            font-size: 1.125rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .document-service-title p {
-            font-size: 0.875rem;
-        }
-          
-        .document-header .service-info {  
-            text-align: right;  
-            color: #2563eb;  
-        }  
-          
-        .document-header .service-info h2 {  
-            font-size: 1rem;  
-            margin-bottom: 0.25rem;  
-        }  
-          
-        .document-header .service-info p {  
-            font-size: 0.875rem;  
-        }  
-          
-        .document-date {  
-            text-align: right;  
-            color: #6b7280;  
-            margin-bottom: 1.5rem;  
-        }  
-          
-        .document-intro {  
-            margin-bottom: 2rem;  
-            line-height: 1.8;  
-        }  
-          
-        .document-signature {  
-            margin-top: 2rem;  
-            padding-top: 1rem;  
-            border-top: 1px solid #e5e7eb;  
-        }  
-          
-        .document-exercise {  
-            margin-bottom: 2rem;  
-            page-break-inside: avoid;  
-        }  
-          
-        .document-exercise h3 {  
-            color: #2563eb;  
-            font-size: 1.125rem;  
-            margin-bottom: 0.5rem;  
-        }  
-          
-        .document-exercise p {  
-            margin-bottom: 0.5rem;  
-            line-height: 1.6;  
-        }  
-          
-        .document-exercise .consignes {  
-            background: #f3f4f6;  
-            padding: 0.75rem;  
-            border-radius: 0.375rem;  
-            margin: 0.75rem 0;  
-            font-style: italic;  
-        }  
-          
-        .document-exercise img {  
-            max-width: 100%;  
-            height: auto;  
-            margin: 0.5rem 0;  
-            border-radius: 0.375rem;  
-        }  
-    </style>  
+    <title>Générateur de Programmes de Rééducation</title>
+    <link rel="stylesheet" href="styles.css">
 </head>  
 <body>  
     <div id="app">  
         <header role="banner">  
             <div class="header-content">  
-                <img src="https://i.postimg.cc/d0kK4FTd/POULP-mail.png" alt="Logo pOULP" class="header-logo-left">  
-                <div class="header-text">  
+                <img src="https://www.onceuponablind.fr/Images/logos/Poulp_web.png" alt="Logo POULP" class="header-logo-left">  
+                <div class="header-text">
                     <h1>Générateur de Programmes de Rééducation</h1>  
                     <p>Service de Médecine Physique et Réadaptation</p>  
-                </div>  
+                </div>
                 <img src="https://i.postimg.cc/MTR20ftk/Logo_MPR.jpg" alt="Logo MPR Percy" class="header-logo-right">
             </div>  
             <nav class="nav-buttons" aria-label="Navigation principale">  
-                <button onclick="app.showView('search')" aria-label="Aller à la recherche d'exercices">🔍 Recherche</button>  
+                <button onclick="app.showView('search')" aria-label="Aller à la recherche d'exercices">🔍 Recherche</button>
+                <button onclick="app.showView('programs')" aria-label="Aller aux programmes types">📋 Programmes</button>
                 <button onclick="app.showView('admin')" aria-label="Aller à l'administration des exercices">⚙️ Admin</button>  
             </nav>  
         </header>  
-  
+
         <div id="alert-container" role="status" aria-live="polite" aria-atomic="true"></div>  
-  
+
         <main role="main">  
             <!-- Vue Recherche -->  
             <div id="view-search" class="container">  
@@ -663,72 +42,92 @@
                         <strong>Bienvenue !</strong> Voici POULP, le générateur de programme de rééducation. Choisissez des exercices adaptés à votre patient à l'aide du formulaire de recherche, commentez les exercices sélectionnés et générez un fichier PDF prêt à envoyer par e-mail.  
                     </p>  
                 </section>  
-  
+
                 <section class="section" aria-label="Filtres de recherche">  
-                    <h2>Filtres de recherche</h2>  
+                    <h2>Comment chercher vos exercices ?</h2>
+
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1.5rem;">
+                        <strong>Deux méthodes au choix :</strong>
+                    </p>
 
                     <!-- Alerte si filtres invalides -->
                     <div id="filter-alert" role="alert" aria-live="assertive" class="filter-alert hidden">
                         ⚠️ Veuillez d'abord sélectionner au moins une zone du corps
                     </div>
-                      
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
-                        <strong>Recherchez parmi tous les exercices :</strong>  
-                    </p>  
-                      
-                    <div class="filter-group">  
-                        <h3 class="filter-title" id="titre-recherche">Recherche par mot-clé</h3>
-                        <input   
-                            type="search"   
-                            id="search-input"   
-                            placeholder="Titre, description..."  
-                            oninput="app.filterExercises()"  
-                            aria-labelledby="titre-recherche"
-                        >  
-                    </div>  
-  
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem; margin-top: 1rem;">  
-                        <strong>Choisissez une ou plusieurs zones du corps :</strong>  
-                    </p>  
-  
-                    <div class="filter-group">  
-                        <h3 class="filter-title" id="titre-zones">Zones du corps <span class="required-badge">obligatoire*</span></h3>
-                        <p class="filter-description" aria-hidden="true">(obligatoire si pas de recherche)</p>
-                        <div class="checkbox-group" id="zones-filters" role="group" aria-labelledby="titre-zones"></div>  
-                    </div>  
-  
-                    <div class="collapsible-section">  
-                        <div class="collapsible-header" onclick="app.toggleSection('types')" aria-expanded="false" aria-controls="types-content">  
-                            <h3 class="filter-title" id="titre-types" style="margin: 0; font-size: 1rem;">Types d'exercice <span class="optional-badge">facultatif</span></h3>
-                            <span class="chevron" id="chevron-types">▼</span>  
+
+                    <!-- V20.7a - MÉTHODE 1 : Recherche libre -->
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: #1f2937;">
+                            🔍 Méthode 1 : Recherche libre
+                        </h3>
+                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">
+                            Tapez un mot-clé (exemple : "genou", "étirement", "renforcement")
+                        </p>
+                        
+                        <div class="filter-group">  
+                            <label class="filter-title" id="titre-recherche" for="search-input">Recherche par mot-clé</label>
+                            <input   
+                                type="search"   
+                                id="search-input"   
+                                placeholder="Titre, description..."  
+                                oninput="Filters.filterExercises()"  
+                                aria-labelledby="titre-recherche"
+                            >  
+                        </div>
+                    </div>
+
+                    <!-- V20.7a - MÉTHODE 2 : Filtres ciblés -->
+                    <div>
+                        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: #1f2937;">
+                            🎯 Méthode 2 : Filtres ciblés (tamis)
+                        </h3>
+                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">
+                            Affinez par zone du corps, type d'exercice et matériel disponible
+                        </p>
+
+                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">  
+                            <strong>Choisissez une ou plusieurs zones du corps :</strong>  
+                        </p>  
+
+                        <div class="filter-group">  
+                            <label class="filter-title" id="titre-zones">Zones du corps <span class="required-badge">obligatoire*</span></label>
+                            <p class="filter-description" aria-hidden="true">(obligatoire si pas de recherche)</p>
+                            <div class="checkbox-group" id="zones-filter" role="group" aria-labelledby="titre-zones"></div>  
                         </div>  
-                        <div class="collapsible-content" id="types-content">  
-                            <div class="checkbox-group" id="types-filters" role="group" aria-labelledby="titre-types"></div>  
+
+                        <div class="collapsible-section">  
+                            <div class="collapsible-header" onclick="app.toggleCollapsible('types-content')" aria-expanded="false" aria-controls="types-content">  
+                                <h4 class="filter-title" id="titre-types" style="margin: 0; font-size: 1rem;">Types d'exercice <span class="optional-badge">facultatif</span></h4>
+                                <span class="collapsible-icon">▼</span>  
+                            </div>  
+                            <div class="collapsible-content" id="types-content">  
+                                <div class="checkbox-group" id="types-filter" role="group" aria-labelledby="titre-types"></div>  
+                            </div>  
                         </div>  
-                    </div>  
-  
-                    <div class="collapsible-section">  
-                        <div class="collapsible-header" onclick="app.toggleSection('materiel')" aria-expanded="false" aria-controls="materiel-content">  
-                            <h3 class="filter-title" id="titre-materiel" style="margin: 0; font-size: 1rem;">Matériel <span class="optional-badge">facultatif</span></h3>
-                            <span class="chevron" id="chevron-materiel">▼</span>  
-                        </div>  
-                        <div class="collapsible-content" id="materiel-content">  
-                            <div class="checkbox-group" id="materiel-filters" role="group" aria-labelledby="titre-materiel"></div>  
-                        </div>  
+
+                        <div class="collapsible-section">  
+                            <div class="collapsible-header" onclick="app.toggleCollapsible('materiel-content')" aria-expanded="false" aria-controls="materiel-content">  
+                                <h4 class="filter-title" id="titre-materiel" style="margin: 0; font-size: 1rem;">Matériel <span class="optional-badge">facultatif</span></h4>
+                                <span class="collapsible-icon">▼</span>  
+                            </div>  
+                            <div class="collapsible-content" id="materiel-content">  
+                                <div class="checkbox-group" id="materiel-filter" role="group" aria-labelledby="titre-materiel"></div>  
+                            </div>  
+                        </div>
                     </div>  
                 </section>  
-  
+
                 <section class="section" aria-label="Résultats de recherche">  
                     <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
                         <strong>Ajoutez des exercices au programme :</strong>  
                     </p>  
                     <h2>Exercices (<span id="results-count">0</span>)</h2>  
-                    <div id="exercises-list" role="list"></div>  
+                    <div id="results-list" role="list"></div>  
                 </section>  
-  
-                <!-- Section Programme déplacée ici -->  
+
+                <!-- Section Programme -->  
                 <section class="section" aria-label="Programme en cours" id="section-programme">  
-                    <h2 id="titre-programme">Programme en cours (<span id="program-count">0</span>)</h2>  
+                    <h2 id="titre-programme">Programme en cours (<span id="program-count">0</span> exercice<span id="program-plural">s</span>)</h2>  
                       
                     <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">  
                         <strong>Personnalisez, réorganisez et commentez les exercices sélectionnés :</strong>  
@@ -754,7 +153,7 @@
                             onkeydown="if(event.key === 'Enter') event.preventDefault()"  
                         >  
                     </div>  
-  
+
                     <div class="form-group">  
                         <label for="custom-message">Message personnalisé général (facultatif)</label>  
                         <textarea   
@@ -763,12 +162,27 @@
                             placeholder="Recommandations générales pour le patient..."  
                             aria-label="Message personnalisé général pour le patient"  
                         ></textarea>  
-                    </div>  
-  
+                    </div>
+
+                    <div class="form-group">
+                        <label for="program-type-description">Descriptif du programme (facultatif)</label>
+                        <textarea 
+                            id="program-type-description" 
+                            rows="6" 
+                            placeholder="Description du programme : objectifs, fréquence, durée..."
+                            aria-label="Descriptif du programme de rééducation"
+                        ></textarea>
+                        <p style="font-size: 0.75rem; color: #6b7280; margin-top: 0.25rem; font-style: italic;">
+                            Ce texte sera inséré dans le PDF après l'introduction et votre message personnalisé. Il se remplit automatiquement si vous chargez un programme type.
+                        </p>
+                    </div>
+
                     <h3 style="font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.75rem 0;">Exercices du programme</h3>  
                       
-                    <div id="selected-exercises" role="list" aria-labelledby="titre-programme"></div>  
+                    <div id="selected-list" role="list" aria-labelledby="titre-programme"></div>  
                       
+                    <!-- V20.7c - Titre VoiceOver pour génération document -->
+                    <h3 class="sr-only">Génération du document</h3>
                     <h2 id="titre-generation" style="font-size: 1.125rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">  
                         Génération du document PDF  
                     </h2>  
@@ -778,7 +192,7 @@
                       
                     <button   
                         class="btn-success"   
-                        onclick="app.generateDocument()"   
+                        onclick="Document.generateDocument()"   
                         style="margin-top: 0.5rem;"  
                         aria-label="Générer le document PDF du programme"  
                     >  
@@ -786,30 +200,153 @@
                     </button>  
                 </section>  
             </div>  
-  
-            <!-- Vue Admin -->  
+
+            <!-- Vue Programmes types -->
+            <div id="view-programs" class="container hidden">
+                <section class="section" aria-label="Programmes types">
+                    <h2>Programmes types</h2>
+                    
+                    <!-- V20.7a - Introduction concise -->
+                    <p style="line-height: 1.6; margin-bottom: 1rem; color: #374151;">
+                        Gagnez du temps avec des programmes pré-configurés pour des pathologies courantes. 
+                        Chargez un modèle, puis personnalisez-le pour votre patient.
+                    </p>
+                    
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">
+                        <strong>Recherchez un programme :</strong>
+                    </p>
+
+                    <!-- Recherche textuelle -->
+                    <div class="filter-group">
+                        <h3 class="filter-title" id="titre-recherche-prog">Recherche par mot-clé</h3>
+                        <input 
+                            type="search" 
+                            id="program-search-input" 
+                            placeholder="Titre, descriptif, tags..."
+                            oninput="Programs.filterPrograms()"
+                            aria-labelledby="titre-recherche-prog"
+                        >
+                    </div>
+
+                    <!-- Filtres par tags -->
+                    <div class="collapsible-section">
+                        <div class="collapsible-header" onclick="app.toggleCollapsible('program-tags-content')" aria-expanded="false" aria-controls="program-tags-content">
+                            <h3 class="filter-title" style="margin: 0; font-size: 1rem;">Filtres par tags <span class="optional-badge">facultatif</span></h3>
+                            <span class="collapsible-icon">▼</span>
+                        </div>
+                        <div class="collapsible-content" id="program-tags-content">
+                            <div class="filter-group">
+                                <label id="label-localisation">Localisation</label>
+                                <div class="checkbox-group" id="program-filter-localisation" role="group" aria-labelledby="label-localisation"></div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label id="label-pathologie">Pathologie</label>
+                                <div class="checkbox-group" id="program-filter-pathologie" role="group" aria-labelledby="label-pathologie"></div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label id="label-phase">Phase</label>
+                                <div class="checkbox-group" id="program-filter-phase" role="group" aria-labelledby="label-phase"></div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label id="label-objectif">Objectif</label>
+                                <div class="checkbox-group" id="program-filter-objectif" role="group" aria-labelledby="label-objectif"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="font-size: 1rem; font-weight: 600; margin: 1rem 0 0.5rem 0;">
+                        Programmes (<span id="programs-count">0</span>)
+                    </h3>
+                    <div id="programs-list" role="list"></div>
+                </section>
+            </div>
+
+            <!-- Vue Admin - V20.5 avec sous-navigation -->  
             <div id="view-admin" class="container hidden">  
                 <section class="section">  
-                    <h2>Administration des exercices</h2>  
-                      
-                    <button class="btn-primary" onclick="app.openExerciseModal()" style="margin-bottom: 1rem;">  
-                        ➕ Ajouter un exercice  
-                    </button>  
-  
-                    <div class="filter-group">  
-                        <label for="admin-search">Rechercher un exercice</label>  
-                        <input   
-                            type="search"   
-                            id="admin-search"   
-                            placeholder="Titre, description..."  
-                            oninput="app.updateAdminList()"  
-                        >  
-                    </div>  
-  
-                    <div id="admin-exercises-list"></div>  
-                </section>  
+                    <h2>Administration</h2>  
+                    
+                    <!-- Sous-navigation Admin -->
+                    <nav class="admin-tabs" aria-label="Navigation administration">
+                        <button 
+                            id="admin-tab-exercises" 
+                            class="admin-tab active" 
+                            onclick="Admin.showAdminView('exercises')"
+                            aria-label="Administrer les exercices"
+                        >
+                            📝 Exercices
+                        </button>
+                        <button 
+                            id="admin-tab-programs" 
+                            class="admin-tab" 
+                            onclick="Admin.showAdminView('programs')"
+                            aria-label="Administrer les programmes types"
+                        >
+                            📋 Programmes types
+                        </button>
+                    </nav>
+
+                    <!-- Sous-vue : Admin Exercices -->
+                    <div id="admin-view-exercises" class="admin-subview">
+                        <!-- V20.7a - Titre VoiceOver principal -->
+                        <h3 class="sr-only">Administration des exercices</h3>
+                        
+                        <!-- V20.7a-bis - Titre VoiceOver action Ajouter -->
+                        <h4 class="sr-only">Ajouter un exercice</h4>
+                        <button class="btn-primary" onclick="AdminExercises.openModal()" style="margin-bottom: 1rem;" aria-label="Ajouter un nouvel exercice">  
+                            ➕ Ajouter un exercice  
+                        </button>  
+
+                        <!-- V20.7a - Titre VoiceOver zone de recherche -->
+                        <h4 class="sr-only">Recherche d'exercices</h4>
+                        <div class="filter-group">  
+                            <label for="admin-search">Rechercher un exercice</label>  
+                            <input   
+                                type="search"   
+                                id="admin-search"   
+                                placeholder="Titre, description..."  
+                                oninput="AdminExercises.updateList()"
+                                aria-label="Rechercher un exercice dans la liste"  
+                            >  
+                        </div>  
+
+                        <h4 class="sr-only">Liste des exercices</h4>
+                        <div id="admin-exercises-list"></div>
+                    </div>
+
+                    <!-- Sous-vue : Admin Programmes types -->
+                    <div id="admin-view-programs" class="admin-subview hidden">
+                        <!-- V20.7a - Titre VoiceOver principal -->
+                        <h3 class="sr-only">Administration des programmes types</h3>
+                        
+                        <!-- V20.7a-bis - Titre VoiceOver action Ajouter -->
+                        <h4 class="sr-only">Ajouter un programme type</h4>
+                        <button class="btn-primary" onclick="AdminPrograms.openModal()" style="margin-bottom: 1rem;" aria-label="Ajouter un nouveau programme type">
+                            ➕ Ajouter un programme type
+                        </button>
+
+                        <!-- V20.7a - Titre VoiceOver zone de recherche -->
+                        <h4 class="sr-only">Recherche de programmes</h4>
+                        <div class="filter-group">
+                            <label for="admin-programs-search">Rechercher un programme type</label>
+                            <input 
+                                type="search" 
+                                id="admin-programs-search" 
+                                placeholder="Titre, tags..."
+                                oninput="AdminPrograms.updateList()"
+                                aria-label="Rechercher un programme type dans la liste"
+                            >
+                        </div>
+
+                        <h4 class="sr-only">Liste des programmes types</h4>
+                        <div id="admin-programs-list"></div>
+                    </div>
+                </section>
             </div>  
-  
+
             <!-- Vue Document généré -->  
             <div id="view-document" class="hidden">  
                 <div class="no-print" style="position: fixed; top: 0; left: 0; right: 0; background: #2563eb; color: white; padding: 1rem; z-index: 100;">  
@@ -819,6 +356,8 @@
                     </div>  
                       
                     <!-- BOUTONS D'ACTION -->  
+                    <!-- V20.7c - Titre VoiceOver pour actions document -->
+                    <h3 class="sr-only">Actions du document</h3>
                     <div style="display: flex; gap: 0.5rem; max-width: 1200px; margin: 0 auto;">  
                         <button onclick="app.showView('search')" style="background: white; color: #2563eb; border: none; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 600;" aria-label="Retourner à la recherche">  
                             ← Retour  
@@ -828,18 +367,18 @@
                         </button>  
                     </div>  
                 </div>  
-                <div class="document-content" id="document-output" style="max-width: 800px; margin: 5rem auto 2rem;"></div>  
+                <div class="document-content" id="document-content" style="max-width: 800px; margin: 5rem auto 2rem;"></div>  
             </div>  
         </main>  
-  
+
         <!-- Modal Exercice -->  
         <div id="exercise-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">  
             <div class="modal-content">  
                 <div class="modal-header">  
                     <h2 id="modal-title">Ajouter un exercice</h2>  
-                    <button class="close-btn" onclick="app.closeExerciseModal()" aria-label="Fermer la fenêtre">&times;</button>  
+                    <button class="close-btn" onclick="AdminExercises.closeModal()" aria-label="Fermer la fenêtre">&times;</button>  
                 </div>  
-                <form id="exercise-form" onsubmit="app.saveExercise(event)">  
+                <form id="exercise-form" onsubmit="AdminExercises.save(event)">  
                     <fieldset style="border: none; padding: 0; margin: 0;">  
                         <legend class="sr-only">Informations de base</legend>  
                           
@@ -847,13 +386,13 @@
                             <label for="ex-titre">Titre de l'exercice *</label>  
                             <input type="text" id="ex-titre" required aria-required="true">  
                         </div>  
-  
+
                         <div class="form-group">  
                             <label for="ex-description">Description détaillée *</label>  
                             <textarea id="ex-description" rows="3" required aria-required="true"></textarea>  
                         </div>  
                     </fieldset>  
-  
+
                     <fieldset style="border: 1px solid #e5e7eb; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">  
                         <legend style="font-weight: 600; padding: 0 0.5rem;">Classification de l'exercice</legend>  
                           
@@ -861,7 +400,7 @@
                             <label id="label-zones">Zones du corps concernées *</label>  
                             <div class="checkbox-group" id="modal-zones" role="group" aria-labelledby="label-zones" aria-required="true"></div>  
                         </div>  
-  
+
                         <div class="form-group">  
                             <label id="label-types">Types d'exercice *</label>  
                             <div class="checkbox-group" id="modal-types" role="group" aria-labelledby="label-types" aria-required="true"></div>  
@@ -869,11 +408,11 @@
                                 <label for="new-type-input" style="font-size: 0.875rem; margin-bottom: 0.5rem;">Ajouter un nouveau type :</label>  
                                 <div style="display: flex; gap: 0.5rem;">  
                                     <input type="text" id="new-type-input" placeholder="Ex: Cardio" style="flex: 1;">  
-                                    <button type="button" class="btn-secondary btn-small" onclick="app.addNewType()">Ajouter</button>  
+                                    <button type="button" class="btn-secondary btn-small" onclick="AdminExercises.addNewType()">Ajouter</button>  
                                 </div>  
                             </div>  
                         </div>  
-  
+
                         <div class="form-group">  
                             <label id="label-materiel">Matériel nécessaire</label>  
                             <div class="checkbox-group" id="modal-materiel" role="group" aria-labelledby="label-materiel"></div>  
@@ -881,30 +420,30 @@
                                 <label for="new-materiel-input" style="font-size: 0.875rem; margin-bottom: 0.5rem;">Ajouter du nouveau matériel :</label>  
                                 <div style="display: flex; gap: 0.5rem;">  
                                     <input type="text" id="new-materiel-input" placeholder="Ex: Rouleau de massage" style="flex: 1;">  
-                                    <button type="button" class="btn-secondary btn-small" onclick="app.addNewMateriel()">Ajouter</button>  
+                                    <button type="button" class="btn-secondary btn-small" onclick="AdminExercises.addNewMateriel()">Ajouter</button>  
                                 </div>  
                             </div>  
                         </div>  
                     </fieldset>  
-  
+
                     <fieldset style="border: 1px solid #e5e7eb; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">  
                         <legend style="font-weight: 600; padding: 0 0.5rem;">Photos de l'exercice</legend>  
                           
                         <div class="form-group">  
                             <label for="photo-url">URL de la photo *</label>  
                             <div style="display: flex; gap: 0.5rem;">  
-                                <input type="text" id="photo-url" placeholder="https://..." style="flex: 1;">  
-                                <button type="button" class="btn-secondary btn-small" onclick="app.addPhoto()">Ajouter</button>  
+                                <input type="text" id="photo-url" placeholder="https://..." style="flex: 1;" onkeydown="if(event.key === 'Enter') { event.preventDefault(); AdminExercises.addPhoto(); }">  
+                                <button type="button" class="btn-secondary btn-small" onclick="AdminExercises.addPhoto()">Ajouter</button>  
                             </div>  
                         </div>  
-  
+
                         <div class="photo-list" id="photos-list">  
                             <div style="padding: 1rem; text-align: center; color: #6b7280;">Aucune photo ajoutée</div>  
                         </div>  
                     </fieldset>  
-  
+
                     <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">  
-                        <button type="button" class="btn-secondary" onclick="app.closeExerciseModal()" style="flex: 1;">  
+                        <button type="button" class="btn-secondary" onclick="AdminExercises.closeModal()" style="flex: 1;">  
                             Annuler  
                         </button>  
                         <button type="submit" class="btn-primary" style="flex: 1;">  
@@ -913,692 +452,125 @@
                     </div>  
                 </form>  
             </div>  
-        </div>  
+        </div>
+
+        <!-- Modal Programme Type -->
+        <div id="program-type-modal" class="modal" role="dialog" aria-labelledby="program-modal-title" aria-modal="true">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="program-modal-title">Ajouter un programme type</h2>
+                    <button class="close-btn" onclick="AdminPrograms.closeModal()" aria-label="Fermer la fenêtre">&times;</button>
+                </div>
+                <form id="program-type-form" onsubmit="AdminPrograms.save(event)">
+                    <div class="form-group">
+                        <label for="prog-titre">Titre du programme *</label>
+                        <input type="text" id="prog-titre" required aria-required="true">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prog-descriptif">Descriptif *</label>
+                        <textarea id="prog-descriptif" rows="6" required aria-required="true" placeholder="Objectifs, fréquence, durée..."></textarea>
+                    </div>
+
+                    <fieldset style="border: 1px solid #e5e7eb; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">
+                        <legend style="font-weight: 600; padding: 0 0.5rem;">Tags du programme</legend>
+
+                        <div class="form-group">
+                            <label for="prog-localisation">Localisation *</label>
+                            <input type="text" id="prog-localisation" required aria-required="true" placeholder="Ex: Genou">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prog-pathologie">Pathologie *</label>
+                            <input type="text" id="prog-pathologie" required aria-required="true" placeholder="Ex: Post-opératoire">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prog-phase">Phase *</label>
+                            <input type="text" id="prog-phase" required aria-required="true" placeholder="Ex: Précoce (J0-J21)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prog-objectif">Objectif *</label>
+                            <input type="text" id="prog-objectif" required aria-required="true" placeholder="Ex: Renforcement + Mobilité">
+                        </div>
+                    </fieldset>
+
+                    <fieldset style="border: 1px solid #e5e7eb; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">
+                        <legend style="font-weight: 600; padding: 0 0.5rem;">Exercices du programme</legend>
+                        
+                        <div class="form-group">
+                            <label for="prog-ex-search">Rechercher des exercices</label>
+                            <input 
+                                type="search" 
+                                id="prog-ex-search" 
+                                placeholder="Titre, description..." 
+                                oninput="AdminPrograms.filterExercises()"
+                                aria-label="Rechercher des exercices à ajouter au programme"
+                            >
+                        </div>
+
+                        <div style="max-height: 300px; overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 0.375rem; padding: 0.5rem;">
+                            <div id="prog-ex-list" role="group" aria-label="Liste des exercices disponibles"></div>
+                        </div>
+
+                        <p style="font-size: 0.875rem; color: #2563eb; margin-top: 0.75rem; font-weight: 600;">
+                            <span id="prog-ex-count">0</span> exercice(s) sélectionné(s)
+                        </p>
+                    </fieldset>
+
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                        <button type="button" class="btn-secondary" onclick="AdminPrograms.closeModal()" style="flex: 1;">
+                            Annuler
+                        </button>
+                        <button type="submit" class="btn-primary" style="flex: 1;">
+                            Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Photos -->
+        <div id="photos-modal" class="modal" role="dialog" aria-labelledby="photos-modal-title" aria-modal="true">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="photos-modal-title">Photos de l'exercice</h2>
+                    <button class="close-btn" onclick="PhotosViewer.close()" aria-label="Fermer la fenêtre">&times;</button>
+                </div>
+                <div style="padding: 1rem;">
+                    <div style="text-align: center; margin-bottom: 1rem;">
+                        <img id="photo-viewer-img" src="" alt="" style="max-width: 100%; height: auto; border-radius: 0.5rem;">
+                    </div>
+                    <div style="text-align: center; color: #6b7280; font-size: 0.875rem; margin-bottom: 1rem;">
+                        <span id="photo-counter">Photo 1 sur 1</span>
+                    </div>
+                    <div id="photo-navigation" style="display: flex; gap: 0.5rem; justify-content: center;">
+                        <button class="btn-secondary" onclick="PhotosViewer.prev()" id="photo-prev-btn" aria-label="Photo précédente">
+                            ← Précédent
+                        </button>
+                        <button class="btn-secondary" onclick="PhotosViewer.next()" id="photo-next-btn" aria-label="Photo suivante">
+                            Suivant →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>  
-  
-    <script src="exercices.js"></script>  
-    <script>  
-        const app = {  
-            exercises: [],  
-            selectedExercises: [],  
-            categories: {},  
-            editingExercise: null,  
-            currentPhotos: [],  
-  
-            init() {  
-                this.exercises = [...exercicesData];  
-                this.categories = {...categoriesData};  
-                  
-                this.renderFilters();  
-                this.filterExercises();  
-                this.updateAdminList();  
-                this.showView('search');  
-            },  
-  
-            renderFilters() {  
-                // Zones  
-                const zonesContainer = document.getElementById('zones-filters');  
-                zonesContainer.innerHTML = this.categories.zones.map(zone => `  
-                    <label class="checkbox-label">  
-                        <input type="checkbox" value="${zone}" onchange="app.filterExercises()">  
-                        <span>${zone}</span>  
-                    </label>  
-                `).join('');  
-  
-                // Types  
-                const typesContainer = document.getElementById('types-filters');  
-                typesContainer.innerHTML = this.categories.types.map(type => `  
-                    <label class="checkbox-label">  
-                        <input type="checkbox" value="${type}" onchange="app.filterExercises()">  
-                        <span>${type}</span>  
-                    </label>  
-                `).join('');  
-  
-                // Matériel  
-                const materielContainer = document.getElementById('materiel-filters');  
-                materielContainer.innerHTML = this.categories.materiel.map(mat => `  
-                    <label class="checkbox-label">  
-                        <input type="checkbox" value="${mat}" onchange="app.filterExercises()">  
-                        <span>${mat}</span>  
-                    </label>  
-                `).join('');  
-  
-                // Modal zones  
-                const modalZones = document.getElementById('modal-zones');  
-                modalZones.innerHTML = this.categories.zones.map(zone => `  
-                    <label class="checkbox-label">  
-                        <input type="checkbox" value="${zone}">  
-                        <span>${zone}</span>  
-                    </label>  
-                `).join('');  
-  
-                // Modal types  
-                const modalTypes = document.getElementById('modal-types');  
-                modalTypes.innerHTML = this.categories.types.map(type => `  
-                    <label class="checkbox-label">  
-                        <input type="checkbox" value="${type}">  
-                        <span>${type}</span>  
-                    </label>  
-                `).join('');  
-  
-                // Modal matériel  
-                const modalMateriel = document.getElementById('modal-materiel');  
-                modalMateriel.innerHTML = this.categories.materiel.map(mat => `  
-                    <label class="checkbox-label">  
-                        <input type="checkbox" value="${mat}">  
-                        <span>${mat}</span>  
-                    </label>  
-                `).join('');  
-            },  
-  
-            toggleSection(section) {  
-                const content = document.getElementById(`${section}-content`);  
-                const chevron = document.getElementById(`chevron-${section}`);  
-                const header = chevron.parentElement;  
-                  
-                const isOpen = content.classList.contains('open');  
-                content.classList.toggle('open');  
-                chevron.classList.toggle('open');  
-                header.setAttribute('aria-expanded', !isOpen);  
-            },
 
-            checkFiltersValidity() {
-                const searchTerm = document.getElementById('search-input').value.trim();
-                const hasZones = document.querySelectorAll('#zones-filters input:checked').length > 0;
-                const hasTypes = document.querySelectorAll('#types-filters input:checked').length > 0;
-                const hasMateriel = document.querySelectorAll('#materiel-filters input:checked').length > 0;
-                
-                const alert = document.getElementById('filter-alert');
-                
-                // Afficher alerte si Types ou Matériel cochés SANS zone ET sans recherche
-                if ((hasTypes || hasMateriel) && !hasZones && !searchTerm) {
-                    alert.classList.remove('hidden');
-                } else {
-                    alert.classList.add('hidden');
-                }
-            },  
-  
-            filterExercises() {
-                // Vérifier validité des filtres pour afficher alerte si besoin
-                this.checkFiltersValidity();
-                
-                const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();  
-                  
-                const selectedZones = Array.from(document.querySelectorAll('#zones-filters input:checked')).map(cb => cb.value);  
-                const selectedTypes = Array.from(document.querySelectorAll('#types-filters input:checked')).map(cb => cb.value);  
-                const selectedMateriel = Array.from(document.querySelectorAll('#materiel-filters input:checked')).map(cb => cb.value);  
-  
-                // N'afficher aucun exercice si ni recherche textuelle ni zones sélectionnées  
-                if (!searchTerm && selectedZones.length === 0) {  
-                    this.renderExercisesList([]);  
-                    return;  
-                }  
-  
-                let results = this.exercises;  
-  
-                // Recherche textuelle  
-                if (searchTerm) {  
-                    results = results.filter(ex =>   
-                        ex.titre.toLowerCase().includes(searchTerm) ||  
-                        ex.description.toLowerCase().includes(searchTerm) ||  
-                        ex.zones.some(z => z.toLowerCase().includes(searchTerm)) ||  
-                        ex.types.some(t => t.toLowerCase().includes(searchTerm))  
-                    );  
-                }  
-  
-                // 1er tamis : ZONES (mode OU uniquement)  
-                if (selectedZones.length > 0) {  
-                    results = results.filter(ex => selectedZones.some(z => ex.zones.includes(z)));  
-                }  
-  
-                // 2ème tamis : TYPES (mode OU uniquement)  
-                if (selectedTypes.length > 0) {  
-                    results = results.filter(ex => selectedTypes.some(t => ex.types.includes(t)));  
-                }  
-  
-                // 3ème tamis : MATÉRIEL (mode OU strict)  
-                if (selectedMateriel.length > 0) {  
-                    results = results.filter(ex => {  
-                        // "Sans matériel" = exercices avec materiel vide  
-                        if (selectedMateriel.includes('Sans matériel') && ex.materiel.length === 0) {  
-                            return true;  
-                        }  
-                        // Autres matériels  
-                        return selectedMateriel.some(m => m !== 'Sans matériel' && ex.materiel.includes(m));  
-                    });  
-                }  
-  
-                // Tri automatique : Zone puis Type  
-                results.sort((a, b) => {  
-                    const zoneA = a.zones[0] || '';  
-                    const zoneB = b.zones[0] || '';  
-                    if (zoneA !== zoneB) {  
-                        return zoneA.localeCompare(zoneB, 'fr');  
-                    }  
-                    const typeA = a.types[0] || '';  
-                    const typeB = b.types[0] || '';  
-                    return typeA.localeCompare(typeB, 'fr');  
-                });  
-  
-                this.renderExercisesList(results);  
-            },  
-  
-            renderExercisesList(exercises) {  
-                const container = document.getElementById('exercises-list');  
-                const count = document.getElementById('results-count');  
-                  
-                count.textContent = exercises.length;  
-                  
-                // Annonce VoiceOver  
-                const searchTerm = document.getElementById('search-input').value.trim();  
-                const selectedZones = Array.from(document.querySelectorAll('#zones-filters input:checked'));  
-                  
-                if (searchTerm || selectedZones.length > 0) {  
-                    this.showAlert(`${exercises.length} exercice${exercises.length > 1 ? 's' : ''} trouvé${exercises.length > 1 ? 's' : ''}`);  
-                }  
-  
-                if (exercises.length === 0) {  
-                    if (!searchTerm && selectedZones.length === 0) {  
-                        container.innerHTML = '<div class="empty-state">Utilisez la recherche par mot-clé ou sélectionnez au moins une zone du corps pour afficher des exercices.</div>';  
-                    } else {  
-                        container.innerHTML = '<div class="empty-state">Aucun exercice ne correspond à vos critères.</div>';  
-                    }  
-                    return;  
-                }  
-  
-                container.innerHTML = exercises.map(ex => `  
-                    <article class="exercise-card" role="listitem">  
-                        <h3>${ex.titre}</h3>  
-                        <p>${ex.description}</p>  
-                        <div style="margin-bottom: 0.75rem;">  
-                            ${ex.zones.map(z => `<span class="badge badge-blue">${z}</span>`).join('')}  
-                            ${ex.types.map(t => `<span class="badge badge-green">${t}</span>`).join('')}  
-                            ${ex.materiel.length > 0 ? ex.materiel.map(m => `<span class="badge badge-purple">${m}</span>`).join('') : ''}  
-                        </div>  
-                        <div class="exercise-actions">  
-                            <button class="btn-primary btn-small" onclick="app.addToProgram(${ex.id})" aria-label="Ajouter ${ex.titre} au programme">  
-                                ➕ Ajouter au programme  
-                            </button>  
-                        </div>  
-                    </article>  
-                `).join('');  
-            },  
-  
-            addToProgram(exerciseId) {  
-                const exercise = this.exercises.find(ex => ex.id === exerciseId);  
-                if (!exercise) return;  
-  
-                // Vérifier si déjà ajouté  
-                if (this.selectedExercises.some(ex => ex.id === exerciseId)) {  
-                    this.showAlert('Cet exercice est déjà dans le programme');  
-                    return;  
-                }  
-  
-                this.selectedExercises.push({  
-                    ...exercise,  
-                    consigne: ''  
-                });  
-  
-                this.updateProgramCount();  
-                this.renderSelectedExercises();  
-                  
-                // Annonce avec le nombre total d'exercices  
-                const count = this.selectedExercises.length;  
-                this.showAlert(`Exercice ajouté. ${count} exercice${count > 1 ? 's' : ''} dans le programme`);  
-            },  
-  
-            removeFromProgram(exerciseId) {  
-                this.selectedExercises = this.selectedExercises.filter(ex => ex.id !== exerciseId);  
-                this.updateProgramCount();  
-                this.renderSelectedExercises();  
-                this.showAlert('Exercice retiré du programme');  
-            },  
-  
-            moveUp(index) {  
-                if (index === 0) return;  
-                const exerciseName = this.selectedExercises[index].titre;  
-                [this.selectedExercises[index - 1], this.selectedExercises[index]] =   
-                [this.selectedExercises[index], this.selectedExercises[index - 1]];  
-                this.renderSelectedExercises();  
-                this.showAlert(`${exerciseName} déplacé vers le haut`);  
-            },  
-  
-            moveDown(index) {  
-                if (index === this.selectedExercises.length - 1) return;  
-                const exerciseName = this.selectedExercises[index].titre;  
-                [this.selectedExercises[index], this.selectedExercises[index + 1]] =   
-                [this.selectedExercises[index + 1], this.selectedExercises[index]];  
-                this.renderSelectedExercises();  
-                this.showAlert(`${exerciseName} déplacé vers le bas`);  
-            },  
-  
-            updateProgramCount() {  
-                document.getElementById('program-count').textContent = this.selectedExercises.length;  
-            },  
-  
-            renderSelectedExercises() {  
-                const container = document.getElementById('selected-exercises');  
-                this.updateProgramCount();  
-  
-                if (this.selectedExercises.length === 0) {  
-                    container.innerHTML = '<div class="empty-state">Aucun exercice sélectionné. Ajoutez des exercices depuis la liste ci-dessus.</div>';  
-                    return;  
-                }  
-  
-                container.innerHTML = this.selectedExercises.map((ex, i) => `  
-                    <article class="program-exercise" role="listitem" aria-labelledby="exercise-title-${ex.id}">  
-                        <h4 id="exercise-title-${ex.id}">Exercice ${i + 1} : ${ex.titre}</h4>  
-                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">${ex.description}</p>  
-                          
-                        <div style="font-weight: 600; font-size: 0.875rem; margin-bottom: 0.5rem;">Actions :</div>  
-                        <div class="program-controls" role="group" aria-label="Actions pour ${ex.titre}">  
-                            <button class="btn-secondary btn-small" onclick="app.moveUp(${i})" ${i === 0 ? 'disabled' : ''} aria-label="Déplacer ${ex.titre} vers le haut dans la liste">↑ Haut</button>  
-                            <button class="btn-secondary btn-small" onclick="app.moveDown(${i})" ${i === this.selectedExercises.length - 1 ? 'disabled' : ''} aria-label="Déplacer ${ex.titre} vers le bas dans la liste">↓ Bas</button>  
-                            <button class="btn-danger btn-small" onclick="app.removeFromProgram(${ex.id})" aria-label="Retirer ${ex.titre} du programme">🗑️ Retirer</button>  
-                        </div>  
-                          
-                        <label for="consigne-${ex.id}" style="display: block; margin-top: 1rem; font-size: 0.875rem; font-weight: 600;">  
-                            Consignes spécifiques pour cet exercice (facultatif) :  
-                        </label>  
-                        <input   
-                            type="text"   
-                            id="consigne-${ex.id}"  
-                            value="${ex.consigne || ''}"  
-                            placeholder="Ex: 3 séries de 10 répétitions, 2 fois par jour"  
-                            oninput="app.updateConsigne(${ex.id}, this.value)"  
-                            onkeydown="if(event.key === 'Enter') event.preventDefault()"  
-                            style="margin-top: 0.5rem;"  
-                            aria-label="Consignes personnalisées pour l'exercice ${ex.titre}"  
-                        >  
-                        <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e5e7eb;">  
-                    </article>  
-                `).join('');  
-            },  
-  
-            // Alias pour compatibilité  
-            updateProgramView() {  
-                this.renderSelectedExercises();  
-            },  
-  
-            updateConsigne(exerciseId, value) {  
-                const ex = this.selectedExercises.find(e => e.id === exerciseId);  
-                if (ex) {  
-                    ex.consigne = value;  
-                }  
-            },  
-  
-            generateDocument() {  
-                if (this.selectedExercises.length === 0) {  
-                    this.showAlert('Veuillez sélectionner au moins un exercice');  
-                    return;  
-                }  
-  
-                const patientName = document.getElementById('patient-name').value.trim();  
-                const customMessage = document.getElementById('custom-message').value.trim();  
-  
-                const date = new Date().toLocaleDateString('fr-FR', {  
-                    weekday: 'long',  
-                    year: 'numeric',  
-                    month: 'long',  
-                    day: 'numeric'  
-                });  
-  
-                const greeting = patientName ? `${patientName},` : 'Madame, Monsieur,';  
-  
-                let html = `  
-                    <div class="document-header">  
-                        <img src="https://i.postimg.cc/2jHfghbR/Logo_SSA.png" alt="Logo Service de Santé des Armées">  
-                        <img src="https://i.postimg.cc/MTR20ftk/Logo_MPR.jpg" alt="Logo Service MPR">
-                    </div>
-
-                    <div class="document-service-title">
-                        <h2>Service de Médecine Physique et Réadaptation</h2>
-                        <p>HNIA Percy</p>
-                    </div>
-  
-                    <div class="document-date">${date}</div>  
-  
-                    <div class="document-intro">  
-                        <p>${greeting}</p>  
-                        <p>Vous avez récemment bénéficié de soins en masso-kinésithérapie dans notre service de médecine physique et réadaptation. Afin de poursuivre vos efforts, voici un programme d'exercices personnalisé.</p>  
-                        ${customMessage ? `<p>${customMessage}</p>` : ''}  
-                    </div>  
-  
-                    <div class="document-signature">  
-                        <p><strong>Bonne rééducation !</strong></p>  
-                        <p>Cécile HENRIET</p>  
-                        <p>01 41 46 66 46</p>  
-                        <p>fiches.kine.mpr.percy@gmail.com</p>  
-                    </div>  
-  
-                    <h2 style="color: #2563eb; margin-bottom: 1.5rem;">VOS EXERCICES</h2>  
-                `;  
-  
-                this.selectedExercises.forEach((ex, i) => {  
-                    html += `  
-                        <div class="document-exercise">  
-                            <h3>${i + 1}. ${ex.titre}</h3>  
-                            <p><strong>Description :</strong> ${ex.description}</p>  
-                            ${ex.consigne ? `<div class="consignes"><strong>Consignes :</strong> ${ex.consigne}</div>` : ''}  
-                            ${ex.photos.map(photo => `<img src="${photo.url}" alt="${photo.alt}">`).join('')}  
-                        </div>  
-                    `;  
-                });  
-  
-                html += ``;  
-  
-                document.getElementById('document-output').innerHTML = html;  
-                this.showView('document');  
-                this.showAlert('Document généré avec succès');  
-            },  
-  
-            showView(view) {  
-                document.getElementById('view-search').classList.add('hidden');  
-                document.getElementById('view-admin').classList.add('hidden');  
-                document.getElementById('view-document').classList.add('hidden');  
-  
-                if (view === 'search') {  
-                    document.getElementById('view-search').classList.remove('hidden');  
-                } else if (view === 'admin') {  
-                    document.getElementById('view-admin').classList.remove('hidden');  
-                } else if (view === 'document') {  
-                    document.getElementById('view-document').classList.remove('hidden');  
-                }  
-            },  
-  
-            addNewType() {  
-                const input = document.getElementById('new-type-input');  
-                const newType = input.value.trim();  
-                  
-                if (!newType) {  
-                    this.showAlert('Veuillez entrer un type');  
-                    return;  
-                }  
-  
-                if (this.categories.types.includes(newType)) {  
-                    this.showAlert('Ce type existe déjà');  
-                    return;  
-                }  
-  
-                this.categories.types.push(newType);  
-                this.categories.types.sort();  
-                this.renderFilters();  
-                input.value = '';  
-                this.showAlert(`Type "${newType}" ajouté`);  
-            },  
-  
-            addNewMateriel() {  
-                const input = document.getElementById('new-materiel-input');  
-                const newMateriel = input.value.trim();  
-                  
-                if (!newMateriel) {  
-                    this.showAlert('Veuillez entrer du matériel');  
-                    return;  
-                }  
-  
-                if (this.categories.materiel.includes(newMateriel)) {  
-                    this.showAlert('Ce matériel existe déjà');  
-                    return;  
-                }  
-  
-                this.categories.materiel.push(newMateriel);  
-                this.categories.materiel.sort();  
-                this.renderFilters();  
-                input.value = '';  
-                this.showAlert(`Matériel "${newMateriel}" ajouté`);  
-            },  
-  
-            updateAdminList() {  
-                const container = document.getElementById('admin-exercises-list');  
-                const searchTerm = document.getElementById('admin-search').value.toLowerCase();  
-                  
-                let filtered = this.exercises;  
-                if (searchTerm) {  
-                    filtered = filtered.filter(ex =>   
-                        ex.titre.toLowerCase().includes(searchTerm) ||  
-                        ex.description.toLowerCase().includes(searchTerm)  
-                    );  
-                }  
-                  
-                if (filtered.length === 0) {  
-                    container.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">Aucun exercice trouvé.</p>';  
-                    return;  
-                }  
-  
-                container.innerHTML = filtered.map(ex => `  
-                    <article class="exercise-card" aria-labelledby="admin-ex-${ex.id}">  
-                        <h3 id="admin-ex-${ex.id}">${ex.titre}</h3>  
-                        <p>${ex.description}</p>  
-                        <div style="margin-bottom: 0.75rem;">  
-                            ${ex.zones.map(z => `<span class="badge badge-blue">${z}</span>`).join('')}  
-                            ${ex.types.map(t => `<span class="badge badge-green">${t}</span>`).join('')}  
-                        </div>  
-                        <div class="exercise-actions" role="group" aria-label="Actions pour ${ex.titre}">  
-                            <button class="btn-primary btn-small" onclick="app.editExercise(${ex.id})" aria-label="Modifier l'exercice ${ex.titre}">  
-                                ✏️ Modifier  
-                            </button>  
-                            <button class="btn-danger btn-small" onclick="app.deleteExercise(${ex.id})" aria-label="Supprimer l'exercice ${ex.titre}">  
-                                🗑️ Supprimer  
-                            </button>  
-                        </div>  
-                    </article>  
-                `).join('');  
-            },  
-  
-            openExerciseModal(exerciseId = null) {  
-                this.editingExercise = exerciseId;  
-                this.currentPhotos = [];  
-  
-                const modal = document.getElementById('exercise-modal');  
-                const title = document.getElementById('modal-title');  
-                const form = document.getElementById('exercise-form');  
-  
-                form.reset();  
-                  
-                // Vider les champs d'ajout de type et matériel  
-                document.getElementById('new-type-input').value = '';  
-                document.getElementById('new-materiel-input').value = '';  
-                  
-                if (exerciseId) {  
-                    const ex = this.exercises.find(e => e.id === exerciseId);  
-                    if (ex) {  
-                        title.textContent = 'Modifier un exercice';  
-                        document.getElementById('ex-titre').value = ex.titre;  
-                        document.getElementById('ex-description').value = ex.description;  
-                          
-                        // Cocher les zones  
-                        document.querySelectorAll('#modal-zones input').forEach(cb => {  
-                            cb.checked = ex.zones.includes(cb.value);  
-                        });  
-                          
-                        // Cocher les types  
-                        document.querySelectorAll('#modal-types input').forEach(cb => {  
-                            cb.checked = ex.types.includes(cb.value);  
-                        });  
-                          
-                        // Cocher le matériel  
-                        document.querySelectorAll('#modal-materiel input').forEach(cb => {  
-                            cb.checked = ex.materiel.includes(cb.value);  
-                        });  
-  
-                        this.currentPhotos = [...ex.photos];  
-                        this.renderPhotosList();  
-                    }  
-                } else {  
-                    title.textContent = 'Ajouter un exercice';  
-                }  
-  
-                modal.classList.add('active');  
-            },  
-  
-            closeExerciseModal() {  
-                document.getElementById('exercise-modal').classList.remove('active');  
-                this.editingExercise = null;  
-                this.currentPhotos = [];  
-            },  
-  
-            addPhoto() {  
-                const url = document.getElementById('photo-url').value.trim();  
-                if (!url) {  
-                    this.showAlert('Veuillez entrer une URL');  
-                    return;  
-                }  
-  
-                this.currentPhotos.push({  
-                    url: url,  
-                    alt: `Photo ${this.currentPhotos.length + 1}`  
-                });  
-  
-                document.getElementById('photo-url').value = '';  
-                this.renderPhotosList();  
-            },  
-  
-            removePhoto(index) {  
-                this.currentPhotos.splice(index, 1);  
-                this.renderPhotosList();  
-            },  
-  
-            renderPhotosList() {  
-                const container = document.getElementById('photos-list');  
-                  
-                if (this.currentPhotos.length === 0) {  
-                    container.innerHTML = '<div style="padding: 1rem; text-align: center; color: #6b7280;">Aucune photo ajoutée</div>';  
-                    return;  
-                }  
-  
-                container.innerHTML = this.currentPhotos.map((photo, i) => `  
-                    <div class="photo-item">  
-                        <span title="${photo.url}">${photo.url.substring(0, 40)}${photo.url.length > 40 ? '...' : ''}</span>  
-                        <button type="button" class="btn-danger btn-small" onclick="app.removePhoto(${i})" aria-label="Supprimer cette photo">×</button>  
-                    </div>  
-                `).join('');  
-            },  
-  
-            saveExercise(event) {  
-                event.preventDefault();  
-  
-                const titre = document.getElementById('ex-titre').value.trim();  
-                const description = document.getElementById('ex-description').value.trim();  
-  
-                const zones = Array.from(document.querySelectorAll('#modal-zones input:checked')).map(cb => cb.value);  
-                const types = Array.from(document.querySelectorAll('#modal-types input:checked')).map(cb => cb.value);  
-                const materiel = Array.from(document.querySelectorAll('#modal-materiel input:checked')).map(cb => cb.value);  
-  
-                if (zones.length === 0) {  
-                    this.showAlert('Veuillez sélectionner au moins une zone');  
-                    return;  
-                }  
-  
-                if (types.length === 0) {  
-                    this.showAlert('Veuillez sélectionner au moins un type');  
-                    return;  
-                }  
-  
-                if (this.currentPhotos.length === 0) {  
-                    this.showAlert('Veuillez ajouter au moins une photo');  
-                    return;  
-                }  
-  
-                const exerciseData = {  
-                    titre,  
-                    description,  
-                    zones,  
-                    types,  
-                    materiel,  
-                    photos: this.currentPhotos  
-                };  
-  
-                if (this.editingExercise) {  
-                    // Modification : garder la position dans la liste  
-                    const index = this.exercises.findIndex(ex => ex.id === this.editingExercise);  
-                    if (index !== -1) {  
-                        this.exercises[index] = { ...exerciseData, id: this.editingExercise };  
-                    }  
-                    this.showAlert('Exercice modifié avec succès');  
-                } else {  
-                    // Ajout : ajouter à la fin  
-                    const newId = Math.max(...this.exercises.map(ex => ex.id), 0) + 1;  
-                    this.exercises.push({ ...exerciseData, id: newId });  
-                    this.showAlert('Exercice ajouté avec succès');  
-                }  
-  
-                this.closeExerciseModal();  
-                this.filterExercises();  
-                this.updateAdminList();  
-            },  
-  
-            editExercise(exerciseId) {  
-                this.openExerciseModal(exerciseId);  
-            },  
-  
-            deleteExercise(exerciseId) {  
-                const ex = this.exercises.find(e => e.id === exerciseId);  
-                if (!ex) return;  
-  
-                if (confirm(`Êtes-vous sûr de vouloir supprimer "${ex.titre}" ?`)) {  
-                    this.exercises = this.exercises.filter(e => e.id !== exerciseId);  
-                    this.selectedExercises = this.selectedExercises.filter(e => e.id !== exerciseId);  
-                    this.updateAdminList();  
-                    this.filterExercises();  
-                    this.updateProgramCount();  
-                    this.showAlert('Exercice supprimé');  
-                }  
-            },  
-  
-            showAlert(message) {  
-                const container = document.getElementById('alert-container');  
-                const alert = document.createElement('div');  
-                alert.className = 'alert';  
-                alert.textContent = message;  
-                  
-                container.appendChild(alert);  
-  
-                setTimeout(() => {  
-                    alert.remove();  
-                }, 3000);  
-            },  
-  
-            handleKeyboardShortcuts(event) {  
-                // Cmd (Mac) ou Ctrl (Windows/Linux)  
-                const isCmdOrCtrl = event.metaKey || event.ctrlKey;  
-                  
-                if (!isCmdOrCtrl) return;  
-  
-                // Cmd/Ctrl + F : Recherche  
-                if (event.key === 'f' || event.key === 'F') {  
-                    event.preventDefault();  
-                    this.showView('search');  
-                    // Focus sur la barre de recherche  
-                    setTimeout(() => {  
-                        document.getElementById('search-input').focus();  
-                    }, 100);  
-                    this.showAlert('Vue Recherche activée');  
-                }  
-  
-                // Cmd/Ctrl + A : Administration  
-                if (event.key === 'a' || event.key === 'A') {  
-                    event.preventDefault();  
-                    this.showView('admin');  
-                    this.showAlert('Vue Administration activée');  
-                }  
-  
-                // Échap : Fermer les modals  
-                if (event.key === 'Escape') {  
-                    const modal = document.getElementById('exercise-modal');  
-                    if (modal.classList.contains('active')) {  
-                        this.closeExerciseModal();  
-                    }  
-                }  
-            }  
-        };  
-  
-        // Initialiser l'app au chargement  
-        document.addEventListener('DOMContentLoaded', () => {  
-            app.init();  
-              
-            // Ajouter les raccourcis clavier  
-            document.addEventListener('keydown', (e) => app.handleKeyboardShortcuts(e));  
-        });  
-    </script>  
+    <script src="data/categories.js"></script>
+    <script src="data/exercices1.js"></script>
+    <script src="data/exercices2.js"></script>
+    <script src="data/exercices3.js"></script>
+    <script src="data/exercices4.js"></script>
+    <script src="data/programmes_types.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/programs.js"></script>
+    <script src="js/document.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/admin-exercises.js"></script>
+    <script src="js/admin-programs.js"></script>
+    <script src="js/photos-viewer.js"></script>
 </body>  
 </html>
