@@ -67,12 +67,37 @@ const Document = {
         const container = document.getElementById('selected-list');
         this.updateProgramCount();
 
+        // Gestion affichage descriptif en lecture seule
+        this.updateDescriptionDisplay();
+
         if (app.selectedExercises.length === 0) {
             container.innerHTML = '<div class="empty-state">Aucun exercice sélectionné. Ajoutez des exercices depuis la liste ci-dessus.</div>';
             return;
         }
 
-        container.innerHTML = app.selectedExercises.map((ex, i) => `
+        // 2 BOUTONS - Vider exercices / Vider tout
+        let html = `
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                <button 
+                    class="btn-secondary" 
+                    onclick="Document.clearExercisesOnly()"
+                    aria-label="Vider uniquement les exercices du programme, en conservant le descriptif et les informations patient"
+                    style="flex: 1;"
+                >
+                    🗑️ Vider exercices
+                </button>
+                <button 
+                    class="btn-danger" 
+                    onclick="Document.clearProgram()"
+                    aria-label="Vider tout le programme : exercices, descriptif et informations patient"
+                    style="flex: 1;"
+                >
+                    🗑️ Vider tout
+                </button>
+            </div>
+        `;
+
+        html += app.selectedExercises.map((ex, i) => `
             <article class="program-exercise" role="listitem" aria-labelledby="exercise-title-${ex.id}">
                 <h4 id="exercise-title-${ex.id}">Exercice ${i + 1} : ${ex.titre}</h4>
                 <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">${ex.description}</p>
@@ -114,6 +139,8 @@ const Document = {
                 <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e5e7eb;">
             </article>
         `).join('');
+
+        container.innerHTML = html;
     },
 
     updateConsigne(exerciseId, value) {
@@ -130,17 +157,54 @@ const Document = {
         }
     },
 
-    clearProgram() {
+    updateDescriptionDisplay() {
+        const programDesc = document.getElementById('program-type-description').value.trim();
+        const displayBlock = document.getElementById('program-description-display');
+        const displayText = document.getElementById('program-description-text');
+
+        if (app.selectedExercises.length > 0 && programDesc) {
+            displayText.textContent = programDesc;
+            displayBlock.classList.remove('hidden');
+        } else {
+            displayBlock.classList.add('hidden');
+        }
+    },
+
+    clearExercisesOnly() {
         if (app.selectedExercises.length === 0) {
+            app.showAlert('Aucun exercice à vider');
+            return;
+        }
+        
+        if (confirm('Vider uniquement la liste des exercices ?')) {
+            app.selectedExercises = [];
+            this.updateProgramCount();
+            this.renderSelectedExercises();
+            app.showAlert('Exercices vidés');
+        }
+    },
+
+    clearProgram() {
+        // Vérifier si tout est vide
+        const hasExercises = app.selectedExercises.length > 0;
+        const hasDesc = document.getElementById('program-type-description').value.trim();
+        const hasName = document.getElementById('patient-name').value.trim();
+        const hasMsg = document.getElementById('custom-message').value.trim();
+        
+        if (!hasExercises && !hasDesc && !hasName && !hasMsg) {
             app.showAlert('Le programme est déjà vide');
             return;
         }
 
-        if (confirm('Êtes-vous sûr de vouloir vider tout le programme ?')) {
+        if (confirm('Vider tout le programme (exercices + descriptif + infos patient) ?')) {
             app.selectedExercises = [];
+            document.getElementById('program-type-description').value = '';
+            document.getElementById('patient-name').value = '';
+            document.getElementById('custom-message').value = '';
+            
             this.updateProgramCount();
             this.renderSelectedExercises();
-            app.showAlert('Programme vidé');
+            app.showAlert('Programme entièrement vidé');
         }
     },
 
