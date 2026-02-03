@@ -61,7 +61,7 @@
                             🔍 Méthode 1 : Recherche libre
                         </h3>
                         <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">
-                            Tapez un mot-clé (exemple : "genou", "étirement", "renforcement")
+                            Tapez un ou plusieurs mots-clés (ex. : genou, étirement, renforcement)
                         </p>
                         
                         <div class="filter-group">  
@@ -70,8 +70,7 @@
                                 type="search"   
                                 id="search-input"   
                                 placeholder="Titre, description..."  
-                                oninput="Filters.filterExercises()"  
-                                aria-labelledby="titre-recherche"
+                                oninput="Filters.filterExercises()"
                             >  
                         </div>
                     </div>
@@ -85,13 +84,8 @@
                             Affinez par zone du corps, type d'exercice et matériel disponible
                         </p>
 
-                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">  
-                            <strong>Choisissez une ou plusieurs zones du corps :</strong>  
-                        </p>  
-
                         <div class="filter-group">  
-                            <label class="filter-title" id="titre-zones">Zones du corps <span class="required-badge">obligatoire*</span></label>
-                            <p class="filter-description" aria-hidden="true">(obligatoire si pas de recherche)</p>
+                            <h4 class="filter-title" id="titre-zones" style="margin: 0 0 0.5rem 0; font-size: 1rem;">Zones du corps – obligatoire</h4>
                             <div class="checkbox-group" id="zones-filter" role="group" aria-labelledby="titre-zones"></div>  
                         </div>  
 
@@ -118,10 +112,10 @@
                 </section>  
 
                 <section class="section" aria-label="Résultats de recherche">  
+                    <h2>Exercices disponibles (<span id="results-count">0</span>)</h2>  
                     <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
-                        <strong>Ajoutez des exercices au programme :</strong>  
+                        Sélectionnez des exercices pour les ajouter au programme en cours.
                     </p>  
-                    <h2>Exercices (<span id="results-count">0</span>)</h2>  
                     <div id="results-list" role="list"></div>  
                 </section>  
 
@@ -129,71 +123,71 @@
                 <section class="section" aria-label="Programme en cours" id="section-programme">  
                     <h2 id="titre-programme">Programme en cours (<span id="program-count">0</span> exercice<span id="program-plural">s</span>)</h2>  
                       
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">  
-                        <strong>Personnalisez, réorganisez et commentez les exercices sélectionnés :</strong>  
-                    </p>  
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
+                        Vos exercices sélectionnés apparaissent ici. Personnalisez, réorganisez et commentez-les avant de générer le document.
+                    </p>
+
+                    <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem;">Exercices du programme</h3>
+
+                    <!-- Descriptif du programme en lecture seule (si présent) -->
+                    <div id="program-description-display" class="hidden">
+                        <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">
+                            Descriptif du programme type
+                        </h4>
+                        <p id="program-description-text" style="white-space: pre-line; color: #374151; line-height: 1.6; margin-bottom: 0.5rem;"></p>
+                        <hr style="margin: 1rem 0; border: none; border-top: 1px solid #e5e7eb;">
+                    </div>
                       
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem; font-style: italic;">  
-                        Les exercices ajoutés restent dans le programme, même si vous changez les filtres.  
-                    </p>  
+                    <div id="selected-list" role="list" aria-labelledby="titre-programme"></div>
                       
-                    <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;">Informations patient</h3>  
+                    <h3 style="font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem 0;">Personnalisation du document</h3>  
                       
                     <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
-                        <strong>Personnalisez le document avec un commentaire général pour votre patient :</strong>  
+                        Ajoutez un commentaire général et un descriptif du programme pour votre patient qui seront incorporés au document.
                     </p>  
                       
                     <div class="form-group">  
-                        <label for="patient-name">Prénom du patient (facultatif)</label>  
+                        <label for="patient-name">Prénom du patient <span class="optional-badge">facultatif</span></label>  
                         <input   
                             type="text"   
                             id="patient-name"   
-                            placeholder="Prénom du patient"   
-                            aria-label="Prénom du patient"  
+                            placeholder="Ex : Marie"  
                             onkeydown="if(event.key === 'Enter') event.preventDefault()"  
                         >  
                     </div>  
 
                     <div class="form-group">  
-                        <label for="custom-message">Message personnalisé général (facultatif)</label>  
+                        <label for="custom-message">Message personnalisé général <span class="optional-badge">facultatif</span></label>  
                         <textarea   
                             id="custom-message"   
                             rows="4"   
-                            placeholder="Recommandations générales pour le patient..."  
-                            aria-label="Message personnalisé général pour le patient"  
+                            placeholder="Ex : Pensez à bien vous hydrater pendant les exercices"
                         ></textarea>  
                     </div>
 
                     <div class="form-group">
-                        <label for="program-type-description">Descriptif du programme (facultatif)</label>
+                        <label for="program-type-description">Descriptif du programme <span class="optional-badge">facultatif</span></label>
                         <textarea 
                             id="program-type-description" 
                             rows="6" 
-                            placeholder="Description du programme : objectifs, fréquence, durée..."
-                            aria-label="Descriptif du programme de rééducation"
+                            placeholder="Ex : Programme de 3 semaines, 2 fois par jour, pour retrouver la mobilité"
+                            oninput="Document.updateDescriptionDisplay()"
                         ></textarea>
-                        <p style="font-size: 0.75rem; color: #6b7280; margin-top: 0.25rem; font-style: italic;">
-                            Ce texte sera inséré dans le PDF après l'introduction et votre message personnalisé. Il se remplit automatiquement si vous chargez un programme type.
-                        </p>
                     </div>
 
-                    <h3 style="font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.75rem 0;">Exercices du programme</h3>  
+                    <p style="font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem 0;">
+                        <strong>Génération du document</strong>
+                    </p>
                       
-                    <div id="selected-list" role="list" aria-labelledby="titre-programme"></div>  
-                      
-                    <!-- V20.7c - Titre VoiceOver pour génération document -->
-                    <h3 class="sr-only">Génération du document</h3>
-                    <h2 id="titre-generation" style="font-size: 1.125rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem;">  
-                        Génération du document PDF  
-                    </h2>  
                     <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
-                        Obtenez le programme personnalisé avec photos :  
-                    </p>  
+                        <strong>Obtenez le programme personnalisé avec photos :</strong>
+                    </p>
+
+                    <h3 class="sr-only">></h3>
                       
                     <button   
                         class="btn-success"   
-                        onclick="Document.generateDocument()"   
-                        style="margin-top: 0.5rem;"  
+                        onclick="Document.generateDocument()"  
                         aria-label="Générer le document PDF du programme"  
                     >  
                         📄 Générer le document  
@@ -309,7 +303,6 @@
                                 id="admin-search"   
                                 placeholder="Titre, description..."  
                                 oninput="AdminExercises.updateList()"
-                                aria-label="Rechercher un exercice dans la liste"  
                             >  
                         </div>  
 
@@ -337,7 +330,6 @@
                                 id="admin-programs-search" 
                                 placeholder="Titre, tags..."
                                 oninput="AdminPrograms.updateList()"
-                                aria-label="Rechercher un programme type dans la liste"
                             >
                         </div>
 
