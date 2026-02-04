@@ -16,21 +16,66 @@
 </head>  
 <body>  
     <div id="app">  
-        <header role="banner">  
-            <div class="header-content">  
-                <img src="https://www.onceuponablind.fr/Images/logos/Poulp_web.png" alt="Logo POULP" class="header-logo-left">  
+        <!-- ═══════════════════════════════════════════════════════════════
+             HEADER COMPACT - Version Flat Medical
+             ═══════════════════════════════════════════════════════════════ -->
+        <header role="banner">
+            <div class="header-content">
+                <img src="https://onceuponablind.fr/Images/logos/Poulp-header.png" 
+                     alt="Logo POULP" 
+                     class="header-logo">
                 <div class="header-text">
-                    <h1>Générateur de Programmes de Rééducation</h1>  
-                    <p>Service de Médecine Physique et Réadaptation</p>  
+                    <h1><strong>POULP</strong> Générateur de Programmes de Rééducation</h1>
+                    <p>Service de Médecine Physique et Réadaptation</p>
                 </div>
-                <img src="https://i.postimg.cc/MTR20ftk/Logo_MPR.jpg" alt="Logo MPR Percy" class="header-logo-right">
-            </div>  
-            <nav class="nav-buttons" aria-label="Navigation principale">  
-                <button onclick="app.showView('search')" aria-label="Aller à la recherche d'exercices">🔍 Recherche</button>
-                <button onclick="app.showView('programs')" aria-label="Aller aux programmes types">📋 Programmes</button>
-                <button onclick="app.showView('admin')" aria-label="Aller à l'administration des exercices">⚙️ Admin</button>  
-            </nav>  
-        </header>  
+                <button 
+                    onclick="app.showView('admin')" 
+                    class="btn-admin"
+                    aria-label="Administration des exercices et programmes"
+                >
+                    <span aria-hidden="true">⚙️</span>
+                </button>
+            </div>
+            <!-- Logo MPR visible uniquement sur desktop -->
+            <img src="https://i.postimg.cc/MTR20ftk/Logo_MPR.jpg" 
+                 alt="Logo Service MPR Percy" 
+                 class="header-logo-mpr">
+        </header>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             NAVIGATION PRINCIPALE - Bottom bar mobile / Top bar desktop
+             ═══════════════════════════════════════════════════════════════ -->
+        <nav class="main-nav" aria-label="Navigation principale">
+            <button 
+                onclick="app.showView('search')" 
+                class="nav-btn"
+                aria-label="Aller à la recherche d'exercices"
+            >
+                <span class="nav-icon" aria-hidden="true">🔍</span>
+                <span class="nav-label">Recherche</span>
+            </button>
+            
+            <button 
+                onclick="app.showView('programs')" 
+                class="nav-btn"
+                aria-label="Aller aux programmes types"
+            >
+                <span class="nav-icon" aria-hidden="true">📋</span>
+                <span class="nav-label">Programmes</span>
+            </button>
+            
+            <button 
+                onclick="Document.generateDocument()" 
+                class="nav-btn nav-btn-primary"
+                aria-label="Générer le document PDF du programme"
+            >
+                <span class="nav-icon" aria-hidden="true">📄</span>
+                <span class="nav-label">
+                    Générer
+                    <span class="nav-counter" id="nav-pdf-counter" aria-live="polite">0</span>
+                </span>
+            </button>
+        </nav>
 
         <div id="alert-container" role="status" aria-live="polite" aria-atomic="true"></div>  
 
@@ -38,13 +83,14 @@
             <!-- Vue Recherche -->  
             <div id="view-search" class="container">  
                 <section class="section" aria-label="Introduction">  
+                    <h2 tabindex="-1">Bienvenue dans POULP</h2>
                     <p style="font-size: 1rem; line-height: 1.6; color: #374151; margin-bottom: 1.5rem;">  
                         <strong>Bienvenue !</strong> Voici POULP, le générateur de programme de rééducation. Choisissez des exercices adaptés à votre patient à l'aide du formulaire de recherche, commentez les exercices sélectionnés et générez un fichier PDF prêt à envoyer par e-mail.  
                     </p>  
                 </section>  
 
                 <section class="section" aria-label="Filtres de recherche">  
-                    <h2>Comment chercher vos exercices ?</h2>
+                    <h2 tabindex="-1">Comment chercher vos exercices ?</h2>
 
                     <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1.5rem;">
                         <strong>Deux méthodes au choix :</strong>
@@ -112,7 +158,7 @@
                 </section>  
 
                 <section class="section" aria-label="Résultats de recherche">  
-                    <h2>Exercices disponibles (<span id="results-count">0</span>)</h2>  
+                    <h2 tabindex="-1">Exercices disponibles (<span id="results-count">0</span>)</h2>  
                     <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
                         Sélectionnez des exercices pour les ajouter au programme en cours.
                     </p>  
@@ -121,7 +167,7 @@
 
                 <!-- Section Programme -->  
                 <section class="section" aria-label="Programme en cours" id="section-programme">  
-                    <h2 id="titre-programme">Programme en cours (<span id="program-count">0</span> exercice<span id="program-plural">s</span>)</h2>  
+                    <h2 id="titre-programme" tabindex="-1">Programme en cours (<span id="program-count">0</span> exercice<span id="program-plural">s</span>)</h2>  
                       
                     <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
                         Vos exercices sélectionnés apparaissent ici. Personnalisez, réorganisez et commentez-les avant de générer le document.
@@ -175,30 +221,14 @@
                         ></textarea>
                     </div>
 
-                    <p style="font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem 0;">
-                        <strong>Génération du document</strong>
-                    </p>
-                      
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
-                        <strong>Obtenez le programme personnalisé avec photos :</strong>
-                    </p>
-
-                    <h3 class="sr-only">></h3>
-                      
-                    <button   
-                        class="btn-success"   
-                        onclick="Document.generateDocument()"  
-                        aria-label="Générer le document PDF du programme"  
-                    >  
-                        📄 Générer le document  
-                    </button>  
+                    <!-- ⚠️ BOUTON GÉNÉRER SUPPRIMÉ - Remplacé par la barre de navigation -->
                 </section>  
             </div>  
 
             <!-- Vue Programmes types -->
             <div id="view-programs" class="container hidden">
                 <section class="section" aria-label="Programmes types">
-                    <h2>Programmes types</h2>
+                    <h2 tabindex="-1">Programmes types</h2>
                     
                     <!-- V20.7a - Introduction concise -->
                     <p style="line-height: 1.6; margin-bottom: 1rem; color: #374151;">
@@ -261,7 +291,7 @@
             <!-- Vue Admin - V20.5 avec sous-navigation -->  
             <div id="view-admin" class="container hidden">  
                 <section class="section">  
-                    <h2>Administration</h2>  
+                    <h2 tabindex="-1">Administration</h2>  
                     
                     <!-- Sous-navigation Admin -->
                     <nav class="admin-tabs" aria-label="Navigation administration">
