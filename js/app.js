@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════════════
 // APP.JS - Chef d'orchestre de l'application POULP
-// V20.10 - Nouvelle architecture modulaire exercices1.js + exercices2.js
+// V20.11 - Ajout gestion focus VoiceOver automatique sur h2
 // ═══════════════════════════════════════════════════════════════════════════
 
 const app = {
@@ -54,10 +54,36 @@ const app = {
             document.querySelectorAll('#materiel-filter input:checked').forEach(cb => cb.checked = false);
             Filters.filterExercises();
             
+            // V20.11 - FOCUS VoiceOver automatique sur le premier h2
+            setTimeout(() => {
+                const firstH2 = document.querySelector('#view-search h2[tabindex="-1"]');
+                if (firstH2) {
+                    firstH2.focus();
+                }
+            }, 100);
+            
         } else if (view === 'programs') {
             document.getElementById('view-programs').classList.remove('hidden');
+            
+            // V20.11 - FOCUS VoiceOver automatique sur le h2
+            setTimeout(() => {
+                const h2 = document.querySelector('#view-programs h2[tabindex="-1"]');
+                if (h2) {
+                    h2.focus();
+                }
+            }, 100);
+            
         } else if (view === 'admin') {
             document.getElementById('view-admin').classList.remove('hidden');
+            
+            // V20.11 - FOCUS VoiceOver automatique sur le h2
+            setTimeout(() => {
+                const h2 = document.querySelector('#view-admin h2[tabindex="-1"]');
+                if (h2) {
+                    h2.focus();
+                }
+            }, 100);
+            
         } else if (view === 'document') {
             document.getElementById('view-document').classList.remove('hidden');
         }

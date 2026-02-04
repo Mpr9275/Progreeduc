@@ -1,12 +1,13 @@
 // ═══════════════════════════════════════════════════════════════════════════
 // DOCUMENT.JS - Gestion du programme en cours et génération de document
-// V20.8 - Message erreur amélioré génération PDF
+// V20.9 - Ajout du compteur de navigation (nav-pdf-counter)
 // ═══════════════════════════════════════════════════════════════════════════
 
 const Document = {
     init() {
         this.updateProgramCount();
         this.renderSelectedExercises();
+        this.updateNavCounter(); // ← AJOUTÉ
     },
 
     addToProgram(exerciseId) {
@@ -27,6 +28,7 @@ const Document = {
 
         this.updateProgramCount();
         this.renderSelectedExercises();
+        this.updateNavCounter(); // ← AJOUTÉ
         
         // Annonce avec le nombre total d'exercices
         const count = app.selectedExercises.length;
@@ -37,6 +39,7 @@ const Document = {
         app.selectedExercises = app.selectedExercises.filter(ex => ex.id !== exerciseId);
         this.updateProgramCount();
         this.renderSelectedExercises();
+        this.updateNavCounter(); // ← AJOUTÉ
         app.showAlert('Exercice retiré du programme');
     },
 
@@ -61,6 +64,20 @@ const Document = {
     updateProgramCount() {
         document.getElementById('program-count').textContent = app.selectedExercises.length;
         document.getElementById('program-plural').textContent = app.selectedExercises.length > 1 ? 's' : '';
+    },
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // NOUVELLE MÉTHODE - Mise à jour du compteur de navigation
+    // ═══════════════════════════════════════════════════════════════════════════
+    updateNavCounter() {
+        const counter = document.getElementById('nav-pdf-counter');
+        if (counter) {
+            const count = app.selectedExercises.length;
+            counter.textContent = count;
+            
+            // Afficher le compteur seulement s'il y a des exercices
+            counter.style.display = count > 0 ? 'inline' : 'none';
+        }
     },
 
     renderSelectedExercises() {
@@ -180,6 +197,7 @@ const Document = {
             app.selectedExercises = [];
             this.updateProgramCount();
             this.renderSelectedExercises();
+            this.updateNavCounter(); // ← AJOUTÉ
             app.showAlert('Exercices vidés');
         }
     },
@@ -204,6 +222,7 @@ const Document = {
             
             this.updateProgramCount();
             this.renderSelectedExercises();
+            this.updateNavCounter(); // ← AJOUTÉ
             app.showAlert('Programme entièrement vidé');
         }
     },
