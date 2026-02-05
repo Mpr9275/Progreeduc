@@ -21,9 +21,14 @@
              ═══════════════════════════════════════════════════════════════ -->
         <header role="banner">
             <div class="header-content">
-                <img src="https://onceuponablind.fr/Images/logos/Poulp-header.png" 
-                     alt="Logo POULP" 
-                     class="header-logo">
+                <div class="header-logo-wrapper">
+                    <img src="https://onceuponablind.fr/Images/logos/Poulp-header.png" 
+                         alt="Logo POULP" 
+                         class="header-logo"
+                         role="img"
+                         fetchpriority="high"
+                         loading="eager">
+                </div>
                 <div class="header-text">
                     <h1><strong>POULP</strong> Générateur de Programmes de Rééducation</h1>
                     <p>Service de Médecine Physique et Réadaptation</p>
@@ -39,7 +44,8 @@
             <!-- Logo MPR visible uniquement sur desktop -->
             <img src="https://i.postimg.cc/MTR20ftk/Logo_MPR.jpg" 
                  alt="Logo Service MPR Percy" 
-                 class="header-logo-mpr">
+                 class="header-logo-mpr"
+                 role="img">
         </header>
 
         <!-- ═══════════════════════════════════════════════════════════════
