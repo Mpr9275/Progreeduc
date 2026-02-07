@@ -53,13 +53,25 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   V20.12 - ENCADRÉ 4 ÉTAPES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.steps-box {
+    background: #dbeafe;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border-left: 4px solid #2563eb;
+    margin-top: 1rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    HEADER COMPACT
    ═══════════════════════════════════════════════════════════════════════════ */
 
 header {
     background: #2563eb;
     color: white;
-    padding: 0.75rem 1rem;
+    padding: 1rem 1rem;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -78,14 +90,19 @@ header {
     width: 60px;
     height: 60px;
     flex-shrink: 0;
-    margin-left: 10px; /* Espace du bord gauche sur mobile */
+    margin-left: 1rem; /* V20.12 - Plus d'air à gauche */
+    /* V20.12 - Ombre stable sur le conteneur */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* V20.12 - Forcer transparence pour éviter fond noir */
+    background: transparent;
+    border: none;
 }
 
 .header-logo {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    filter: drop-shadow(2px 4px 5px rgba(0, 0, 0, 0.3));
+    /* V20.12 - Suppression du filter pour stabilité */
 }
 
 /* Logo MPR : caché sur mobile, visible sur desktop */
@@ -139,41 +156,30 @@ header {
 }
 
 .header-text h1 {
-    font-size: 1rem;
-    font-weight: 400;
-    margin: 0;
-    line-height: 1.3;
-    letter-spacing: -0.025em;
-}
-
-.header-text h1 strong {
-    font-size: 1.375rem;
+    font-size: 1.875rem;
     font-weight: 700;
-    display: inline-block;
-    margin-right: 0.25rem;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
 }
 
 .header-text p {
     font-size: 0.75rem;
     opacity: 0.9;
-    margin: 0;
+    margin: 0.25rem 0 0 0; /* V20.12 - Espacement vertical ajouté */
     font-weight: 400;
-}
-
-/* Logo MPR : caché sur mobile, visible sur desktop */
-.header-logo-mpr {
-    display: none;
+    line-height: 1.3; /* V20.12 - Hauteur ligne pour retour ligne propre */
 }
 
 /* Bouton Admin discret */
 .btn-admin {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1); /* V20.12 - Opacité réduite */
     border: none;
     border-radius: 0.5rem;
     padding: 0.5rem;
     min-width: 44px;
     min-height: 44px;
-    font-size: 1.25rem;
+    font-size: 1.125rem; /* V20.12 - Taille réduite */
     cursor: pointer;
     transition: background 0.2s;
     flex-shrink: 0;
@@ -1036,16 +1042,12 @@ button:disabled {
         height: 60px;
         object-fit: contain;
         flex-shrink: 0;
-        filter: drop-shadow(2px 4px 5px rgba(0, 0, 0, 0.3));
+        /* V20.12 - Suppression du filter pour stabilité */
         margin-left: auto; /* Pousser à droite */
     }
 
     .header-text h1 {
-        font-size: 1.5rem;
-    }
-
-    .header-text h1 strong {
-        font-size: 1.875rem;
+        font-size: 2.25rem;
     }
 
     .header-text p {
@@ -1125,11 +1127,11 @@ button:disabled {
     }
 
     .header-text h1 {
-        font-size: 1.75rem;
+        font-size: 2.5rem;
     }
 
-    .header-text h1 strong {
-        font-size: 2.25rem;
+    .header-text p {
+        font-size: 1rem;
     }
 
     .section {

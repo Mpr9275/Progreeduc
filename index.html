@@ -16,9 +16,6 @@
 </head>  
 <body>  
     <div id="app">  
-        <!-- ═══════════════════════════════════════════════════════════════
-             HEADER COMPACT - Version Flat Medical
-             ═══════════════════════════════════════════════════════════════ -->
         <header role="banner">
             <div class="header-content">
                 <div class="header-logo-wrapper">
@@ -30,8 +27,8 @@
                          loading="eager">
                 </div>
                 <div class="header-text">
-                    <h1><strong>POULP</strong> Générateur de Programmes de Rééducation</h1>
-                    <p>Service de Médecine Physique et Réadaptation</p>
+                    <h1>POULP</h1>
+                    <p>Générateur de programmes de rééducation</p>
                 </div>
                 <button 
                     onclick="app.showView('admin')" 
@@ -41,16 +38,12 @@
                     <span aria-hidden="true">⚙️</span>
                 </button>
             </div>
-            <!-- Logo MPR visible uniquement sur desktop -->
             <img src="https://i.postimg.cc/MTR20ftk/Logo_MPR.jpg" 
                  alt="Logo Service MPR Percy" 
                  class="header-logo-mpr"
                  role="img">
         </header>
 
-        <!-- ═══════════════════════════════════════════════════════════════
-             NAVIGATION PRINCIPALE - Bottom bar mobile / Top bar desktop
-             ═══════════════════════════════════════════════════════════════ -->
         <nav class="main-nav" aria-label="Navigation principale">
             <button 
                 onclick="app.showView('search')" 
@@ -86,102 +79,96 @@
         <div id="alert-container" role="status" aria-live="polite" aria-atomic="true"></div>  
 
         <main role="main">  
-            <!-- Vue Recherche -->  
             <div id="view-search" class="container">  
                 <section class="section" aria-label="Introduction">  
-                    <h2 tabindex="-1">Bienvenue dans POULP</h2>
-                    <p style="font-size: 1rem; line-height: 1.6; color: #374151; margin-bottom: 1.5rem;">  
-                        <strong>Bienvenue !</strong> Voici POULP, le générateur de programme de rééducation. Choisissez des exercices adaptés à votre patient à l'aide du formulaire de recherche, commentez les exercices sélectionnés et générez un fichier PDF prêt à envoyer par e-mail.  
-                    </p>  
+                    <p style="font-size: 1rem; line-height: 1.6; color: #374151; margin-bottom: 1rem;">  
+                        <strong>Bonjour !</strong> POULP vous aide à créer des programmes de rééducation personnalisés pour vos patients.
+                    </p>
+                    
+                    <div class="steps-box">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">🎯 En 4 étapes simples :</p>
+                        <p style="margin: 0;">Recherchez → Ajoutez → Personnalisez → Générez le PDF</p>
+                    </div>
                 </section>  
 
                 <section class="section" aria-label="Filtres de recherche">  
-                    <h2 tabindex="-1">Comment chercher vos exercices ?</h2>
+                    <h2 tabindex="-1">Recherche d'exercices</h2>
 
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1.5rem;">
-                        <strong>Deux méthodes au choix :</strong>
-                    </p>
-
-                    <!-- Alerte si filtres invalides -->
                     <div id="filter-alert" role="alert" aria-live="assertive" class="filter-alert hidden">
                         ⚠️ Veuillez d'abord sélectionner au moins une zone du corps
                     </div>
 
-                    <!-- V20.7a - MÉTHODE 1 : Recherche libre -->
-                    <div style="margin-bottom: 2rem;">
-                        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: #1f2937;">
-                            🔍 Méthode 1 : Recherche libre
-                        </h3>
-                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">
-                            Tapez un ou plusieurs mots-clés (ex. : genou, étirement, renforcement)
-                        </p>
-                        
-                        <div class="filter-group">  
-                            <label class="filter-title" id="titre-recherche" for="search-input">Recherche par mot-clé</label>
-                            <input   
-                                type="search"   
-                                id="search-input"   
-                                placeholder="Titre, description..."  
-                                oninput="Filters.filterExercises()"
-                            >  
-                        </div>
+                    <div class="filter-group">  
+                        <label class="filter-title" id="titre-recherche" for="search-input">Recherche par mot-clé</label>
+                        <input   
+                            type="search"   
+                            id="search-input"   
+                            placeholder="genou, étirement, renforcement..."  
+                            oninput="Filters.filterExercises()"
+                        >  
                     </div>
 
-                    <!-- V20.7a - MÉTHODE 2 : Filtres ciblés -->
-                    <div>
-                        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; color: #1f2937;">
-                            🎯 Méthode 2 : Filtres ciblés (tamis)
-                        </h3>
-                        <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">
-                            Affinez par zone du corps, type d'exercice et matériel disponible
-                        </p>
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
+                        <a href="#" onclick="Filters.toggleAdvancedSearch(); return false;" style="color: #2563eb; text-decoration: underline;">
+                            Ou utilisez la recherche avancée
+                        </a>
+                    </p>
 
-                        <div class="filter-group">  
-                            <h4 class="filter-title" id="titre-zones" style="margin: 0 0 0.5rem 0; font-size: 1rem;">Zones du corps – obligatoire</h4>
-                            <div class="checkbox-group" id="zones-filter" role="group" aria-labelledby="titre-zones"></div>  
-                        </div>  
-
+                    <div id="advanced-search" class="hidden">
                         <div class="collapsible-section">  
-                            <div class="collapsible-header" onclick="app.toggleCollapsible('types-content')" aria-expanded="false" aria-controls="types-content">  
-                                <h4 class="filter-title" id="titre-types" style="margin: 0; font-size: 1rem;">Types d'exercice <span class="optional-badge">facultatif</span></h4>
+                            <div class="collapsible-header" onclick="app.toggleCollapsible('advanced-filters-content')" aria-expanded="false" aria-controls="advanced-filters-content">  
+                                <h3 class="filter-title" style="margin: 0; font-size: 1rem;">Recherche avancée</h3>
                                 <span class="collapsible-icon">▼</span>  
                             </div>  
-                            <div class="collapsible-content" id="types-content">  
-                                <div class="checkbox-group" id="types-filter" role="group" aria-labelledby="titre-types"></div>  
-                            </div>  
-                        </div>  
+                            <div class="collapsible-content open" id="advanced-filters-content">  
+                                <div class="filter-group">  
+                                    <h4 class="filter-title" id="titre-zones" style="margin: 0 0 0.5rem 0; font-size: 1rem;">Zones du corps</h4>
+                                    <div class="checkbox-group" id="zones-filter" role="group" aria-labelledby="titre-zones"></div>  
+                                </div>  
 
-                        <div class="collapsible-section">  
-                            <div class="collapsible-header" onclick="app.toggleCollapsible('materiel-content')" aria-expanded="false" aria-controls="materiel-content">  
-                                <h4 class="filter-title" id="titre-materiel" style="margin: 0; font-size: 1rem;">Matériel <span class="optional-badge">facultatif</span></h4>
-                                <span class="collapsible-icon">▼</span>  
-                            </div>  
-                            <div class="collapsible-content" id="materiel-content">  
-                                <div class="checkbox-group" id="materiel-filter" role="group" aria-labelledby="titre-materiel"></div>  
+                                <div class="collapsible-section">  
+                                    <div class="collapsible-header" onclick="app.toggleCollapsible('types-content')" aria-expanded="false" aria-controls="types-content">  
+                                        <h4 class="filter-title" id="titre-types" style="margin: 0; font-size: 1rem;">Types d'exercice</h4>
+                                        <span class="collapsible-icon">▼</span>  
+                                    </div>  
+                                    <div class="collapsible-content" id="types-content">  
+                                        <div class="checkbox-group" id="types-filter" role="group" aria-labelledby="titre-types"></div>  
+                                    </div>  
+                                </div>  
+
+                                <div class="collapsible-section">  
+                                    <div class="collapsible-header" onclick="app.toggleCollapsible('materiel-content')" aria-expanded="false" aria-controls="materiel-content">  
+                                        <h4 class="filter-title" id="titre-materiel" style="margin: 0; font-size: 1rem;">Matériel</h4>
+                                        <span class="collapsible-icon">▼</span>  
+                                    </div>  
+                                    <div class="collapsible-content" id="materiel-content">  
+                                        <div class="checkbox-group" id="materiel-filter" role="group" aria-labelledby="titre-materiel"></div>  
+                                    </div>  
+                                </div>
                             </div>  
                         </div>
-                    </div>  
+                    </div>
                 </section>  
 
                 <section class="section" aria-label="Résultats de recherche">  
                     <h2 tabindex="-1">Exercices disponibles (<span id="results-count">0</span>)</h2>  
                     <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
-                        Sélectionnez des exercices pour les ajouter au programme en cours.
+                        Cliquez sur ➕ pour ajouter un exercice à votre programme
                     </p>  
                     <div id="results-list" role="list"></div>  
                 </section>  
 
-                <!-- Section Programme -->  
                 <section class="section" aria-label="Programme en cours" id="section-programme">  
                     <h2 id="titre-programme" tabindex="-1">Programme en cours (<span id="program-count">0</span> exercice<span id="program-plural">s</span>)</h2>  
+                    
+                    <div id="program-status" role="status" aria-live="polite" style="margin-bottom: 0.75rem;"></div>
                       
                     <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
-                        Vos exercices sélectionnés apparaissent ici. Personnalisez, réorganisez et commentez-les avant de générer le document.
+                        Réorganisez et personnalisez vos exercices ci-dessous.
                     </p>
 
                     <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem;">Exercices du programme</h3>
 
-                    <!-- Descriptif du programme en lecture seule (si présent) -->
                     <div id="program-description-display" class="hidden">
                         <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem;">
                             Descriptif du programme type
@@ -195,7 +182,7 @@
                     <h3 style="font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem 0;">Personnalisation du document</h3>  
                       
                     <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">  
-                        Ajoutez un commentaire général et un descriptif du programme pour votre patient qui seront incorporés au document.
+                        Complétez les informations ci-dessous pour personnaliser le document.
                     </p>  
                       
                     <div class="form-group">  
@@ -226,63 +213,60 @@
                             oninput="Document.updateDescriptionDisplay()"
                         ></textarea>
                     </div>
-
-                    <!-- ⚠️ BOUTON GÉNÉRER SUPPRIMÉ - Remplacé par la barre de navigation -->
                 </section>  
             </div>  
 
-            <!-- Vue Programmes types -->
             <div id="view-programs" class="container hidden">
                 <section class="section" aria-label="Programmes types">
                     <h2 tabindex="-1">Programmes types</h2>
                     
-                    <!-- V20.7a - Introduction concise -->
                     <p style="line-height: 1.6; margin-bottom: 1rem; color: #374151;">
                         Gagnez du temps avec des programmes pré-configurés pour des pathologies courantes. 
-                        Chargez un modèle, puis personnalisez-le pour votre patient.
-                    </p>
-                    
-                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.75rem;">
-                        <strong>Recherchez un programme :</strong>
+                        Chargez un modèle, puis personnalisez-le.
                     </p>
 
-                    <!-- Recherche textuelle -->
                     <div class="filter-group">
-                        <h3 class="filter-title" id="titre-recherche-prog">Recherche par mot-clé</h3>
+                        <label class="filter-title" id="titre-recherche-prog" for="program-search-input">Rechercher un programme</label>
                         <input 
                             type="search" 
                             id="program-search-input" 
-                            placeholder="Titre, descriptif, tags..."
+                            placeholder="genou, post-opératoire, renforcement..."
                             oninput="Programs.filterPrograms()"
-                            aria-labelledby="titre-recherche-prog"
                         >
                     </div>
 
-                    <!-- Filtres par tags -->
-                    <div class="collapsible-section">
-                        <div class="collapsible-header" onclick="app.toggleCollapsible('program-tags-content')" aria-expanded="false" aria-controls="program-tags-content">
-                            <h3 class="filter-title" style="margin: 0; font-size: 1rem;">Filtres par tags <span class="optional-badge">facultatif</span></h3>
-                            <span class="collapsible-icon">▼</span>
-                        </div>
-                        <div class="collapsible-content" id="program-tags-content">
-                            <div class="filter-group">
-                                <label id="label-localisation">Localisation</label>
-                                <div class="checkbox-group" id="program-filter-localisation" role="group" aria-labelledby="label-localisation"></div>
-                            </div>
+                    <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
+                        <a href="#" onclick="Programs.toggleAdvancedFilters(); return false;" style="color: #2563eb; text-decoration: underline;">
+                            Ou utilisez les filtres avancés
+                        </a>
+                    </p>
 
-                            <div class="filter-group">
-                                <label id="label-pathologie">Pathologie</label>
-                                <div class="checkbox-group" id="program-filter-pathologie" role="group" aria-labelledby="label-pathologie"></div>
+                    <div id="program-advanced-filters" class="hidden">
+                        <div class="collapsible-section">
+                            <div class="collapsible-header" onclick="app.toggleCollapsible('program-tags-content')" aria-expanded="false" aria-controls="program-tags-content">
+                                <h3 class="filter-title" style="margin: 0; font-size: 1rem;">Filtres avancés</h3>
+                                <span class="collapsible-icon">▼</span>
                             </div>
+                            <div class="collapsible-content open" id="program-tags-content">
+                                <div class="filter-group">
+                                    <label id="label-localisation">Localisation</label>
+                                    <div class="checkbox-group" id="program-filter-localisation" role="group" aria-labelledby="label-localisation"></div>
+                                </div>
 
-                            <div class="filter-group">
-                                <label id="label-phase">Phase</label>
-                                <div class="checkbox-group" id="program-filter-phase" role="group" aria-labelledby="label-phase"></div>
-                            </div>
+                                <div class="filter-group">
+                                    <label id="label-pathologie">Pathologie</label>
+                                    <div class="checkbox-group" id="program-filter-pathologie" role="group" aria-labelledby="label-pathologie"></div>
+                                </div>
 
-                            <div class="filter-group">
-                                <label id="label-objectif">Objectif</label>
-                                <div class="checkbox-group" id="program-filter-objectif" role="group" aria-labelledby="label-objectif"></div>
+                                <div class="filter-group">
+                                    <label id="label-phase">Phase</label>
+                                    <div class="checkbox-group" id="program-filter-phase" role="group" aria-labelledby="label-phase"></div>
+                                </div>
+
+                                <div class="filter-group">
+                                    <label id="label-objectif">Objectif</label>
+                                    <div class="checkbox-group" id="program-filter-objectif" role="group" aria-labelledby="label-objectif"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -294,12 +278,10 @@
                 </section>
             </div>
 
-            <!-- Vue Admin - V20.5 avec sous-navigation -->  
             <div id="view-admin" class="container hidden">  
                 <section class="section">  
                     <h2 tabindex="-1">Administration</h2>  
                     
-                    <!-- Sous-navigation Admin -->
                     <nav class="admin-tabs" aria-label="Navigation administration">
                         <button 
                             id="admin-tab-exercises" 
@@ -319,18 +301,13 @@
                         </button>
                     </nav>
 
-                    <!-- Sous-vue : Admin Exercices -->
                     <div id="admin-view-exercises" class="admin-subview">
-                        <!-- V20.7a - Titre VoiceOver principal -->
                         <h3 class="sr-only">Administration des exercices</h3>
-                        
-                        <!-- V20.7a-bis - Titre VoiceOver action Ajouter -->
                         <h4 class="sr-only">Ajouter un exercice</h4>
                         <button class="btn-primary" onclick="AdminExercises.openModal()" style="margin-bottom: 1rem;" aria-label="Ajouter un nouvel exercice">  
                             ➕ Ajouter un exercice  
                         </button>  
 
-                        <!-- V20.7a - Titre VoiceOver zone de recherche -->
                         <h4 class="sr-only">Recherche d'exercices</h4>
                         <div class="filter-group">  
                             <label for="admin-search">Rechercher un exercice</label>  
@@ -346,18 +323,13 @@
                         <div id="admin-exercises-list"></div>
                     </div>
 
-                    <!-- Sous-vue : Admin Programmes types -->
                     <div id="admin-view-programs" class="admin-subview hidden">
-                        <!-- V20.7a - Titre VoiceOver principal -->
                         <h3 class="sr-only">Administration des programmes types</h3>
-                        
-                        <!-- V20.7a-bis - Titre VoiceOver action Ajouter -->
                         <h4 class="sr-only">Ajouter un programme type</h4>
                         <button class="btn-primary" onclick="AdminPrograms.openModal()" style="margin-bottom: 1rem;" aria-label="Ajouter un nouveau programme type">
                             ➕ Ajouter un programme type
                         </button>
 
-                        <!-- V20.7a - Titre VoiceOver zone de recherche -->
                         <h4 class="sr-only">Recherche de programmes</h4>
                         <div class="filter-group">
                             <label for="admin-programs-search">Rechercher un programme type</label>
@@ -375,16 +347,12 @@
                 </section>
             </div>  
 
-            <!-- Vue Document généré -->  
             <div id="view-document" class="hidden">  
                 <div class="no-print" style="position: fixed; top: 0; left: 0; right: 0; background: #2563eb; color: white; padding: 1rem; z-index: 100;">  
-                    <!-- MESSAGE INFORMATIF -->  
                     <div role="note" style="max-width: 1200px; margin: 0 auto 0.75rem; font-size: 0.875rem; background: rgba(255,255,255,0.15); padding: 0.75rem; border-radius: 0.375rem; line-height: 1.5;">  
                         💡 <strong>Pour envoyer par email :</strong> Utilisez "Imprimer / Partager", puis enregistrez le PDF et joignez-le en pièce jointe (les images s'afficheront correctement).  
                     </div>  
                       
-                    <!-- BOUTONS D'ACTION -->  
-                    <!-- V20.7c - Titre VoiceOver pour actions document -->
                     <h3 class="sr-only">Actions du document</h3>
                     <div style="display: flex; gap: 0.5rem; max-width: 1200px; margin: 0 auto;">  
                         <button onclick="app.showView('search')" style="background: white; color: #2563eb; border: none; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 600;" aria-label="Retourner à la recherche">  
@@ -399,7 +367,6 @@
             </div>  
         </main>  
 
-        <!-- Modal Exercice -->  
         <div id="exercise-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">  
             <div class="modal-content">  
                 <div class="modal-header">  
@@ -482,7 +449,6 @@
             </div>  
         </div>
 
-        <!-- Modal Programme Type -->
         <div id="program-type-modal" class="modal" role="dialog" aria-labelledby="program-modal-title" aria-modal="true">
             <div class="modal-content">
                 <div class="modal-header">
@@ -559,7 +525,6 @@
             </div>
         </div>
 
-        <!-- Modal Photos -->
         <div id="photos-modal" class="modal" role="dialog" aria-labelledby="photos-modal-title" aria-modal="true">
             <div class="modal-content">
                 <div class="modal-header">
