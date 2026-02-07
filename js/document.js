@@ -1,13 +1,14 @@
 // ═══════════════════════════════════════════════════════════════════════════
 // DOCUMENT.JS - Gestion du programme en cours et génération de document
-// V20.9 - Ajout du compteur de navigation (nav-pdf-counter)
+// V20.12 - Ajout indicateur de progression
 // ═══════════════════════════════════════════════════════════════════════════
 
 const Document = {
     init() {
         this.updateProgramCount();
         this.renderSelectedExercises();
-        this.updateNavCounter(); // ← AJOUTÉ
+        this.updateNavCounter();
+        this.updateProgressStatus(); // ← V20.12 AJOUTÉ
     },
 
     addToProgram(exerciseId) {
@@ -28,7 +29,8 @@ const Document = {
 
         this.updateProgramCount();
         this.renderSelectedExercises();
-        this.updateNavCounter(); // ← AJOUTÉ
+        this.updateNavCounter();
+        this.updateProgressStatus(); // ← V20.12 AJOUTÉ
         
         // Annonce avec le nombre total d'exercices
         const count = app.selectedExercises.length;
@@ -39,7 +41,8 @@ const Document = {
         app.selectedExercises = app.selectedExercises.filter(ex => ex.id !== exerciseId);
         this.updateProgramCount();
         this.renderSelectedExercises();
-        this.updateNavCounter(); // ← AJOUTÉ
+        this.updateNavCounter();
+        this.updateProgressStatus(); // ← V20.12 AJOUTÉ
         app.showAlert('Exercice retiré du programme');
     },
 
@@ -66,23 +69,35 @@ const Document = {
         document.getElementById('program-plural').textContent = app.selectedExercises.length > 1 ? 's' : '';
     },
 
-    // ═══════════════════════════════════════════════════════════════════════════
-    // NOUVELLE MÉTHODE - Mise à jour du compteur de navigation
-    // ═══════════════════════════════════════════════════════════════════════════
     updateNavCounter() {
         const counter = document.getElementById('nav-pdf-counter');
         if (counter) {
             const count = app.selectedExercises.length;
             counter.textContent = count;
-            
-            // Afficher le compteur seulement s'il y a des exercices
             counter.style.display = count > 0 ? 'inline' : 'none';
+        }
+    },
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // V20.12 - NOUVELLE FONCTION : Mise à jour de l'indicateur de progression
+    // ═══════════════════════════════════════════════════════════════════════════
+    updateProgressStatus() {
+        const statusDiv = document.getElementById('program-status');
+        if (!statusDiv) return;
+
+        const count = app.selectedExercises.length;
+        
+        if (count === 0) {
+            statusDiv.innerHTML = '';
+        } else {
+            statusDiv.innerHTML = `<span style="color: #059669; font-weight: 600;">✅ Étape 2/4 : ${count} exercice${count > 1 ? 's' : ''} ajouté${count > 1 ? 's' : ''}</span>`;
         }
     },
 
     renderSelectedExercises() {
         const container = document.getElementById('selected-list');
         this.updateProgramCount();
+        this.updateProgressStatus(); // ← V20.12 AJOUTÉ
 
         // Gestion affichage descriptif en lecture seule
         this.updateDescriptionDisplay();
@@ -197,7 +212,8 @@ const Document = {
             app.selectedExercises = [];
             this.updateProgramCount();
             this.renderSelectedExercises();
-            this.updateNavCounter(); // ← AJOUTÉ
+            this.updateNavCounter();
+            this.updateProgressStatus(); // ← V20.12 AJOUTÉ
             app.showAlert('Exercices vidés');
         }
     },
@@ -222,13 +238,13 @@ const Document = {
             
             this.updateProgramCount();
             this.renderSelectedExercises();
-            this.updateNavCounter(); // ← AJOUTÉ
+            this.updateNavCounter();
+            this.updateProgressStatus(); // ← V20.12 AJOUTÉ
             app.showAlert('Programme entièrement vidé');
         }
     },
 
     generateDocument() {
-        // V20.8 - MESSAGE ERREUR AMÉLIORÉ
         if (app.selectedExercises.length === 0) {
             app.showAlert('Votre programme est vide. Ajoutez au moins un exercice depuis la recherche pour générer un document.');
             return;
@@ -247,7 +263,6 @@ const Document = {
 
         const greeting = patientName ? `${patientName},` : 'Madame, Monsieur,';
 
-        // V20.7b - Conteneur global avec marges pour le PDF
         let html = `
             <div style="padding: 2rem; max-width: 800px; margin: 0 auto;">
             
@@ -278,7 +293,6 @@ const Document = {
             </div>
         `;
 
-        // V20.7b - ORDRE MODIFIÉ : Message personnalisé AVANT descriptif programme
         if (customMessage) {
             html += `
             <div style="margin-top: 1.5rem; padding: 1rem; background: #f0f9ff; border-left: 4px solid #2563eb; border-radius: 0.25rem;">
@@ -306,7 +320,6 @@ const Document = {
             </div>
         `;
 
-        // V20.7b - COMPTEUR EXERCICES dans le titre
         html += `<h2 style="color: #2563eb; margin-bottom: 1.5rem;">VOS EXERCICES (${app.selectedExercises.length})</h2>`;
 
         app.selectedExercises.forEach((ex, i) => {
@@ -321,7 +334,6 @@ const Document = {
             `;
         });
 
-        // V20.7b - Fermeture du conteneur global
         html += `</div>`;
 
         document.getElementById('document-content').innerHTML = html;

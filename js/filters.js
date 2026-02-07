@@ -1,5 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════════════
 // FILTERS.JS - Recherche et filtrage des exercices
+// V20.12 - Ajout toggleAdvancedSearch()
 // ═══════════════════════════════════════════════════════════════════════════
 
 const Filters = {
@@ -35,6 +36,21 @@ const Filters = {
                 <span>${mat}</span>
             </label>
         `).join('');
+    },
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // V20.12 - NOUVELLE FONCTION : Afficher/masquer la recherche avancée
+    // ═══════════════════════════════════════════════════════════════════════════
+    toggleAdvancedSearch() {
+        const advancedSearch = document.getElementById('advanced-search');
+        advancedSearch.classList.toggle('hidden');
+        
+        // Annonce VoiceOver
+        if (advancedSearch.classList.contains('hidden')) {
+            app.showAlert('Recherche avancée masquée');
+        } else {
+            app.showAlert('Recherche avancée affichée');
+        }
     },
 
     checkFiltersValidity() {

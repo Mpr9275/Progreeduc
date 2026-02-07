@@ -1,10 +1,26 @@
 // ═══════════════════════════════════════════════════════════════════════════
 // PROGRAMS.JS - Gestion des programmes types
+// V20.12 - Ajout toggleAdvancedFilters()
 // ═══════════════════════════════════════════════════════════════════════════
 
 const Programs = {
     init() {
         this.renderProgramsList();
+    },
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // V20.12 - NOUVELLE FONCTION : Afficher/masquer les filtres avancés
+    // ═══════════════════════════════════════════════════════════════════════════
+    toggleAdvancedFilters() {
+        const advancedFilters = document.getElementById('program-advanced-filters');
+        advancedFilters.classList.toggle('hidden');
+        
+        // Annonce VoiceOver
+        if (advancedFilters.classList.contains('hidden')) {
+            app.showAlert('Filtres avancés masqués');
+        } else {
+            app.showAlert('Filtres avancés affichés');
+        }
     },
 
     renderProgramsList() {
@@ -80,5 +96,11 @@ const Programs = {
 
         // Annonce VoiceOver
         app.showAlert(`Programme chargé : ${addedCount} exercice${addedCount > 1 ? 's' : ''} ajouté${addedCount > 1 ? 's' : ''}`);
+    },
+
+    filterPrograms() {
+        // Note : Cette fonction existe déjà pour la recherche textuelle
+        // On la garde intacte pour le moment
+        // Les filtres par tags pourront être développés plus tard si besoin
     }
 };
