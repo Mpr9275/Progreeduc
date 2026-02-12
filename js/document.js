@@ -1,21 +1,21 @@
 // ═══════════════════════════════════════════════════════════════════════════
 // DOCUMENT.JS - Gestion du programme en cours et génération de document
-// V20.12 - Ajout indicateur de progression
+// V22.2 - Retouches design document patient
 // ═══════════════════════════════════════════════════════════════════════════
 
 const Document = {
+
     init() {
         this.updateProgramCount();
         this.renderSelectedExercises();
         this.updateNavCounter();
-        this.updateProgressStatus(); // ← V20.12 AJOUTÉ
+        this.updateProgressStatus();
     },
 
     addToProgram(exerciseId) {
         const exercise = app.exercises.find(ex => ex.id === exerciseId);
         if (!exercise) return;
 
-        // Vérifier si déjà ajouté
         if (app.selectedExercises.some(ex => ex.id === exerciseId)) {
             app.showAlert('Cet exercice est déjà dans le programme');
             return;
@@ -30,9 +30,8 @@ const Document = {
         this.updateProgramCount();
         this.renderSelectedExercises();
         this.updateNavCounter();
-        this.updateProgressStatus(); // ← V20.12 AJOUTÉ
+        this.updateProgressStatus();
         
-        // Annonce avec le nombre total d'exercices
         const count = app.selectedExercises.length;
         app.showAlert(`Exercice ajouté. ${count} exercice${count > 1 ? 's' : ''} dans le programme`);
     },
@@ -42,7 +41,7 @@ const Document = {
         this.updateProgramCount();
         this.renderSelectedExercises();
         this.updateNavCounter();
-        this.updateProgressStatus(); // ← V20.12 AJOUTÉ
+        this.updateProgressStatus();
         app.showAlert('Exercice retiré du programme');
     },
 
@@ -78,9 +77,6 @@ const Document = {
         }
     },
 
-    // ═══════════════════════════════════════════════════════════════════════════
-    // V20.12 - NOUVELLE FONCTION : Mise à jour de l'indicateur de progression
-    // ═══════════════════════════════════════════════════════════════════════════
     updateProgressStatus() {
         const statusDiv = document.getElementById('program-status');
         if (!statusDiv) return;
@@ -97,9 +93,8 @@ const Document = {
     renderSelectedExercises() {
         const container = document.getElementById('selected-list');
         this.updateProgramCount();
-        this.updateProgressStatus(); // ← V20.12 AJOUTÉ
+        this.updateProgressStatus();
 
-        // Gestion affichage descriptif en lecture seule
         this.updateDescriptionDisplay();
 
         if (app.selectedExercises.length === 0) {
@@ -107,7 +102,6 @@ const Document = {
             return;
         }
 
-        // 2 BOUTONS - Vider exercices / Vider tout
         let html = `
             <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
                 <button 
@@ -177,16 +171,12 @@ const Document = {
 
     updateConsigne(exerciseId, value) {
         const ex = app.selectedExercises.find(e => e.id === exerciseId);
-        if (ex) {
-            ex.consigne = value;
-        }
+        if (ex) ex.consigne = value;
     },
 
     updatePosologie(exerciseId, value) {
         const ex = app.selectedExercises.find(e => e.id === exerciseId);
-        if (ex) {
-            ex.posologie = value;
-        }
+        if (ex) ex.posologie = value;
     },
 
     updateDescriptionDisplay() {
@@ -213,13 +203,12 @@ const Document = {
             this.updateProgramCount();
             this.renderSelectedExercises();
             this.updateNavCounter();
-            this.updateProgressStatus(); // ← V20.12 AJOUTÉ
+            this.updateProgressStatus();
             app.showAlert('Exercices vidés');
         }
     },
 
     clearProgram() {
-        // Vérifier si tout est vide
         const hasExercises = app.selectedExercises.length > 0;
         const hasDesc = document.getElementById('program-type-description').value.trim();
         const hasName = document.getElementById('patient-name').value.trim();
@@ -239,11 +228,14 @@ const Document = {
             this.updateProgramCount();
             this.renderSelectedExercises();
             this.updateNavCounter();
-            this.updateProgressStatus(); // ← V20.12 AJOUTÉ
+            this.updateProgressStatus();
             app.showAlert('Programme entièrement vidé');
         }
     },
 
+    // ═══════════════════════════════════════════════════════════════════════
+    // V22.2 - GÉNÉRATION DU DOCUMENT PATIENT
+    // ═══════════════════════════════════════════════════════════════════════
     generateDocument() {
         if (app.selectedExercises.length === 0) {
             app.showAlert('Votre programme est vide. Ajoutez au moins un exercice depuis la recherche pour générer un document.');
@@ -253,6 +245,7 @@ const Document = {
         const patientName = document.getElementById('patient-name').value.trim();
         const customMessage = document.getElementById('custom-message').value.trim();
         const programDescription = document.getElementById('program-type-description').value.trim();
+        const signature = MonEspace.getSignature();
 
         const date = new Date().toLocaleDateString('fr-FR', {
             weekday: 'long',
@@ -263,75 +256,139 @@ const Document = {
 
         const greeting = patientName ? `${patientName},` : 'Madame, Monsieur,';
 
+        // ─── Variables de style partagées ────────────────────────────────────
+        const fontStack    = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif";
+        const colorBlue    = '#2563eb';
+        const colorDark    = '#0f172a';
+        const colorTitle   = '#1e293b';
+        const colorGray    = '#64748b';
+        const colorBgLight = '#f8fafc';
+        const colorMetaZone     = '#2563eb';
+        const colorMetaType     = '#FF8B64';
+        const colorMetaMateriel = '#64748b';
+
+        // ─── En-tête : logos + titre service ────────────────────────────────
         let html = `
-            <div style="padding: 2rem; max-width: 800px; margin: 0 auto;">
-            
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #2563eb;">
-                <img src="https://i.postimg.cc/2jHfghbR/Logo_SSA.png" 
-                     alt="Logo Service de Santé des Armées" 
-                     style="height: 80px; object-fit: contain;">
-                
-                <div style="text-align: center; flex: 1; margin: 0 1rem;">
-                    <h2 style="color: #2563eb; margin: 0; font-size: 1.25rem;">
+        <div style="font-family: ${fontStack}; padding: 2rem; max-width: 800px; margin: 0 auto; color: ${colorDark}; line-height: 1.6;">
+
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 2px solid ${colorBlue};">
+                <img src="https://i.postimg.cc/2jHfghbR/Logo_SSA.png"
+                     alt="Logo Service de Santé des Armées"
+                     style="height: 70px; object-fit: contain; flex-shrink: 0;">
+                <div style="text-align: center; flex: 1; margin: 0 1.5rem;">
+                    <div style="font-size: 1.1rem; font-weight: 700; color: ${colorBlue};">
                         Service de Médecine Physique et Réadaptation
-                    </h2>
-                    <p style="margin: 0.25rem 0 0 0; color: #6b7280; font-size: 0.875rem;">
+                    </div>
+                    <div style="font-size: 0.875rem; color: ${colorGray}; margin-top: 0.25rem;">
                         HNIA Percy
-                    </p>
+                    </div>
                 </div>
-                
-                <img src="https://i.postimg.cc/MTR20ftk/Logo_MPR.jpg" 
-                     alt="Logo Service MPR" 
-                     style="height: 80px; object-fit: contain;">
+                <img src="https://i.postimg.cc/MTR20ftk/Logo_MPR.jpg"
+                     alt="Logo Service MPR"
+                     style="height: 70px; object-fit: contain; flex-shrink: 0;">
             </div>
 
-            <div class="document-date">${date}</div>
+            <div style="text-align: right; color: ${colorGray}; font-size: 0.875rem; margin-bottom: 2rem;">
+                ${date}
+            </div>
 
-            <div class="document-intro">
-                <p>${greeting}</p>
+            <div style="margin-bottom: 1.5rem; line-height: 1.8;">
+                <p style="margin-bottom: 0.75rem;">${greeting}</p>
                 <p>Vous avez récemment bénéficié de soins en masso-kinésithérapie dans notre service de médecine physique et réadaptation. Afin de poursuivre vos efforts, voici un programme d'exercices personnalisé.</p>
-            </div>
-        `;
+            </div>`;
 
+        // ─── Message personnalisé du kiné (optionnel) ────────────────────────
         if (customMessage) {
             html += `
-            <div style="margin-top: 1.5rem; padding: 1rem; background: #f0f9ff; border-left: 4px solid #2563eb; border-radius: 0.25rem;">
-                <p style="margin: 0; line-height: 1.6;"><strong>💬 Message de votre kinésithérapeute :</strong></p>
-                <p style="margin: 0.5rem 0 0 0; line-height: 1.6;">${customMessage}</p>
-            </div>
-            `;
+            <div style="margin-bottom: 1.5rem; padding: 1rem 1.25rem; background: #f0f9ff; border-left: 4px solid ${colorBlue}; border-radius: 0.75rem;">
+                <p style="margin: 0 0 0.5rem 0; font-weight: 700; color: ${colorDark};">💬 Message de votre kinésithérapeute :</p>
+                <p style="margin: 0; line-height: 1.7;">${customMessage}</p>
+            </div>`;
         }
 
+        // ─── Descriptif du programme (optionnel) ────────────────────────────
         if (programDescription) {
             html += `
-            <div style="margin-top: 1.5rem; padding: 1rem; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.25rem;">
-                <p style="margin: 0; line-height: 1.6;"><strong>📋 Votre programme :</strong></p>
-                <p style="margin: 0.5rem 0 0 0; white-space: pre-line; line-height: 1.6;">${programDescription}</p>
-            </div>
-            `;
+            <div style="margin-bottom: 1.5rem; padding: 1rem 1.25rem; background: ${colorBgLight}; border-left: 4px solid #cbd5e1; border-radius: 0.75rem;">
+                <p style="margin: 0 0 0.5rem 0; font-weight: 700; color: ${colorDark};">📋 Votre programme :</p>
+                <p style="margin: 0; white-space: pre-line; line-height: 1.7;">${programDescription}</p>
+            </div>`;
         }
 
+        // ─── Signature : clôture du courrier ────────────────────────────────
+        const signatureLines = signature.split('\n');
         html += `
-            <div class="document-signature">
-                <p><strong>Bonne rééducation !</strong></p>
-                <p>Cécile HENRIET</p>
-                <p>01 41 46 66 46</p>
-                <p>fiches.kine.mpr.percy@gmail.com</p>
-            </div>
-        `;
+            <div style="margin-top: 2rem; margin-bottom: 2.5rem; padding-top: 1.25rem; border-top: 1px solid #e2e8f0;">
+                <p style="margin-bottom: 0.75rem; font-weight: 600; color: ${colorDark};">Bonne rééducation !</p>
+                ${signatureLines.map((line, i) => `
+                    <p style="margin: 0.1rem 0; ${i === 0
+                        ? `font-weight: 700; color: ${colorDark};`
+                        : `color: ${colorGray}; font-size: 0.875rem;`
+                    }">${line}</p>
+                `).join('')}
+            </div>`;
 
-        html += `<h2 style="color: #2563eb; margin-bottom: 1.5rem;">VOS EXERCICES (${app.selectedExercises.length})</h2>`;
+        // ─── Titre section exercices ─────────────────────────────────────────
+        html += `
+            <div style="margin-bottom: 2rem; padding-bottom: 0.75rem; border-bottom: 2px solid ${colorBlue};">
+                <h2 style="font-family: ${fontStack}; font-size: 1.125rem; font-weight: 700; color: ${colorBlue}; margin: 0; letter-spacing: 0.03em; text-transform: uppercase;">
+                    Vos exercices (${app.selectedExercises.length})
+                </h2>
+            </div>`;
 
+        // ─── Liste des exercices ─────────────────────────────────────────────
         app.selectedExercises.forEach((ex, i) => {
+
+            // Métadonnées : zone • type • matériel
+            const metaParts = [];
+            if (ex.zones && ex.zones.length > 0) {
+                metaParts.push(`<span style="color: ${colorMetaZone};">● ${ex.zones.join(', ')}</span>`);
+            }
+            if (ex.types && ex.types.length > 0) {
+                metaParts.push(`<span style="color: ${colorMetaType};">● ${ex.types.join(', ')}</span>`);
+            }
+            if (ex.materiel && ex.materiel.length > 0) {
+                metaParts.push(`<span style="color: ${colorMetaMateriel};">● ${ex.materiel.join(', ')}</span>`);
+            }
+            const metaHtml = metaParts.length > 0
+                ? `<div style="display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.8rem; font-weight: 500; margin-bottom: 0.75rem;">
+                       ${metaParts.join('')}
+                   </div>`
+                : '';
+
             html += `
-                <div class="document-exercise">
-                    <h3>${i + 1}. ${ex.titre}</h3>
-                    <p><strong>Description :</strong> ${ex.description}</p>
-                    ${ex.consigne ? `<div style="margin: 0.75rem 0;"><strong>Consignes :</strong> ${ex.consigne}</div>` : ''}
-                    ${ex.posologie ? `<div style="margin: 0.75rem 0;"><strong>Posologie :</strong> ${ex.posologie}</div>` : ''}
-                    ${ex.photos.map(photo => `<img src="${photo.url}" alt="${photo.alt}">`).join('')}
-                </div>
-            `;
+            <div style="margin-bottom: 2rem;">
+
+                <h3 style="font-family: ${fontStack}; font-size: 1rem; font-weight: 700; color: ${colorBlue}; margin: 0 0 0.4rem 0;">
+                    ${i + 1}. ${ex.titre}
+                </h3>
+
+                ${metaHtml}
+
+                <p style="margin: 0 0 0.75rem 0; line-height: 1.7; color: ${colorDark};">
+                    ${ex.description}
+                </p>
+
+                ${ex.consigne ? `
+                <p style="margin: 0 0 0.5rem 0; color: ${colorDark};">
+                    <span style="font-weight: 600;">→ Consignes :</span> ${ex.consigne}
+                </p>` : ''}
+
+                ${ex.posologie ? `
+                <p style="margin: 0 0 0.75rem 0; color: ${colorDark};">
+                    <span style="font-weight: 600;">→ Posologie :</span> ${ex.posologie}
+                </p>` : ''}
+
+                ${ex.photos.length > 0 ? `
+                <div style="margin-top: 1rem; text-align: center;">
+                    ${ex.photos.map(photo => `
+                        <img src="${photo.url}"
+                             alt="${photo.alt}"
+                             style="max-width: 100%; height: auto; border-radius: 0.5rem; display: inline-block; margin-bottom: 0.75rem;">
+                    `).join('')}
+                </div>` : ''}
+
+            </div>`;
         });
 
         html += `</div>`;
