@@ -1,12 +1,13 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    POULP - GÉNÉRATEUR DE PROGRAMMES DE RÉÉDUCATION
-   CSS COMPLET - Version Flat Medical Moderne
+   CSS COMPLET - Version Design 2026 Modern Medical
    Service MPR HNIA Percy
    
-   🎨 DESIGN SYSTEM :
+   🎨 DESIGN SYSTEM 2026 :
+   - Typographie : Inter (corps) + Outfit (titres h1-h4)
+   - Arrondis harmonisés : 1.25rem partout
+   - Titres de section : fond semi-transparent + blur
    - Flat Design : pas de bordures lourdes, pas d'ombres portées
-   - Arrondis généreux : 16-20px pour douceur visuelle
-   - Hiérarchie typographique : Bold (700) vs Regular (400)
    - Palette Medical Soft : bleus apaisants, contrastes forts
    - Mobile-First avec Bottom Navigation
    
@@ -28,12 +29,20 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: #f8fafc;
     line-height: 1.6;
     color: #0f172a;
     -webkit-font-smoothing: antialiased;
     padding-bottom: 5rem; /* Espace pour la bottom nav */
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TYPOGRAPHIE - Outfit pour tous les titres
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+h1, h2, h3, h4 {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -59,7 +68,7 @@ body {
 .steps-box {
     background: #dbeafe;
     padding: 1rem;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     border-left: 4px solid #2563eb;
     margin-top: 1rem;
 }
@@ -92,7 +101,7 @@ header {
     flex-shrink: 0;
     margin-left: 1rem; /* V20.12 - Plus d'air à gauche */
     /* V20.12 - Ombre stable sur le conteneur */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* V22 - réduite pour rester dans le header */
     /* V20.12 - Forcer transparence pour éviter fond noir */
     background: transparent;
     border: none;
@@ -175,7 +184,7 @@ header {
 .btn-admin {
     background: rgba(255, 255, 255, 0.1); /* V20.12 - Opacité réduite */
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 1.25rem;
     padding: 0.5rem;
     min-width: 44px;
     min-height: 44px;
@@ -218,7 +227,7 @@ header {
     border: none;
     color: #64748b;
     padding: 0.5rem 0.75rem;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     min-height: 44px;
     min-width: 44px;
     cursor: pointer;
@@ -284,7 +293,7 @@ header {
 
 .section {
     background: white;
-    border-radius: 1rem;
+    border-radius: 1.25rem;
     padding: 1.5rem;
     margin-bottom: 1rem;
 }
@@ -296,9 +305,18 @@ header {
 .section h2 {
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 1rem;
-    color: #0f172a;
-    letter-spacing: -0.025em;
+    color: #1e293b;
+    letter-spacing: -0.02em;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border-left: 4px solid #2563eb;
+    border-radius: 1.25rem;
+}
+
+.section.active h2 {
+    border-left-color: #FF8B64;
 }
 
 .section h3 {
@@ -360,7 +378,7 @@ select {
     width: 100%;
     padding: 0.875rem;
     border: 2px solid #e2e8f0;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     font-size: 1rem;
     background: white;
     color: #0f172a;
@@ -391,7 +409,7 @@ select:focus {
     align-items: center;
     padding: 0.75rem;
     background: #f8fafc;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     cursor: pointer;
     transition: background 0.2s;
     min-height: 44px;
@@ -489,7 +507,7 @@ button {
     color: white;
     border: none;
     padding: 0.875rem 1.5rem;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     font-weight: 600;
     width: 100%;
     min-height: 44px;
@@ -510,7 +528,7 @@ button {
     color: white;
     border: none;
     padding: 0.625rem 1rem;
-    border-radius: 0.625rem;
+    border-radius: 1.25rem;
     font-weight: 600;
     min-height: 44px;
 }
@@ -525,7 +543,7 @@ button {
     color: white;
     border: none;
     padding: 0.875rem 1.5rem;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     font-weight: 600;
     width: 100%;
     min-height: 44px;
@@ -541,7 +559,7 @@ button {
     color: white;
     border: none;
     padding: 0.625rem 1rem;
-    border-radius: 0.625rem;
+    border-radius: 1.25rem;
     font-weight: 600;
     min-height: 44px;
 }
@@ -555,6 +573,7 @@ button {
     padding: 0.5rem 0.75rem;
     font-size: 0.875rem;
     min-height: 40px;
+    border-radius: 1.25rem;
 }
 
 button:disabled {
@@ -569,7 +588,7 @@ button:disabled {
 .exercise-card {
     background: #f8fafc;
     border: none;
-    border-radius: 1rem;
+    border-radius: 1.25rem;
     padding: 1.25rem;
     margin-bottom: 1rem;
     transition: background 0.2s;
@@ -605,7 +624,7 @@ button:disabled {
 .program-exercise {
     background: #fef3c7;
     border: none;
-    border-radius: 1rem;
+    border-radius: 1.25rem;
     padding: 1.25rem;
     margin-bottom: 1rem;
 }
@@ -631,7 +650,7 @@ button:disabled {
 .program-type-card {
     background: #f8fafc;
     border: none;
-    border-radius: 1rem;
+    border-radius: 1.25rem;
     padding: 1.25rem;
     margin-bottom: 1rem;
 }
@@ -646,7 +665,7 @@ button:disabled {
 .program-item {
     background: #f8fafc;
     border: none;
-    border-radius: 1rem;
+    border-radius: 1.25rem;
     padding: 1.25rem;
     margin-bottom: 0.75rem;
 }
@@ -664,7 +683,7 @@ button:disabled {
 
 .collapsible-section {
     border: none;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     background: #f8fafc;
     margin-bottom: 1rem;
 }
@@ -677,7 +696,7 @@ button:disabled {
     background: transparent;
     cursor: pointer;
     font-weight: 600;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     transition: background 0.2s;
     min-height: 44px;
 }
@@ -709,7 +728,7 @@ button:disabled {
     border-left: 4px solid #f59e0b;
     padding: 0.75rem;
     margin-bottom: 1rem;
-    border-radius: 0.5rem;
+    border-radius: 1.25rem;
     font-size: 0.875rem;
     color: #92400e;
     font-weight: 500;
@@ -727,7 +746,7 @@ button:disabled {
     background: #0f172a;
     color: white;
     padding: 1rem 1.5rem;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     animation: slideDown 0.3s ease;
@@ -777,7 +796,7 @@ button:disabled {
 
 .modal-content {
     background: white;
-    border-radius: 1rem;
+    border-radius: 1.25rem;
     width: 100%;
     max-width: 600px;
     margin: 2rem auto;
@@ -806,7 +825,7 @@ button:disabled {
     padding: 0;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 0.5rem;
+    border-radius: 1.25rem;
     transition: background 0.2s;
 }
 
@@ -826,7 +845,7 @@ button:disabled {
 
 .photo-list {
     border: 1px solid #e2e8f0;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     margin-top: 0.5rem;
     max-height: 200px;
     overflow-y: auto;
@@ -869,7 +888,7 @@ button:disabled {
     background: none;
     border: none;
     padding: 0.75rem 1rem;
-    border-radius: 0.75rem 0.75rem 0 0;
+    border-radius: 1.25rem 1.25rem 0 0;
     font-weight: 600;
     font-size: 1rem;
     color: #64748b;
@@ -918,7 +937,7 @@ button:disabled {
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
-    border-radius: 1rem;
+    border-radius: 1.25rem;
 }
 
 .document-date {
@@ -960,7 +979,7 @@ button:disabled {
     max-width: 100%;
     height: auto;
     margin: 0.5rem 0;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -977,13 +996,48 @@ button:disabled {
     object-fit: contain;
     display: block;
     margin: 0 auto;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
 }
 
 #photo-navigation button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LISTE D'EXERCICES - Design 2026
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+#results-list {
+    background: #f1f5f9;
+    padding: 0.75rem;
+    border-radius: 1.25rem;
+}
+
+/* PUCES MINIMALISTES */
+
+.exercise-meta {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+}
+
+.meta-item::before {
+    content: "●";
+    margin-right: 0.35rem;
+    font-size: 0.9rem;
+}
+
+.meta-zone { color: #2563eb; }
+.meta-type { color: #FF8B64; }
+.meta-materiel { color: #64748b; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    IMPRESSION
@@ -1093,6 +1147,10 @@ button:disabled {
         grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         gap: 1rem;
     }
+
+    #results-list {
+        padding: 1rem;
+    }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1153,5 +1211,32 @@ button:disabled {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   FIN DU FICHIER CSS
+   SÉCURITÉ - Support du flou (Design 2026)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Fallback pour navigateurs sans support backdrop-filter */
+@supports not (backdrop-filter: blur(8px)) {
+    .section h2 {
+        background: #ffffff;
+    }
+    
+    .modal {
+        background: rgba(0, 0, 0, 0.75);
+    }
+    
+    .modal-content {
+        background: #ffffff;
+    }
+}
+
+/* Désactiver le flou en mode impression */
+@media print {
+    .section h2 {
+        backdrop-filter: none !important;
+        background: white !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FIN DU FICHIER CSS - Version Design 2026
    ═══════════════════════════════════════════════════════════════════════════ */
